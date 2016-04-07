@@ -1,0 +1,53 @@
+#onsite {
+    margin: 10px;
+
+    h2 {
+        margin: 10px 0;
+        font-size: 1.2em;
+    }
+
+    h3 {
+    	font-weight: normal;
+        font-size: 1em;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+	.header {
+		padding: 5px 20px;
+		border: none;
+		border-bottom: 1px solid $transparentDarkGray;
+		margin-bottom: 0;
+	}
+
+    .status {
+        border: 1px solid white;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .actionButton {
+        margin-top: 20px;
+        margin-right: 20px;
+
+        &.disabled {
+            border: 1px solid $mediumGray;
+            background: $mediumGray;
+            color: $darkGray;
+        }
+
+        &.disabled:hover {
+            cursor: not-allowed;
+        }
+
+        &.enabled {
+            background-color: $green !important;
+            border: 1px solid $green;
+        }
+    }
+
+    .searchInput {
+        width: 300px;
+        margin-right: 20px;
+    }
+}

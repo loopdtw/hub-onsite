@@ -1,0 +1,90 @@
+extends ../../_views/layout
+
+block content
+	#presync(ng-controller="PresyncController")
+		.topbar
+			.container
+				.countdownDisplay Countdown: {{countDownValue}}
+				.currentVersion ({{currentVersion}})
+				label Event
+				input(type="text" ng-model="currentEvent" value="{{currentEvent}}")
+				button(type="button" ng-click="setCurrentEvent()")
+					span(ng-if="!eventLoading") Set
+					span(ng-if="eventLoading") loading...
+				button(type="button" ng-click="export()") Export
+				label RSSI Threshold
+				input(type="text" ng-model="rssiThreshold" value="{{rssiThreshold}}")
+				button(type="button" ng-click="setRSSI()") Set
+				label Countdown Time
+				input(type="text" ng-model="countDownConstant" value="{{countDownConstant}}")
+				button(type="button" ng-click="toggleAutoSync()" ng-disabled="currentlySyncing") {{autoSync?'Pause':'Start'}}
+				.metricsContainer
+					.metric <span>Total Attendees: </span>{{attendees.length}}
+					.metric <span>Unsynced Attendees: </span>{{unsyncedAttendees.length}}
+					.metric <span>Synced Attendees: </span>{{syncedAttendees.length}}
+					.metric <span>Available Badges: </span>{{currentBadges.length}}
+					//- .metric <span>Total Badges: </span>{{totalBadges.length}}
+					//- .metric <span>Active Synced Badges: </span>{{activeExistingBadges.length}}
+				.currentStatus <strong>Current Status:</strong> {{currentStatus}}
+		.container
+			.header
+				.clickable.columnOne #
+				.clickable.columnOne(ng-click="order('id')") Id
+				.clickable.columnOne(ng-click="order('id')") Badge Order
+				.clickable.columnTwo(ng-click="order('firstname')") Full Name
+				.clickable.columnFour(ng-click="order('email')") Email
+				.columnOne Sync Time
+				.columnOne Badge
+				.columnTwo Mac Address
+				.clickable.columnOne(ng-click="order('lastSeen')") Last Seen
+				.clickable.columnOne(ng-click="order('rssi')") Last RSSI
+				.columnOne Light
+				.columnOne Sync/Unsync
+			.module
+				.body
+					.row(ng-repeat="attendee in attendees | orderBy:predicate:reverse"
+						ng-class="{'active':(attendee.id==currentAttendee.id)}"
+						ng-if="filterSeen?(seenBadges[attendee.badges[0].identity].rssi < 0?true:false):true")
+						.columnOne
+							{{$index+1}}
+						.columnOne
+							{{attendee.id}}
+						.columnOne
+							{{attendee.badgeOrder}}
+						.columnTwo
+							{{attendee.firstname}} {{attendee.lastname}}
+						.columnFour
+							{{attendee.email}}
+						.columnOne
+							{{attendee.currentBadge.syncTime | date:'MM/dd HH:mm:ss'}}
+						.columnOne
+							span(ng-if="attendee.currentBadge && attendee.id==currentAttendee.id")
+								{{(countDownValue==0)?'waiting...':countDownValue}}
+							span(ng-if="attendee.currentBadge")
+								{{attendee.currentBadge.identity}}
+						.columnTwo
+							span(ng-if="attendee.currentBadge")
+								{{attendee.currentBadge.macAddress}}
+						.columnOne
+							span(ng-if="attendee.currentBadge")
+								{{seenBadges[attendee.currentBadge.identity+attendee.currentBadge.macAddress].lastSeen}}
+						.columnOne
+							span(ng-if="attendee.currentBadge")
+								{{seenBadges[attendee.currentBadge.identity+attendee.currentBadge.macAddress].lastRssi}}
+						.columnOne
+							button(type="button"
+									ng-click="sendCommand(attendee, 'f70102'); $event.stopPropagation();"
+									ng-if="attendee.currentBadge"
+									ng-disabled="isCurrentlySyncing || autoSync") Light
+						.columnOne
+							button(type="button"
+									ng-click="syncBadge(attendee)"
+									ng-if="!attendee.currentBadge"
+									ng-disabled="isCurrentlySyncing || autoSync")
+								span(ng-if="!isSyncingAttendee(attendee)") Sync
+								span(ng-if="isSyncingAttendee(attendee)") syncing...
+							button(type="button"
+									ng-click="unsync(attendee)"
+									ng-if="attendee.currentBadge"
+									ng-disabled="isCurrentlySyncing || autoSync")
+								span Unsync

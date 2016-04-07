@@ -1,0 +1,49 @@
+extends ../../_views/layout
+
+block content
+	#onsite(ng-controller="onsiteController")
+		//- include ./menu
+		h2 CHECKINS ( {{unsyncedCheckins.length}} )
+		.header
+			.clickable.columnOne(ng-click="orderUnsynced('workerId')") Kiosk
+			.clickable.columnTwo(ng-click="orderUnsynced('created')") Checkin Time
+			.clickable.columnTwo(ng-click="orderUnsynced('firstname')") Full Name
+			//- .clickable.columnFour(ng-click="orderUnsynced('eventAttendeeEmail')") Email
+		.module.short
+			.body
+				.row(ng-repeat="checkIn in unsyncedCheckins | orderBy:unsyncedPredicate:unsyncedReverse" ng-class="{'active':(checkIn.eventAttendee.id==currentAttendee.id)}" ng-click="setCurrentAttendee(checkIn.eventAttendee)")
+					.columnOne
+						{{checkIn.checkInWorker}}
+					.columnTwo
+						{{checkIn.created | date:'HH:mm:ss'}}
+					.columnTwo
+						{{checkIn.eventAttendee.firstname}} {{checkIn.eventAttendee.lastname}}
+					//- .columnFour
+						{{checkIn.eventAttendeeEmail}}
+		h3 Status: <em>{{currentStatus}}</em>
+		h3 Allocated badges: {{allocatedPeripheralsCount}}
+		.btn.btnShakespeare.actionButton(ng-click="syncBadge()" ng-class="{'disabled':!currentAttendee || isScanning || allocatedPeripheralsCount < 1 || currentlySyncing}")
+			span(ng-if="!currentlySyncing") SYNC
+			span(ng-if="currentlySyncing") SYNCING...
+		h2 SYNCED CHECKINS (NEARBY)
+		.header
+			.clickable.columnOne(ng-click="orderSynced('workerId')") Kiosk
+			.clickable.columnTwo(ng-click="orderSynced('badge.syncTime')") Sync Time
+			.clickable.columnTwo(ng-click="orderSynced('eventAttendee.firstname')") Full Name
+			.clickable.columnTwo(ng-click="orderSynced('eventAttendee.lastname')") Last Name
+			//- .clickable.columnFour(ng-click="orderSynced('badge.timeSynced')") Email
+		.module.short
+			.body
+				.row(ng-repeat="checkIn in syncedCheckins | orderBy:syncedPredicate:syncedReverse" ng-click="setCurrentSyncedCheckIn(checkIn)" ng-class="{'active':(checkIn.id == currentSyncedCheckIn.id)}")
+					.columnOne
+						{{checkIn.checkInWorker}}
+					.columnTwo
+						{{checkIn.badge.syncTime | date:'HH:mm:ss'}}
+					.columnTwo
+						{{checkIn.eventAttendee.firstname}} {{checkIn.eventAttendee.lastname}}
+					//- .columnFour
+						{{checkIn.eventAttendeeEmail}}
+		.btn.btnShakespeare.actionButton(ng-class="{'disabled':!currentSyncedCheckIn || currentlySyncing || currentlyUnsyncing}" ng-click="sendCommand('f70102')") BLINK
+		.btn.btnRed.actionButton(ng-class="{'disabled':!currentSyncedCheckIn || currentlyUnsyncing || currentlySyncing}" ng-click='unsync()')
+			span(ng-if="!currentlyUnsyncing") UNSYNC
+			span(ng-if="currentlyUnsyncing") UNSYNCING...

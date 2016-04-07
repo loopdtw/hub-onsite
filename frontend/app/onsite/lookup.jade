@@ -1,0 +1,28 @@
+extends ../../_views/layout
+
+block content
+	#onsite(ng-controller="onsiteController")
+		include ./menu
+		h2 INFORMATION
+		.status Place badge on edison to lookup
+		.actionButton.btn.btnRed(ng-click="reset()") RESET
+		h2 LOOKUPS ( {{lookedupAttendees.length}} )
+		.header(ng-init="lookup = true")
+			.clickable.columnOne(ng-click="orderUnsynced('workerId')") First Name
+			.clickable.columnOne(ng-click="orderUnsynced('created')") Last Name
+			.clickable.columnTwo(ng-click="orderUnsynced('firstname')") Email
+			.clickable.columnOne(ng-click="orderUnsynced('eventAttendeeEmail')") Badge
+		.module.short
+			.body
+				.row(ng-repeat="attendee in lookedupAttendees" ng-click="setCurrentAttendee(attendee)" ng-class="{'active':(attendee.id==currentAttendee.id)}")
+					.columnOne
+						{{attendee.firstname}}
+					.columnOne
+						{{attendee.lastname}}
+					.columnTwo
+						{{attendee.email}}
+					.columnOne
+						{{attendee.badges[0].identity}}
+		.btn.btnRed.actionButton(ng-class="{'disabled': !currentAttendee || currentlyUnsyncing}" ng-click='unsyncAttendee()')
+			span(ng-if="!currentlyUnsyncing") UNSYNC
+			span(ng-if="currentlyUnsyncing") UNSYNCING...

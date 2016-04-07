@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="HubApp">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script type="text/javascript" src="/js/vendor/vendor.min.js"></script>
+    <script type="text/javascript" src="/js/vendor/io.js"></script>
+    <script type="text/javascript" src="/js/main.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <div id="badgeState" ng-controller="BadgeStateController">
+      <div class="topbar">
+        <div class="container">
+          <div class="currentVersion">({{currentVersion}})</div>
+          <input type="text" ng-model="scanTime" value="{{scanTime}}">
+          <button type="button" ng-click="scanForInterval()" ng-disabled="bulkCommanding"><span ng-if="!isScanning">Scan</span><span ng-if="isScanning">scanning...</span></button>
+          <button type="button" ng-click="reset()" ng-disabled="bulkCommanding">Reset</button>
+          <div class="metricsContainer">
+            <div class="metric"><span>Total Badges: </span>{{seenBadgesCount}}</div>
+            <div class="metric"><span>Seen Badges (2s): </span>{{currentBadgesCount}}</div>
+            <div class="metric"><span>Current Status: </span> {{currentStatus}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <h2>BULK COMMAND</h2>
+        <div class="bulkCommandContainer">
+          <label>STATE</label>
+          <input type="text" placeholder="(i.e. 1111)" ng-model="bulkState">
+          <label>COMMAND</label>
+          <input type="text" placeholder="(i.e. d5)" ng-model="bulkCommand">
+          <button ng-click="sendBulkCommand()"> <span ng-if="!bulkCommanding">SEND</span><span ng-if="bulkCommanding">working...</span></button>
+        </div>
+        <div class="header">
+          <div class="columnOne">#</div>
+          <div ng-click="order('identity')" class="clickable columnTwo">Badge</div>
+          <div ng-click="order('macAddress')" class="clickable columnTwo">Address</div>
+          <div ng-click="order('lastRssi')" class="clickable columnOne">Last RSSI</div>
+          <div ng-click="order('firstSeen')" class="clickable columnOne">First Seen</div>
+          <div ng-click="order('lastSeen')" class="clickable columnOne">Last Seen</div>
+          <div ng-click="order('lastSeen')" class="clickable columnOne">Ad Count</div>
+          <div ng-click="order('lastSeen')" class="clickable columnOne">Ad Rate</div>
+          <div ng-click="order('generalState')" class="clickable columnOne">State</div>
+          <div ng-click="order('newDataState')" class="clickable columnOne">New Data</div>
+          <div ng-click="order('batteryState')" class="clickable columnOne">Battery</div>
+          <div class="clickable columnTwo">Command</div>
+          <div class="clickable columnOne">Send</div>
+        </div>
+        <div class="module tall">
+          <div class="table">
+            <div class="body">
+              <div ng-repeat="key in sortedKeys" class="row">
+                <div class="columnOne">{{$index+1}}</div>
+                <div class="columnTwo">{{seenBadges[key].identity}}</div>
+                <div class="columnTwo">{{seenBadges[key].macAddress}}</div>
+                <div class="columnOne">{{seenBadges[key].lastRssi}}</div>
+                <div class="columnOne">{{seenBadges[key].firstSeen | date:'MM/dd HH:mm:ss'}}</div>
+                <div class="columnOne">{{seenBadges[key].lastSeen | date:'MM/dd HH:mm:ss'}}</div>
+                <div class="columnOne">{{seenBadges[key].adCount}}</div>
+                <div class="columnOne">{{seenBadges[key].adRate}}</div>
+                <div class="columnOne">{{seenBadges[key].generalState}}</div>
+                <div class="columnOne">{{seenBadges[key].newDataState}}</div>
+                <div class="columnOne">{{seenBadges[key].batteryState}}</div>
+                <div class="columnTwo">
+                  <input type="text" placeholder="ff" ng-model="badgeCommands[seenBadges[key].identity+seenBadges[key].macAddress]" my-enter="sendBadgeCommand(seenBadges[key])">
+                </div>
+                <div class="columnOne">
+                  <button type="button" ng-click="sendBadgeCommand(seenBadges[key])"><span ng-if="!badgeWaitingForCommand(seenBadges[key])">Submit</span><span ng-if="badgeWaitingForCommand(seenBadges[key])">waiting...</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

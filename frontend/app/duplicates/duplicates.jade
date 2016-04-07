@@ -1,0 +1,49 @@
+extends ../../_views/layout
+
+block content
+	#badgeState(ng-controller="DuplicatesController")
+		.topbar
+			.container
+				.currentVersion ({{currentVersion}})
+				input(type="text" ng-model="scanTime" value="{{scanTime}}")
+				button(type="button" ng-click="scanForInterval()")
+					span(ng-if="!isScanning") Scan
+					span(ng-if="isScanning") scanning...
+				button(type="button" ng-click="reset()") Reset
+				//- button(type="button" ng-click="export()") Export
+				.metricsContainer
+					.metric <span>Total Badges: </span>{{seenBadgesCount}}
+					.metric <span>Seen Badges (2s): </span>{{currentBadgesCount}}
+					.metric <span>Current Status: </span> {{currentStatus}}
+		.container
+			h3 Repeated Identities
+			.header
+				.columnOne #
+				.clickable.columnOne(ng-click="order('identity')") Identity
+				.clickable.columnFour(ng-click="order('macAddress')") Address
+			.module
+				.table
+					.body
+						.row(ng-repeat="(key, badge) in repeatedIdBadges")
+							.columnOne
+								{{$index+1}}
+							.columnOne
+								{{key}}
+							.columnFour
+								{{badge.macAddresses}}
+			h3 Repeated Mac Addresses
+			.header
+				.columnOne #
+				.clickable.columnOne(ng-click="order('identity')") Address
+				.clickable.columnFour(ng-click="order('macAddress')") Identity
+			.module
+				.table
+					.body
+						.row(ng-repeat="(key, badge) in repeatedMacBadges")
+							.columnOne
+								{{$index+1}}
+							.columnOne
+								{{key}}
+							.columnFour
+								{{badge.identities}}
+
