@@ -440,5 +440,4 @@ angular.module('HubApp')
         $scope.allocate = allocate;
         $scope.scanForInterval = scanForInterval;
         $scope.reset = reset;
-
     });

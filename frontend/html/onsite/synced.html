@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="HubApp">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script type="text/javascript" src="/js/vendor/vendor.min.js"></script>
+    <script type="text/javascript" src="/js/vendor/io.js"></script>
+    <script type="text/javascript" src="/js/main.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <div id="onsite" ng-controller="onsiteController">
+      <hamburger-menu ng-click="toggleMenu()" class="hamburgerMenu"></hamburger-menu>
+      <pageslide ps-side="left" ps-open="checked">
+        <div><a href="/onsite">ONSITE CHECKIN</a><a href="/onsite/synced">ALL SYNCED CHECKINS</a><a href="/onsite/search">SEARCH</a><a href="/onsite/lookup">LOOKUP</a></div>
+      </pageslide>
+      <h2>INFORMATION</h2>
+      <div class="status">
+        <h3>Status: <em>{{currentStatus}}</em></h3>
+      </div>
+      <h2>SYNCED CHECKINS</h2>
+      <div class="header">
+        <div ng-click="orderSynced('workerId')" class="clickable columnOne">Kiosk</div>
+        <div ng-click="orderUnsynced('created')" class="clickable columnTwo">Checkin Time</div>
+        <div ng-click="orderSynced('badge.syncTime')" class="clickable columnTwo">Sync Time</div>
+        <div ng-click="orderSynced('eventAttendee.firstname')" class="clickable columnTwo">Full Name</div>
+        <div ng-click="orderSynced('eventAttendee.lastname')" class="clickable columnTwo">Last Name</div>
+        <div ng-click="orderSynced('badge.timeSynced')" class="clickable columnFour">Email</div>
+      </div>
+      <div class="module tall">
+        <div class="body">
+          <div ng-repeat="checkIn in syncedCheckins | orderBy:syncedPredicate:syncedReverse" ng-click="setCurrentSyncedCheckIn(checkIn)" ng-class="{'active':(checkIn.id==currentSyncedCheckIn.id)}" class="row">
+            <div class="columnOne">{{checkIn.checkInWorker}}</div>
+            <div class="columnTwo">{{checkIn.created | date:'HH:mm:ss'}}</div>
+            <div class="columnTwo">{{checkIn.badge.syncTime | date:'HH:mm:ss'}}</div>
+            <div class="columnTwo">{{checkIn.eventAttendee.firstname}}</div>
+            <div class="columnTwo">{{checkIn.eventAttendee.lastname}}</div>
+            <div class="columnFour">{{checkIn.eventAttendeeEmail}}</div>
+          </div>
+        </div>
+      </div>
+      <div ng-class="{'disabled':!currentSyncedCheckIn}" ng-click="sendCommand('f70102')" class="btn btnShakespeare actionButton">BLINK</div>
+      <div ng-class="{'disabled':!currentSyncedCheckIn}" ng-click="unsync()" class="btn btnRed actionButton"><span ng-if="!currentlyUnsyncing">UNSYNC</span><span ng-if="currentlyUnsyncing">UNSYNCING...</span></div>
+    </div>
+  </body>
+</html>

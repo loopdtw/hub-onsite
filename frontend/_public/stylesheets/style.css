@@ -401,6 +401,7 @@ body {
     font-size: 1.2em; }
 
 .header, .row {
+  display: -webkit-flex;
   display: flex;
   padding: 20px; }
   .header .columnOne, .row .columnOne {
