@@ -89,7 +89,7 @@ body {
 }
 
 .header, .row {
-    display: flex;
+    @include display-flex;
     padding: 20px;
 
     .columnOne {
@@ -123,9 +123,11 @@ body {
         background: rgba(100, 100, 100, 1);
         color: $white;
     }
+
     &.waiting {
         background: rgba(255, 100, 255, 0.2);
     }
+    
     &:hover {
         cursor: pointer;
         // background: rgba(255, 255, 255, 0.2);

@@ -111,13 +111,20 @@ angular.module('HubApp')
         var sortCheckIns = function() {
             $scope.unsyncedCheckins = [];
             $scope.syncedCheckins = [];
+
+            var allUnsyncedCheckins = [];
+            var allSyncedCheckins = [];
+
             allCheckIns.forEach(function(checkIn) {
                 if (!checkIn.badge) {
-                    $scope.unsyncedCheckins.push(checkIn);
+                    allUnsyncedCheckins.push(checkIn);
                 } else {
-                    $scope.syncedCheckins.push(checkIn);
+                    allSyncedCheckins.push(checkIn);
                 }
             });
+
+            $scope.unsyncedCheckins = (allUnsyncedCheckins.length > 3)?allUnsyncedCheckins.slice(allUnsyncedCheckins.length-3):allUnsyncedCheckins;
+            $scope.syncedCheckins = (allSyncedCheckins.length > 3)?allSyncedCheckins.slice(allSyncedCheckins.length-3):allSyncedCheckins;
         }
 
         var removeBadgeForCheckIn = function(checkInTemp) {
