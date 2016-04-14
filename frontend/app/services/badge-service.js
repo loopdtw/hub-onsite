@@ -352,24 +352,6 @@ angular.module('HubApp')
 			badgeService.currentAvailableBadges = data.currentAvailableBadges;
 			badgeService.allocatedPeripheralsCount = data.allocatedPeripheralsCount;
 			badgeService.availablePeripheralsCount = data.availablePeripheralsCount;
-
-			data.seenBadges.forEach(function(badge) {
-				var uniqueId = badge.identity + badge.macAddress;
-				var existingBadge = badgeService.seenBadges[uniqueId];
-
-				if (typeof existingBadge === 'undefined') {
-					badgeService.seenBadges[uniqueId] = badge;
-				} else {
-					existingBadge.adCount = badge.adCount;
-					existingBadge.adRate = badge.adRate;
-					existingBadge.lastSeen = badge.lastSeen;
-					existingBadge.lastRssi = badge.lastRssi;
-					existingBadge.generalState = badge.generalState;
-					existingBadge.newDataState = badge.newDataState;
-					existingBadge.batteryState = badge.batteryState;
-				}
-			});
-
 			$rootScope.$broadcast('currentBadges');
 		});
 
