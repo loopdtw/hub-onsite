@@ -119,8 +119,6 @@ angular.module('HubApp')
                     $scope.unsyncedSearchResults.push(result);
                 }
             });
-
-            $scope.$apply();
         }
 
         $scope.toggleMenu = function() {
