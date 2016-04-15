@@ -121,7 +121,7 @@ angular.module('HubApp')
             }
 
             $timeout(function() {
-                badgeService.getAttendeeByEmail(attendeeEmail)
+                attendeeService.getAttendeeByEmail(attendeeEmail)
                 .then(function(attendees) {
                     var currentAttendee = attendees[0];
                     if(currentAttendee.badge) {
