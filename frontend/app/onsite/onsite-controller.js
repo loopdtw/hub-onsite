@@ -121,7 +121,7 @@ angular.module('HubApp')
             }
 
             $timeout(function() {
-                attendeeService.getAttendeeByEmail(attendeeEmail)
+                attendeeService.getAttendeeByEmail($scope.currentEvent, attendeeEmail)
                 .then(function(attendees) {
                     var currentAttendee = attendees[0];
                     if(currentAttendee.badge) {
