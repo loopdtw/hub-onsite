@@ -122,12 +122,12 @@ angular.module('HubApp')
 
             $timeout(function() {
                 badgeService.getAttendeeByEmail(attendeeEmail)
-                .then(attendees) {
+                .then(function(attendees) {
                     var currentAttendee = attendees[0];
                     if(currentAttendee.badge) {
                         completeSync(currentAttendee, currentAttendee.badge);
                     }
-                }
+                });
             }, 5 * 1000);
         }
 
