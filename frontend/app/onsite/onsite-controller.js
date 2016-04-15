@@ -123,11 +123,10 @@ angular.module('HubApp')
             $timeout(function() {
                 attendeeService.getAttendeeByEmail($scope.currentEvent, attendeeEmail)
                 .then(function(attendees) {
-                    console.log(attendees);
-                    // var currentAttendee = attendees[0];
-                    // if(currentAttendee.badge) {
-                    //     completeSync(currentAttendee, currentAttendee.badge);
-                    // }
+                    var currentAttendee = attendees[0];
+                    if(currentAttendee.badge) {
+                        completeSync(currentAttendee, currentAttendee.badge);
+                    }
                 });
             }, 5 * 1000);
         }
