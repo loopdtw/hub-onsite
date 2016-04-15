@@ -156,6 +156,7 @@ angular.module('HubApp')
         }
 
         var completeSync = function(attendee, badge) {
+            console.log('allCheckins', allCheckIns);
             var checkIn = attendeeService.findCheckInForAttendee(attendee, allCheckIns);
 
             if (checkIn) {
