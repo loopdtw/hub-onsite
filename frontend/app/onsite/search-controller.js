@@ -121,6 +121,8 @@ angular.module('HubApp')
                     $scope.unsyncedSearchResults.push(result);
                 }
             });
+
+            $scope.$apply();
         }
 
         $scope.toggleMenu = function() {
@@ -167,10 +169,9 @@ angular.module('HubApp')
 
         $scope.$on('badgeSynced', function(event, args) {
             var checkIn = attendeeService.findCheckInForAttendee(args.attendee, $scope.unsyncedSearchResults);
-
-            console.log(checkIn);
             if (checkIn) {
                 addBadgeForCheckIn(checkIn, args.badge);
+                console.log('check', checkIn);
                 sortSearchResults();
             }
 
