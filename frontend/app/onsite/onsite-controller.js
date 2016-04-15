@@ -113,14 +113,22 @@ angular.module('HubApp')
         }
 
         $scope.syncBadge = function() {
+            var attendeeEmail = $scope.currentAttendee.email;
+
             if ($scope.currentAttendee && !$scope.currentlySyncing && badgeService.allocatedPeripheralsCount > 0) {
                 $scope.currentlySyncing = true;
                 badgeService.syncBadge($scope.currentAttendee);
             }
 
-            $timeout(function() {
-                init();
-            }, 5 * 1000);
+            // $timeout(function() {
+            //     badgeService.getAttendeeByEmail(attendeeEmail)
+            //     .then(attendees) {
+            //         var currentAttendee = attendees[0];
+            //         if(currentAttendee.badge) {
+            //             completeSync(currentAttendee, currentAttendee.badge);
+            //         }
+            //     }
+            // }, 5 * 1000);
         }
 
         $scope.unsync = function() {
@@ -145,6 +153,25 @@ angular.module('HubApp')
                         $scope.currentlyUnsyncing = false;
                     });
             }
+        }
+
+        var completeSync = function(attendee, badge) {
+            var checkIn = attendeeService.findCheckInForAttendee(attendee, allCheckIns);
+
+            if (checkIn) {
+                addBadgeForCheckIn(checkIn, badge);
+                sortCheckIns();
+            }
+
+            $scope.currentlySyncing = false;
+            if ($scope.unsyncedCheckins.length > 0) {
+                $scope.currentAttendee = $scope.unsyncedCheckins[0].eventAttendee;
+            } else {
+                $scope.currentAttendee = null;
+            }
+
+            alert.play();
+            $scope.$apply();
         }
 
         /*----------  INIT FUNCTION DECLARATIONS  ----------*/
@@ -198,22 +225,7 @@ angular.module('HubApp')
         /*----------  EVENT LISTENERS  ----------*/
 
         $scope.$on('badgeSynced', function(event, args) {
-            // var checkIn = attendeeService.findCheckInForAttendee(args.attendee, allCheckIns);
-
-            // if (checkIn) {
-            //     addBadgeForCheckIn(checkIn, args.badge);
-            //     sortCheckIns();
-            // }
-
-            // $scope.currentlySyncing = false;
-            // if ($scope.unsyncedCheckins.length > 0) {
-            //     $scope.currentAttendee = $scope.unsyncedCheckins[0].eventAttendee;
-            // } else {
-            //     $scope.currentAttendee = null;
-            // }
-
-            // alert.play();
-            // $scope.$apply();
+            completeSync(args.attendee, args.badge);
         });
 
         $scope.$on('badgeDisconnect', function() {
