@@ -188,61 +188,6 @@ angular.module('HubApp')
             }
         }
 
-        /*----------  INIT FUNCTION DECLARATIONS  ----------*/
-
-        var getInitialData = function() {
-            var deferred = $q.defer();
-            $http({
-                    method: 'GET',
-                    url: '/initial-data'
-                })
-                .then(function(res) {
-                    // $scope.currentEvent = parseInt(res.data.currentEvent);
-                    // $scope.currentWorker = parseInt(res.data.currentWorker);
-                    $scope.currentVersion = res.data.currentVersion;
-                    $scope.allocationEnabled = res.data.allocationEnabled;
-                    deferred.resolve();
-                })
-                .catch(function(err) {
-                    deferred.reject(err);
-                });
-
-            return deferred.promise;
-        }
-
-        var init = function() {
-            $scope.eventLoading = true;
-            getInitialData()
-                .then(function() {
-                    return attendeeService.getBoomsetCheckIns($scope.currentEvent, $scope.currentWorker, "")
-                })
-                .then(function(checkIns) {
-                    console.log(checkIns.length);
-                    allCheckIns = checkIns;
-                    sortCheckIns();
-                })
-                .finally(function() {
-                    var existingAttendeeBadges = {};
-                    allCheckIns.forEach(function(checkIn) {
-                        if (checkIn.badge) {
-                            var uniqueId = checkIn.badge.identity + checkIn.badge.macAddress;
-                            existingAttendeeBadges[uniqueId] = checkIn.badge;
-                        }
-                    });
-                    badgeService.updateExistingAttendeeBadges(existingAttendeeBadges);
-                    $scope.currentStatus = badgeService.currentStatus;
-                    if($scope.lookup) {
-                        badgeService.triggerLookup();
-                    }
-                });
-
-            $timeout(function() {
-                init();
-            }, 1 * 1000);
-        }
-
-        init();
-
         /*----------  EVENT LISTENERS  ----------*/
 
         $scope.$on('badgeSynced', function(event, args) {
@@ -284,8 +229,6 @@ angular.module('HubApp')
             $scope.$apply($scope.currentAvailableBadgesCount = badgeService.currentAvailableBadges.length);
             $scope.$apply($scope.allocatedPeripheralsCount = badgeService.allocatedPeripheralsCount);
             $scope.$apply($scope.availablePeripheralsCount = badgeService.availablePeripheralsCount);
-
-            updateSeenSyncedCheckIns(badgeService.currentBadges);
         });
 
         $scope.$on('badgeLookup', function(event, args) {
