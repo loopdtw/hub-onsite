@@ -10,9 +10,6 @@
   </head>
   <body>
     <div id="onsite" ng-controller="onsiteController">
-      <h2>SEARCH</h2>
-      <input type="text" placeholder="Please type email" ng-model="searchTerm" class="searchInput">
-      <div ng-click="search()" class="btn btnShakespeare"><span ng-if="!currentlySearching">SEARCH</span><span ng-if="currentlySearching">SEARCHING...</span></div>
       <h2>CHECKINS ( {{unsyncedCheckins.length}} )</h2>
       <div class="header">
         <div class="clickable columnOne">Kiosk</div>

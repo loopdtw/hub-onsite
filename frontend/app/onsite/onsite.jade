@@ -2,11 +2,6 @@ extends ../../_views/layout
 
 block content
 	#onsite(ng-controller="onsiteController")
-		h2 SEARCH
-		input.searchInput(type="text" placeholder="Please type email" ng-model="searchTerm")
-		.btn.btnShakespeare(ng-click="search()")
-			span(ng-if="!currentlySearching") SEARCH
-			span(ng-if="currentlySearching") SEARCHING...
 		h2 CHECKINS ( {{unsyncedCheckins.length}} )
 		.header
 			.clickable.columnOne Kiosk
