@@ -40,7 +40,6 @@ angular.module('HubApp')
 
         //url location
         $scope.location = $location;
-        console.log($location.search());
         $scope.$watch('location.search()', function() {
             $scope.currentEvent = ($location.search()).currentEvent;
             $scope.currentWorker = ($location.search()).currentWorker;
@@ -114,7 +113,6 @@ angular.module('HubApp')
             $scope.unsyncedSearchResults = [];
             
             searchResults.forEach(function(result) {
-                console.log(result);
                 if(result.badge) {
                     $scope.syncedSearchResults.push(result);
                 } else {
@@ -153,7 +151,6 @@ angular.module('HubApp')
         $scope.unsyncSearched = function() {
             if (!$scope.currentlyUnsyncing && $scope.currentSyncedCheckIn && $scope.currentSyncedCheckIn.badge) {
                 $scope.currentlyUnsyncing = true;
-                console.log($scope.currentlyUnsyncing);
                 badgeService.unsyncBadge($scope.currentSyncedCheckIn.eventAttendee, $scope.currentSyncedCheckIn.badge)
                     .then(function() {
                         removeBadgeForCheckIn($scope.currentSyncedCheckIn);
@@ -208,7 +205,6 @@ angular.module('HubApp')
 
                 attendeeService.getAttendeeForBadge($scope.currentEvent, args.identity)
                     .then(function(attendee) {
-                        console.log(attendee);
                         delete currentlyLooking[args.identity];
                         if(attendee) {
                             $scope.lookedupAttendees[args.identity] = attendee;
