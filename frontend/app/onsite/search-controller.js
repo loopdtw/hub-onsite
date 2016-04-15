@@ -11,7 +11,6 @@ angular.module('HubApp')
         /*----------  SCOPE VAR DECLARATIONS  ----------*/
 
         $scope.currentEvent = null;
-        $scope.rssiThreshold = "...";
         $scope.currentAttendee = null;
         $scope.currentSyncedCheckIn = null;
         $scope.currentlySyncing = false;
@@ -99,7 +98,7 @@ angular.module('HubApp')
         var search = function() {
             if (search && search !== "") {
                 $scope.currentlySearching = true;
-                attendeeService.searchBoomsetCheckIns($scope.currentEvent, $scope.searchTerm)
+                attendeeService.searchCheckIns($scope.currentEvent, $scope.searchTerm)
                     .then(function(data) {
                         $scope.currentlySearching = false;
                         searchResults = data.data;

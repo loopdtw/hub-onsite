@@ -103,23 +103,6 @@ angular.module('HubApp')
             });
         }
 
-        var updateSeenSyncedCheckIns = function(badges) {
-            $scope.seenSyncedCheckins = [];
-            $scope.seenSyncedCheckins = allCheckIns.filter(function(checkIn) {
-                if (checkIn.badge) {
-                    var matches = false;
-                    badges.forEach(function(badge) {
-                        if (checkIn.badge.identity == badge.identity &&
-                            checkIn.badge.macAddress == badge.macAddress) {
-                            matches = true;
-                        }
-                    });
-
-                    return matches;
-                }
-            });
-        }
-
         $scope.toggleMenu = function() {
             $scope.checked = !$scope.checked;
         }
@@ -135,6 +118,7 @@ angular.module('HubApp')
                 $scope.currentlySyncing = true;
                 badgeService.syncBadge($scope.currentAttendee);
             }
+
         }
 
         $scope.unsync = function() {
@@ -187,7 +171,7 @@ angular.module('HubApp')
             $scope.eventLoading = true;
             getInitialData()
                 .then(function() {
-                    return attendeeService.getBoomsetCheckIns($scope.currentEvent, $scope.currentWorker, "")
+                    return attendeeService.getCheckIns($scope.currentEvent, $scope.currentWorker, "")
                 })
                 .then(function(checkIns) {
                     console.log(checkIns.length);
@@ -253,12 +237,7 @@ angular.module('HubApp')
         });
 
         $scope.$on('currentBadges', function() {
-            $scope.$apply($scope.currentBadgesCount = badgeService.currentBadges.length);
-            $scope.$apply($scope.currentAvailableBadgesCount = badgeService.currentAvailableBadges.length);
             $scope.$apply($scope.allocatedPeripheralsCount = badgeService.allocatedPeripheralsCount);
-            $scope.$apply($scope.availablePeripheralsCount = badgeService.availablePeripheralsCount);
-
-            updateSeenSyncedCheckIns(badgeService.currentBadges);
         });
 
         $scope.$on('badgeLookup', function(event, args) {
