@@ -14,10 +14,6 @@ angular.module('HubApp')
         $scope.rssiThreshold = "...";
         $scope.currentAttendee = null;
         $scope.currentSyncedCheckIn = null;
-        $scope.badgeConnected = false;
-        $scope.attendees = [];
-        $scope.syncingAttendee = null;
-        $scope.lightingAttendee = null;
         $scope.currentlySyncing = false;
         $scope.currentlyUnsyncing = false;
 
@@ -159,15 +155,6 @@ angular.module('HubApp')
                 badgeService.unsyncBadge($scope.currentSyncedCheckIn.eventAttendee, $scope.currentSyncedCheckIn.badge)
                     .then(function() {
                         removeBadgeForCheckIn($scope.currentSyncedCheckIn);
-                        sortCheckIns();
-
-                        var existingAttendeeBadges = {};
-                        allCheckIns.forEach(function(checkIn) {
-                            if (checkIn.badge) {
-                                var uniqueId = checkIn.badge.identity + checkIn.badge.macAddress;
-                                existingAttendeeBadges[uniqueId] = checkIn.badge;
-                            }
-                        });
                         badgeService.updateExistingAttendeeBadges(existingAttendeeBadges);
 
                         $scope.currentSyncedCheckIn = null;
@@ -176,35 +163,17 @@ angular.module('HubApp')
             }
         }
 
-        $scope.unsyncAttendee = function() {
-            $scope.currentAttendee.eventId = $scope.currentEvent;
-            if (!$scope.currentlyUnsyncing && $scope.currentAttendee) {
-                $scope.currentlyUnsyncing = true;
-                badgeService.unsyncBadge($scope.currentAttendee, $scope.currentAttendee.badges[0])
-                    .then(function() {
-                        $scope.lookedupAttendees = [];
-                        $scope.currentlyUnsyncing = false;
-                    });
-            }
-        }
-
         /*----------  EVENT LISTENERS  ----------*/
 
         $scope.$on('badgeSynced', function(event, args) {
-            var checkIn = attendeeService.findCheckInForAttendee(args.attendee, allCheckIns);
+            var checkIn = attendeeService.findCheckInForAttendee(args.attendee, unsyncedSearchResults);
 
             if (checkIn) {
                 addBadgeForCheckIn(checkIn, args.badge);
-                sortCheckIns();
+                sortSearchResults();
             }
 
             $scope.currentlySyncing = false;
-            if ($scope.unsyncedCheckins.length > 0) {
-                $scope.currentAttendee = $scope.unsyncedCheckins[0].eventAttendee;
-            } else {
-                $scope.currentAttendee = null;
-            }
-
             alert.play();
             $scope.$apply();
         });
