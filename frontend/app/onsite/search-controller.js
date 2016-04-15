@@ -166,7 +166,7 @@ angular.module('HubApp')
         /*----------  EVENT LISTENERS  ----------*/
 
         $scope.$on('badgeSynced', function(event, args) {
-            var checkIn = attendeeService.findCheckInForAttendee(args.attendee, unsyncedSearchResults);
+            var checkIn = attendeeService.findCheckInForAttendee(args.attendee, $scope.unsyncedSearchResults);
 
             if (checkIn) {
                 addBadgeForCheckIn(checkIn, args.badge);
