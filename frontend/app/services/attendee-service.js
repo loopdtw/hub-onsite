@@ -68,7 +68,7 @@ angular.module('HubApp')
 			return deferred.promise;
 		};
 
-		var getBoomsetCheckIns = function(eventId, workerId, keyword) {
+		var getCheckIns = function(eventId, workerId, keyword) {
 			var deferred = $q.defer();
 			var url = config.baseUrl + '/checkins/providers/boomset/workers/' + workerId;
 			$http({
@@ -88,7 +88,7 @@ angular.module('HubApp')
 			return deferred.promise;
 		}
 
-		var searchBoomsetCheckIns = function(eventId, keyword) {
+		var searchCheckIns = function(eventId, keyword) {
 			var deferred = $q.defer();
 			var url = config.baseUrl + '/checkins/search';
 			console.log(url);
@@ -125,6 +125,27 @@ angular.module('HubApp')
 			}).
 			then(function(res) {
 				deferred.resolve(res.data);
+			}, function(data, status, headers, config) {
+				// console.log(data.meta);
+			});
+
+			return deferred.promise;
+		}
+
+		var getAttendeeByEmail = function(email) {
+			var deferred = $q.defer();
+			var url = config.baseUrl + '/checkins/search';
+			console.log(url);
+			$http({
+				method: 'GET',
+				url: url,
+				params: {
+					"eventId": eventId,
+					"q": email
+				}
+			}).
+			then(function(res) {
+				deferred.resolve(res);
 			}, function(data, status, headers, config) {
 				// console.log(data.meta);
 			});
@@ -196,6 +217,7 @@ angular.module('HubApp')
 		attendeeService.searchBoomsetCheckIns = searchBoomsetCheckIns;
 		attendeeService.getAttendeesForEvent = getAttendeesForEvent;
 		attendeeService.setCurrentEvent = setCurrentEvent;
-
+		attendeeService.getAttendeeByEmail = getAttendeeByEmail;
+		
 		return attendeeService;
 	});
