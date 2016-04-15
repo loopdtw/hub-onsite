@@ -28,7 +28,6 @@ angular.module('HubApp')
         
         //url location
         $scope.location = $location;
-        console.log($location.search());
         $scope.$watch('location.search()', function() {
             $scope.currentEvent = ($location.search()).currentEvent;
             $scope.currentWorker = ($location.search()).currentWorker;
@@ -119,6 +118,9 @@ angular.module('HubApp')
                 badgeService.syncBadge($scope.currentAttendee);
             }
 
+            $timeout(function() {
+                init();
+            }, 5 * 1000);
         }
 
         $scope.unsync = function() {
@@ -188,14 +190,7 @@ angular.module('HubApp')
                     });
                     badgeService.updateExistingAttendeeBadges(existingAttendeeBadges);
                     $scope.currentStatus = badgeService.currentStatus;
-                    if($scope.lookup) {
-                        badgeService.triggerLookup();
-                    }
                 });
-
-            $timeout(function() {
-                init();
-            }, 1 * 1000);
         }
 
         init();
@@ -203,22 +198,22 @@ angular.module('HubApp')
         /*----------  EVENT LISTENERS  ----------*/
 
         $scope.$on('badgeSynced', function(event, args) {
-            var checkIn = attendeeService.findCheckInForAttendee(args.attendee, allCheckIns);
+            // var checkIn = attendeeService.findCheckInForAttendee(args.attendee, allCheckIns);
 
-            if (checkIn) {
-                addBadgeForCheckIn(checkIn, args.badge);
-                sortCheckIns();
-            }
+            // if (checkIn) {
+            //     addBadgeForCheckIn(checkIn, args.badge);
+            //     sortCheckIns();
+            // }
 
-            $scope.currentlySyncing = false;
-            if ($scope.unsyncedCheckins.length > 0) {
-                $scope.currentAttendee = $scope.unsyncedCheckins[0].eventAttendee;
-            } else {
-                $scope.currentAttendee = null;
-            }
+            // $scope.currentlySyncing = false;
+            // if ($scope.unsyncedCheckins.length > 0) {
+            //     $scope.currentAttendee = $scope.unsyncedCheckins[0].eventAttendee;
+            // } else {
+            //     $scope.currentAttendee = null;
+            // }
 
-            alert.play();
-            $scope.$apply();
+            // alert.play();
+            // $scope.$apply();
         });
 
         $scope.$on('badgeDisconnect', function() {
