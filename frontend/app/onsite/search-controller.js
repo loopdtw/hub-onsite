@@ -89,7 +89,7 @@ angular.module('HubApp')
         }
 
         var addBadgeForCheckIn = function(checkInTemp, badge) {
-            allCheckIns.forEach(function(checkIn) {
+            searchResults.forEach(function(checkIn) {
                 if (checkIn.id == checkInTemp.id) {
                     checkIn.badge = badge;
                 }
@@ -119,8 +119,6 @@ angular.module('HubApp')
                     $scope.unsyncedSearchResults.push(result);
                 }
             });
-
-            $scope.$apply();
         }
 
         $scope.toggleMenu = function() {
