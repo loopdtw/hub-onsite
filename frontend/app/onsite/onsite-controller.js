@@ -280,7 +280,7 @@ angular.module('HubApp')
         });
 
         /*----------  EXPORT DECLARATIONS  ----------*/
-        $scope.setcurrentCheckIn = setcurrentCheckIn;
+        $scope.setCurrentCheckIn = setCurrentCheckIn;
         $scope.setCurrentSyncedCheckIn = setCurrentSyncedCheckIn;
         $scope.sendCommand = sendCommand;
         $scope.toggleMenu = toggleMenu;
