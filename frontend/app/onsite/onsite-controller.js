@@ -7,6 +7,8 @@ angular.module('HubApp')
         var allCheckIns = [];
         var alert = new Audio('/audio/alert.mp3');
 
+        var syncTimeout = null;
+
         /*----------  SCOPE VAR DECLARATIONS  ----------*/
 
         $scope.currentEvent = null;
@@ -120,7 +122,7 @@ angular.module('HubApp')
                 badgeService.syncBadge($scope.currentAttendee);
             }
 
-            $timeout(function() {
+            syncTimeout = $timeout(function() {
                 console.log(attendeeEmail);
                 attendeeService.getCheckInByEmail($scope.currentEvent, attendeeEmail)
                 .then(function(checkIns) {
@@ -227,7 +229,11 @@ angular.module('HubApp')
         /*----------  EVENT LISTENERS  ----------*/
 
         $scope.$on('badgeSynced', function(event, args) {
-            // completeSync(args.attendee, args.badge);
+            if(syncTimeout) {
+                $timeout.cancel(syncTimeout);
+            }
+            
+            completeSync(args.attendee, args.badge);
         });
 
         $scope.$on('badgeDisconnect', function() {
