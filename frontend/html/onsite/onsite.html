@@ -33,7 +33,7 @@
       </div>
       <h3>Status: <em>{{currentStatus}}</em></h3>
       <h3>Badges: {{allocatedPeripheralsCount}}</h3>
-      <div ng-click="sync()" ng-class="{'disabled':!currentAttendee || isScanning || allocatedPeripheralsCount &lt; 1 || currentlySyncing}" class="btn btnShakespeare actionButton"><span ng-if="!currentlySyncing">SYNC</span><span ng-if="currentlySyncing">SYNCING...</span></div>
+      <div ng-click="sync()" ng-class="{'disabled':!currentCheckIn || isScanning || allocatedPeripheralsCount &lt; 1 || currentlySyncing}" class="btn btnShakespeare actionButton"><span ng-if="!currentlySyncing">SYNC</span><span ng-if="currentlySyncing">SYNCING...</span></div>
       <h2>SYNCED CHECKINS</h2>
       <div class="header">
         <div class="clickable columnOne">Kiosk</div>
