@@ -5,10 +5,10 @@ block content
 		include ./menu
 		h2 CHECKINS ( {{unsyncedCheckins.length}} )
 		.header
-			.clickable.columnOne Kiosk
-			.clickable.columnTwo Checkin Time
-			.clickable.columnTwo Full Name
-			.clickable.columnFour Email
+			.columnOne Kiosk
+			.columnTwo Checkin Time
+			.columnTwo Full Name
+			.columnFour Email
 		.module.short
 			.body
 				.row(ng-repeat="checkIn in unsyncedCheckins | orderBy:unsyncedPredicate:unsyncedReverse" ng-class="{'active':(checkIn.id==currentCheckIn.id)}" ng-click="setCurrentCheckIn(checkIn)")
@@ -27,10 +27,10 @@ block content
 			span(ng-if="currentlySyncing") SYNCING...
 		h2 SYNCED CHECKINS
 		.header
-			.clickable.columnOne Kiosk
-			.clickable.columnTwo Sync Time
-			.clickable.columnTwo Full Name
-			.clickable.columnFour(ng-click="orderSynced('badge.timeSynced')") Email
+			.columnOne Kiosk
+			.columnTwo Sync Time
+			.columnTwo Full Name
+			.columnFour(ng-click="orderSynced('badge.timeSynced')") Email
 		.module.short
 			.body
 				.row(ng-repeat="checkIn in syncedCheckins | orderBy:syncedPredicate:syncedReverse" ng-click="setCurrentSyncedCheckIn(checkIn)" ng-class="{'active':(checkIn.id == currentSyncedCheckIn.id)}")

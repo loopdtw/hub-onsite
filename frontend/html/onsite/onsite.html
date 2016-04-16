@@ -16,10 +16,10 @@
       </pageslide>
       <h2>CHECKINS ( {{unsyncedCheckins.length}} )</h2>
       <div class="header">
-        <div class="clickable columnOne">Kiosk</div>
-        <div class="clickable columnTwo">Checkin Time</div>
-        <div class="clickable columnTwo">Full Name</div>
-        <div class="clickable columnFour">Email</div>
+        <div class="columnOne">Kiosk</div>
+        <div class="columnTwo">Checkin Time</div>
+        <div class="columnTwo">Full Name</div>
+        <div class="columnFour">Email</div>
       </div>
       <div class="module short">
         <div class="body">
@@ -36,10 +36,10 @@
       <div ng-click="sync()" ng-class="{'disabled':!currentCheckIn || isScanning || allocatedPeripheralsCount &lt; 1 || currentlySyncing}" class="btn btnShakespeare actionButton"><span ng-if="!currentlySyncing">SYNC</span><span ng-if="currentlySyncing">SYNCING...</span></div>
       <h2>SYNCED CHECKINS</h2>
       <div class="header">
-        <div class="clickable columnOne">Kiosk</div>
-        <div class="clickable columnTwo">Sync Time</div>
-        <div class="clickable columnTwo">Full Name</div>
-        <div ng-click="orderSynced('badge.timeSynced')" class="clickable columnFour">Email</div>
+        <div class="columnOne">Kiosk</div>
+        <div class="columnTwo">Sync Time</div>
+        <div class="columnTwo">Full Name</div>
+        <div ng-click="orderSynced('badge.timeSynced')" class="columnFour">Email</div>
       </div>
       <div class="module short">
         <div class="body">
