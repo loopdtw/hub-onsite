@@ -125,7 +125,7 @@ angular.module('HubApp')
                 attendeeService.getCheckInByEmail($scope.currentEvent, attendeeEmail)
                 .then(function(checkIns) {
                     var checkIn = checkIns[0];
-                    if(pulledAttendee.badge) {
+                    if(checkIn.badge) {
                        completeSync(checkIn.eventAttendee, checkIn.badge);
                     }
                 });
