@@ -1,5 +1,5 @@
 angular.module('HubApp')
-    .controller('onsiteController', function($scope, $http, $timeout, $q, utilService, socketService, badgeService, attendeeService, config, $location) {
+    .controller('onsiteController', function($scope, $http, $timeout, $q, utilService, socketService, badgeService, attendeeService, $location) {
 
         /*----------  VAR DECLARATIONS  ----------*/
 

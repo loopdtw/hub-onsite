@@ -1,5 +1,5 @@
 angular.module('HubApp')
-    .controller('searchController', function($scope, $http, $timeout, $q, utilService, socketService, badgeService, attendeeService, config, $location) {
+    .controller('searchController', function($scope, $http, $timeout, $q, utilService, socketService, badgeService, attendeeService, $location) {
 
         /*----------  VAR DECLARATIONS  ----------*/
 
