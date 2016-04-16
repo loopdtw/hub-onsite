@@ -13,7 +13,7 @@ angular.module('HubApp')
 
         $scope.currentEvent = null;
         $scope.currentWorker = null;
-        $scope.currentAttendee = null;
+        $scope.currentCheckIn = null;
         $scope.currentSyncedCheckIn = null;
         $scope.currentlySyncing = false;
         $scope.currentlyUnsyncing = false;
@@ -41,16 +41,16 @@ angular.module('HubApp')
         }
 
         /*----------  FUNC DECLARATIONS  ----------*/
-        var setCurrentAttendee = function(attendee) {
+        var setCurrentCheckIn = function(checkIn) {
             if (!$scope.currentlySyncing) {
-                if ($scope.currentAttendee) {
-                    if ($scope.currentAttendee.id == attendee.id) {
-                        $scope.currentAttendee = null;
+                if ($scope.currentCheckIn) {
+                    if ($scope.currentCheckIn.id == checkIn.id) {
+                        $scope.currentCheckIn = null;
                     } else {
-                        $scope.currentAttendee = attendee;
+                        $scope.currentCheckIn = checkIn;
                     }
                 } else {
-                    $scope.currentAttendee = attendee;
+                    $scope.currentCheckIn = checkIn;
                 }
             }
         }
@@ -104,37 +104,28 @@ angular.module('HubApp')
             });
         }
 
-        $scope.toggleMenu = function() {
+        var toggleMenu = function() {
             $scope.checked = !$scope.checked;
         }
 
-        $scope.sendCommand = function(command) {
+        var sendCommand = function(command) {
             if ($scope.currentSyncedCheckIn.badge) {
                 badgeService.sendCommand($scope.currentSyncedCheckIn.badge, command);
             }
         }
 
-        $scope.syncBadge = function() {
-            var attendeeEmail = $scope.currentAttendee.email;
+        var sync = function() {
+            var attendeeEmail = $scope.currentCheckIn.email;
 
-            if ($scope.currentAttendee && !$scope.currentlySyncing && badgeService.allocatedPeripheralsCount > 0) {
+            if ($scope.currentCheckIn && !$scope.currentlySyncing && badgeService.allocatedPeripheralsCount > 0) {
                 $scope.currentlySyncing = true;
-                badgeService.syncBadge($scope.currentAttendee);
+                badgeService.syncBadge($scope.currentCheckIn);
             }
 
-            syncTimeout = $timeout(function() {
-                console.log(attendeeEmail);
-                attendeeService.getCheckInByEmail($scope.currentEvent, attendeeEmail)
-                .then(function(checkIns) {
-                    var checkIn = checkIns[0];
-                    if(checkIn.badge) {
-                       completeSync(checkIn.eventAttendee, checkIn.badge);
-                    }
-                });
-            }, 5 * 1000);
+            setSyncTimeout();
         }
 
-        $scope.unsync = function() {
+        var unsync = function() {
             if (!$scope.currentlyUnsyncing && $scope.currentSyncedCheckIn && $scope.currentSyncedCheckIn.badge) {
                 $scope.currentlyUnsyncing = true;
                 console.log($scope.currentlyUnsyncing);
@@ -158,6 +149,22 @@ angular.module('HubApp')
             }
         }
 
+        //we have sync timeout here to force the sync button to go back if we don't get a socket message that our badge has been synced
+        var setSyncTimeout = function() {
+            syncTimeout = $timeout(function() {
+                console.log(attendeeEmail);
+                attendeeService.getCheckInByEmail($scope.currentEvent, attendeeEmail)
+                .then(function(checkIns) {
+                    var checkIn = checkIns[0];
+                    if(checkIn.badge) {
+                       completeSync(checkIn.eventAttendee, checkIn.badge);
+                    } else {
+                        setSyncTimeout();
+                    }
+                });
+            }, 5 * 1000);
+        }
+
         var completeSync = function(attendee, badge) {
             console.log('allCheckins', allCheckIns);
             var checkIn = attendeeService.findCheckInForAttendee(attendee, allCheckIns);
@@ -169,9 +176,9 @@ angular.module('HubApp')
 
             $scope.currentlySyncing = false;
             if ($scope.unsyncedCheckins.length > 0) {
-                $scope.currentAttendee = $scope.unsyncedCheckins[0].eventAttendee;
+                $scope.currentCheckIn = $scope.unsyncedCheckins[0].eventAttendee;
             } else {
-                $scope.currentAttendee = null;
+                $scope.currentCheckIn = null;
             }
 
             alert.play();
@@ -247,7 +254,7 @@ angular.module('HubApp')
         });
 
         $scope.$on('badgeNotFound', function() {
-            $scope.$apply($scope.currentAttendee = null);
+            $scope.$apply($scope.currentCheckIn = null);
             $scope.$apply($scope.currentlySyncing = false);
         });
 
@@ -273,6 +280,10 @@ angular.module('HubApp')
         });
 
         /*----------  EXPORT DECLARATIONS  ----------*/
-        $scope.setCurrentAttendee = setCurrentAttendee;
+        $scope.setcurrentCheckIn = setcurrentCheckIn;
         $scope.setCurrentSyncedCheckIn = setCurrentSyncedCheckIn;
+        $scope.sendCommand = sendCommand;
+        $scope.toggleMenu = toggleMenu;
+        $scope.sync = sync;
+        $scope.unsync = unsync;
     });

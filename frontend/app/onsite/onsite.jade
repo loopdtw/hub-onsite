@@ -2,6 +2,7 @@ extends ../../_views/layout
 
 block content
 	#onsite(ng-controller="onsiteController")
+		include ./menu
 		h2 CHECKINS ( {{unsyncedCheckins.length}} )
 		.header
 			.clickable.columnOne Kiosk
@@ -21,7 +22,7 @@ block content
 						{{checkIn.eventAttendeeEmail}}
 		h3 Status: <em>{{currentStatus}}</em>
 		h3 Badges: {{allocatedPeripheralsCount}}
-		.btn.btnShakespeare.actionButton(ng-click="syncBadge()" ng-class="{'disabled':!currentAttendee || isScanning || allocatedPeripheralsCount < 1 || currentlySyncing}")
+		.btn.btnShakespeare.actionButton(ng-click="sync()" ng-class="{'disabled':!currentAttendee || isScanning || allocatedPeripheralsCount < 1 || currentlySyncing}")
 			span(ng-if="!currentlySyncing") SYNC
 			span(ng-if="currentlySyncing") SYNCING...
 		h2 SYNCED CHECKINS

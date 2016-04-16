@@ -1,7 +1,5 @@
 hamburger-menu.hamburgerMenu(ng-click="toggleMenu()")
 pageslide(ps-side="left" ps-open='checked')
 	div
-		a(href="/onsite") ONSITE CHECKIN
-		a(href="/onsite/synced") ALL SYNCED CHECKINS
-		a(href="/onsite/search") SEARCH
-		a(href="/onsite/lookup") LOOKUP
+		a(href="#" ng-click="goToCheckin()") CHECKIN
+		a(href="#" ng-click="goToSearch()") SEARCH
