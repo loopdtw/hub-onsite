@@ -1,4 +1,4 @@
 angular.module('HubApp')
-    .controller('onsiteController', function($scope, config, $location) {
+    .controller('menuController', function($scope, config, $location) {
 
 });
