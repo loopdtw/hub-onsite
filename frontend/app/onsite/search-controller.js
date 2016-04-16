@@ -11,7 +11,7 @@ angular.module('HubApp')
         /*----------  SCOPE VAR DECLARATIONS  ----------*/
 
         $scope.currentEvent = null;
-        $scope.currentAttendee = null;
+        $scope.currentCheckIn = null;
         $scope.currentSyncedCheckIn = null;
         $scope.currentlySyncing = false;
         $scope.currentlyUnsyncing = false;
@@ -51,16 +51,20 @@ angular.module('HubApp')
 
         /*----------  FUNC DECLARATIONS  ----------*/
 
-        var setCurrentAttendee = function(attendee) {
+        var toggleMenu = function() {
+            $scope.checked = !$scope.checked;
+        }
+
+        var setCurrentCheckIn = function(attendee) {
             if (!$scope.currentlySyncing) {
-                if ($scope.currentAttendee) {
-                    if ($scope.currentAttendee.id == attendee.id) {
-                        $scope.currentAttendee = null;
+                if ($scope.currentCheckIn.eventAttendee) {
+                    if ($scope.currentCheckIn.eventAttendee.id == attendee.id) {
+                        $scope.currentCheckIn.eventAttendee = null;
                     } else {
-                        $scope.currentAttendee = attendee;
+                        $scope.currentCheckIn.eventAttendee = attendee;
                     }
                 } else {
-                    $scope.currentAttendee = attendee;
+                    $scope.currentCheckIn.eventAttendee = attendee;
                 }
             }
         }
@@ -120,32 +124,20 @@ angular.module('HubApp')
             });
         }
 
-        $scope.toggleMenu = function() {
-            $scope.checked = !$scope.checked;
-        }
-
-        $scope.attendeeBadgeWaitingToLight = function(attendee) {
-            if (attendee.badgeIdentity) {
-                return (lightBadges.indexOf(attendee.badgeIdentity) > -1);
-            } else {
-                return false;
-            }
-        }
-
-        $scope.sendCommand = function(command) {
+        var sendCommand = function(command) {
             if ($scope.currentSyncedCheckIn.badge) {
                 badgeService.sendCommand($scope.currentSyncedCheckIn.badge, command);
             }
         }
 
-        $scope.syncSearched = function() {
-            if ($scope.currentAttendee && !$scope.currentlySyncing && badgeService.allocatedPeripheralsCount > 0) {
+        var sync = function() {
+            if ($scope.currentCheckIn.eventAttendee && !$scope.currentlySyncing && badgeService.allocatedPeripheralsCount > 0) {
                 $scope.currentlySyncing = true;
-                badgeService.syncBadge($scope.currentAttendee);
+                badgeService.syncBadge($scope.currentCheckIn.eventAttendee);
             }
         }
 
-        $scope.unsyncSearched = function() {
+        var unsync = function() {
             if (!$scope.currentlyUnsyncing && $scope.currentSyncedCheckIn && $scope.currentSyncedCheckIn.badge) {
                 $scope.currentlyUnsyncing = true;
                 var existingAttendeeBadges = {};
@@ -197,8 +189,7 @@ angular.module('HubApp')
         $scope.$on('badgeNotFound', function() {
             $scope.$apply($scope.currentAttendee = null);
             $scope.$apply($scope.currentlySyncing = false);
-        });
-
+     currentCheckIn.event
         $scope.$on('currentBadges', function() {
             $scope.$apply($scope.currentBadgesCount = badgeService.currentBadges.length);
             $scope.$apply($scope.currentAvailableBadgesCount = badgeService.currentAvailableBadges.length);
@@ -224,6 +215,10 @@ angular.module('HubApp')
 
         /*----------  EXPORT DECLARATIONS  ----------*/
         $scope.search = search;
+        $scope.toggleMenu = toggleMenu;
         $scope.setCurrentAttendee = setCurrentAttendee;
         $scope.setCurrentSyncedCheckIn = setCurrentSyncedCheckIn;
+        $scope.sendCommand = sendCommand;
+        $scope.sync = sync;
+        $scope.unsync = unsync;
     });

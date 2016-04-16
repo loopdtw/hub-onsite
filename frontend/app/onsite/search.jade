@@ -16,7 +16,7 @@ block content
 			.clickable.columnFour(ng-click="orderUnsynced('eventAttendeeEmail')") Email
 		.module.short
 			.body
-				.row(ng-repeat="checkIn in unsyncedSearchResults | orderBy:unsyncedPredicate:unsyncedReverse" ng-class="{'active':(checkIn.eventAttendee.id==currentAttendee.id)}" ng-click="setCurrentAttendee(checkIn.eventAttendee)")
+				.row(ng-repeat="checkIn in unsyncedSearchResults | orderBy:unsyncedPredicate:unsyncedReverse" ng-class="{'active':(checkIn.id==currentCheckIn.id)}" ng-click="setCurrentCheckIn(checkIn)")
 					.columnOne
 						{{checkIn.checkInWorker}}
 					.columnTwo
@@ -27,7 +27,7 @@ block content
 						{{checkIn.eventAttendeeEmail}}
 		h3 Status: <em>{{currentStatus}}</em>
 		h3 Allocated badges: {{allocatedPeripheralsCount}}
-		.btn.btnShakespeare.actionButton(ng-click="syncSearched()" ng-class="{'disabled':!currentAttendee || isScanning || allocatedPeripheralsCount < 1 || currentlySyncing}")
+		.btn.btnShakespeare.actionButton(ng-click="syncSearched()" ng-class="{'disabled':!currentCheckIn || isScanning || allocatedPeripheralsCount < 1 || currentlySyncing}")
 			span(ng-if="!currentlySyncing") SYNC
 			span(ng-if="currentlySyncing") SYNCING...
 		h2 SYNCED

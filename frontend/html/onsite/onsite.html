@@ -10,7 +10,7 @@
   </head>
   <body>
     <div id="onsite" ng-controller="onsiteController">
-      <hamburger-menu ng-click="toggleMenu()" class="hamburgerMenu"></hamburger-menu>
+      <hamburger-menu ng-click="toggleMenu()" ng-controller="menuController" class="hamburgerMenu"></hamburger-menu>
       <pageslide ps-side="left" ps-open="checked">
         <div><a href="#" ng-click="goToCheckin()">CHECKIN</a><a href="#" ng-click="goToSearch()">SEARCH</a></div>
       </pageslide>

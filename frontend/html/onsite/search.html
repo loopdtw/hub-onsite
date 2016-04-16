@@ -10,7 +10,7 @@
   </head>
   <body>
     <div id="onsite" ng-controller="searchController">
-      <hamburger-menu ng-click="toggleMenu()" class="hamburgerMenu"></hamburger-menu>
+      <hamburger-menu ng-click="toggleMenu()" ng-controller="menuController" class="hamburgerMenu"></hamburger-menu>
       <pageslide ps-side="left" ps-open="checked">
         <div><a href="#" ng-click="goToCheckin()">CHECKIN</a><a href="#" ng-click="goToSearch()">SEARCH</a></div>
       </pageslide>
@@ -26,7 +26,7 @@
       </div>
       <div class="module short">
         <div class="body">
-          <div ng-repeat="checkIn in unsyncedSearchResults | orderBy:unsyncedPredicate:unsyncedReverse" ng-class="{'active':(checkIn.eventAttendee.id==currentAttendee.id)}" ng-click="setCurrentAttendee(checkIn.eventAttendee)" class="row">
+          <div ng-repeat="checkIn in unsyncedSearchResults | orderBy:unsyncedPredicate:unsyncedReverse" ng-class="{'active':(checkIn.id==currentCheckIn.id)}" ng-click="setCurrentCheckIn(checkIn)" class="row">
             <div class="columnOne">{{checkIn.checkInWorker}}</div>
             <div class="columnTwo">{{checkIn.created | date:'HH:mm:ss'}}</div>
             <div class="columnTwo">{{checkIn.eventAttendee.firstname}} {{checkIn.eventAttendee.lastname}}</div>
@@ -36,7 +36,7 @@
       </div>
       <h3>Status: <em>{{currentStatus}}</em></h3>
       <h3>Allocated badges: {{allocatedPeripheralsCount}}</h3>
-      <div ng-click="syncSearched()" ng-class="{'disabled':!currentAttendee || isScanning || allocatedPeripheralsCount &lt; 1 || currentlySyncing}" class="btn btnShakespeare actionButton"><span ng-if="!currentlySyncing">SYNC</span><span ng-if="currentlySyncing">SYNCING...</span></div>
+      <div ng-click="syncSearched()" ng-class="{'disabled':!currentCheckIn || isScanning || allocatedPeripheralsCount &lt; 1 || currentlySyncing}" class="btn btnShakespeare actionButton"><span ng-if="!currentlySyncing">SYNC</span><span ng-if="currentlySyncing">SYNCING...</span></div>
       <h2>SYNCED</h2>
       <div class="header">
         <div ng-click="orderSynced('workerId')" class="clickable columnOne">Kiosk</div>
