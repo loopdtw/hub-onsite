@@ -29,9 +29,8 @@ block content
 		.header
 			.clickable.columnOne Kiosk
 			.clickable.columnTwo Sync Time
-			.clickable.columnTwo First Name
-			.clickable.columnTwo Last Name
-			//- .clickable.columnFour(ng-click="orderSynced('badge.timeSynced')") Email
+			.clickable.columnTwo Full Name
+			.clickable.columnFour(ng-click="orderSynced('badge.timeSynced')") Email
 		.module.short
 			.body
 				.row(ng-repeat="checkIn in syncedCheckins | orderBy:syncedPredicate:syncedReverse" ng-click="setCurrentSyncedCheckIn(checkIn)" ng-class="{'active':(checkIn.id == currentSyncedCheckIn.id)}")
@@ -41,7 +40,7 @@ block content
 						{{checkIn.badge.syncTime | date:'HH:mm:ss'}}
 					.columnTwo
 						{{checkIn.eventAttendee.firstname}} {{checkIn.eventAttendee.lastname}}
-					//- .columnFour
+					.columnFour
 						{{checkIn.eventAttendeeEmail}}
 		.btn.btnShakespeare.actionButton(ng-class="{'disabled':!currentSyncedCheckIn || currentlySyncing || currentlyUnsyncing}" ng-click="sendCommand('f70102')") BLINK
 		.btn.btnRed.actionButton(ng-class="{'disabled':!currentSyncedCheckIn || currentlyUnsyncing || currentlySyncing}" ng-click='unsync()')

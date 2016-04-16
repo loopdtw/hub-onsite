@@ -38,8 +38,8 @@
       <div class="header">
         <div class="clickable columnOne">Kiosk</div>
         <div class="clickable columnTwo">Sync Time</div>
-        <div class="clickable columnTwo">First Name</div>
-        <div class="clickable columnTwo">Last Name</div>
+        <div class="clickable columnTwo">Full Name</div>
+        <div ng-click="orderSynced('badge.timeSynced')" class="clickable columnFour">Email</div>
       </div>
       <div class="module short">
         <div class="body">
@@ -47,6 +47,7 @@
             <div class="columnOne">{{checkIn.checkInWorker}}</div>
             <div class="columnTwo">{{checkIn.badge.syncTime | date:'HH:mm:ss'}}</div>
             <div class="columnTwo">{{checkIn.eventAttendee.firstname}} {{checkIn.eventAttendee.lastname}}</div>
+            <div class="columnFour">{{checkIn.eventAttendeeEmail}}</div>
           </div>
         </div>
       </div>
