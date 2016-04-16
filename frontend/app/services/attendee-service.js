@@ -132,7 +132,7 @@ angular.module('HubApp')
 			return deferred.promise;
 		}
 
-		var getAttendeeByEmail = function(eventId, email) {
+		var getCheckInByEmail = function(eventId, email) {
 			var deferred = $q.defer();
 			var url = config.baseUrl + '/checkins/search';
 			console.log(url);
