@@ -49,6 +49,19 @@ angular.module('HubApp')
             $location.search('currentWorker', name);
         }
 
+        /*----------  MENU  ----------*/
+        var toggleMenu = function() {
+            $scope.checked = !$scope.checked;
+        }
+
+        var goToCheckIn = function() {
+            $window.location.href = '/onsite?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
+        }
+
+        var goToSearch = function() {
+            $window.location.href = '/onsite/search?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
+        }
+
         /*----------  FUNC DECLARATIONS  ----------*/
 
         var toggleMenu = function() {
@@ -222,4 +235,6 @@ angular.module('HubApp')
         $scope.sendCommand = sendCommand;
         $scope.sync = sync;
         $scope.unsync = unsync;
+        $scope.goToSearch = goToSearch;
+        $scope.goToCheckIn = goToCheckIn;
     });

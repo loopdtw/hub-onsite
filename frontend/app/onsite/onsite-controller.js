@@ -40,6 +40,19 @@ angular.module('HubApp')
             $location.search('currentWorker', name);
         }
 
+        /*----------  MENU  ----------*/
+        var toggleMenu = function() {
+            $scope.checked = !$scope.checked;
+        }
+
+        var goToCheckIn = function() {
+            $window.location.href = '/onsite?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
+        }
+
+        var goToSearch = function() {
+            $window.location.href = '/onsite/search?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
+        }
+
         /*----------  FUNC DECLARATIONS  ----------*/
         var setCurrentCheckIn = function(checkIn) {
             if (!$scope.currentlySyncing) {
@@ -102,10 +115,6 @@ angular.module('HubApp')
                     checkIn.badge = badge;
                 }
             });
-        }
-
-        var toggleMenu = function() {
-            $scope.checked = !$scope.checked;
         }
 
         var sendCommand = function(command) {
@@ -286,17 +295,6 @@ angular.module('HubApp')
         $scope.toggleMenu = toggleMenu;
         $scope.sync = sync;
         $scope.unsync = unsync;
-
-        
-        var goToCheckIn = function() {
-            console.log('hello');
-            $window.location.href = '/onsite?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
-        }
-
-        var goToSearch = function() {
-            $window.location.href = '/onsite/search?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
-        }
-
         $scope.goToSearch = goToSearch;
         $scope.goToCheckIn = goToCheckIn;
     });
