@@ -286,4 +286,17 @@ angular.module('HubApp')
         $scope.toggleMenu = toggleMenu;
         $scope.sync = sync;
         $scope.unsync = unsync;
+
+        
+        var goToCheckIn = function() {
+            console.log('hello');
+            $window.location.href = '/onsite?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
+        }
+
+        var goToSearch = function() {
+            $window.location.href = '/onsite/search?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
+        }
+
+        $scope.goToSearch = goToSearch;
+        $scope.goToCheckIn = goToCheckIn;
     });
