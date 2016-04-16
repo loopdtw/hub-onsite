@@ -36,7 +36,7 @@
       </div>
       <h3>Status: <em>{{currentStatus}}</em></h3>
       <h3>Allocated badges: {{allocatedPeripheralsCount}}</h3>
-      <div ng-click="syncSearched()" ng-class="{'disabled':!currentCheckIn || isScanning || allocatedPeripheralsCount &lt; 1 || currentlySyncing}" class="btn btnShakespeare actionButton"><span ng-if="!currentlySyncing">SYNC</span><span ng-if="currentlySyncing">SYNCING...</span></div>
+      <div ng-click="sync()" ng-class="{'disabled':!currentCheckIn || isScanning || allocatedPeripheralsCount &lt; 1 || currentlySyncing}" class="btn btnShakespeare actionButton"><span ng-if="!currentlySyncing">SYNC</span><span ng-if="currentlySyncing">SYNCING...</span></div>
       <h2>SYNCED</h2>
       <div class="header">
         <div ng-click="orderSynced('workerId')" class="clickable columnOne">Kiosk</div>
@@ -56,7 +56,7 @@
           </div>
         </div>
       </div>
-      <div ng-class="{'disabled':!currentSyncedCheckIn}" ng-click="unsyncSearched()" class="btn btnRed actionButton"><span ng-if="!currentlyUnsyncing">UNSYNC</span><span ng-if="currentlyUnsyncing">UNSYNCING...</span></div>
+      <div ng-class="{'disabled':!currentSyncedCheckIn}" ng-click="unsync()" class="btn btnRed actionButton"><span ng-if="!currentlyUnsyncing">UNSYNC</span><span ng-if="currentlyUnsyncing">UNSYNCING...</span></div>
     </div>
   </body>
 </html>
