@@ -13,6 +13,7 @@ angular.module('HubApp')
         }
 
     	var goToCheckIn = function() {
+    		console.log('hello');
     		$window.location.href = '/onsite?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
     	}
 

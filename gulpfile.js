@@ -27,6 +27,9 @@ gulp.task('minify-js', function() {
     gulp.src(angularjsapp)
         .pipe(concat('main.min.js'))
         .pipe(gulp.dest('./frontend/_public/js/'))
+        .pipe(notify({
+           message: "Javascript files are now processed!"
+        }))
         .pipe(livereload());
 });
 
