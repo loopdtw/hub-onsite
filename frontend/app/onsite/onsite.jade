@@ -11,7 +11,7 @@ block content
 			.clickable.columnFour Email
 		.module.short
 			.body
-				.row(ng-repeat="checkIn in unsyncedCheckins | orderBy:unsyncedPredicate:unsyncedReverse" ng-class="{'active':(checkIn.eventAttendee.id==currentAttendee.id)}" ng-click="setCurrentAttendee(checkIn.eventAttendee)")
+				.row(ng-repeat="checkIn in unsyncedCheckins | orderBy:unsyncedPredicate:unsyncedReverse" ng-class="{'active':(checkIn.id==currentCheckIn.id)}" ng-click="setCurrentCheckIn(checkIn)")
 					.columnOne
 						{{checkIn.checkInWorker}}
 					.columnTwo

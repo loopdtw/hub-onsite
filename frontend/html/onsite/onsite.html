@@ -23,7 +23,7 @@
       </div>
       <div class="module short">
         <div class="body">
-          <div ng-repeat="checkIn in unsyncedCheckins | orderBy:unsyncedPredicate:unsyncedReverse" ng-class="{'active':(checkIn.eventAttendee.id==currentAttendee.id)}" ng-click="setCurrentAttendee(checkIn.eventAttendee)" class="row">
+          <div ng-repeat="checkIn in unsyncedCheckins | orderBy:unsyncedPredicate:unsyncedReverse" ng-class="{'active':(checkIn.id==currentCheckIn.id)}" ng-click="setCurrentCheckIn(checkIn)" class="row">
             <div class="columnOne">{{checkIn.checkInWorker}}</div>
             <div class="columnTwo">{{checkIn.created | date:'HH:mm:ss'}}</div>
             <div class="columnTwo">{{checkIn.eventAttendee.firstname}} {{checkIn.eventAttendee.lastname}}</div>
