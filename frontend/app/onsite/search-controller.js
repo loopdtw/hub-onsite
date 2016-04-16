@@ -55,16 +55,16 @@ angular.module('HubApp')
             $scope.checked = !$scope.checked;
         }
 
-        var setCurrentCheckIn = function(attendee) {
+        var setCurrentCheckIn = function(checkIn) {
             if (!$scope.currentlySyncing) {
-                if ($scope.currentCheckIn.eventAttendee) {
-                    if ($scope.currentCheckIn.eventAttendee.id == attendee.id) {
-                        $scope.currentCheckIn.eventAttendee = null;
+                if ($scope.currentCheckIn) {
+                    if ($scope.currentCheckIn.id == checkIn.id) {
+                        $scope.currentCheckIn = null;
                     } else {
-                        $scope.currentCheckIn.eventAttendee = attendee;
+                        $scope.currentCheckIn = checkIn;
                     }
                 } else {
-                    $scope.currentCheckIn.eventAttendee = attendee;
+                    $scope.currentCheckIn = checkIn;
                 }
             }
         }
@@ -131,7 +131,7 @@ angular.module('HubApp')
         }
 
         var sync = function() {
-            if ($scope.currentCheckIn.eventAttendee && !$scope.currentlySyncing && badgeService.allocatedPeripheralsCount > 0) {
+            if ($scope.currentCheckIn && !$scope.currentlySyncing && badgeService.allocatedPeripheralsCount > 0) {
                 $scope.currentlySyncing = true;
                 badgeService.syncBadge($scope.currentCheckIn.eventAttendee);
             }
@@ -187,9 +187,10 @@ angular.module('HubApp')
         });
 
         $scope.$on('badgeNotFound', function() {
-            $scope.$apply($scope.currentAttendee = null);
+            $scope.$apply($scope.currentCheckIn = null);
             $scope.$apply($scope.currentlySyncing = false);
-     currentCheckIn.event
+        });
+
         $scope.$on('currentBadges', function() {
             $scope.$apply($scope.currentBadgesCount = badgeService.currentBadges.length);
             $scope.$apply($scope.currentAvailableBadgesCount = badgeService.currentAvailableBadges.length);
@@ -216,7 +217,7 @@ angular.module('HubApp')
         /*----------  EXPORT DECLARATIONS  ----------*/
         $scope.search = search;
         $scope.toggleMenu = toggleMenu;
-        $scope.setCurrentAttendee = setCurrentAttendee;
+        $scope.setCurrentCheckIn = setCurrentCheckIn;
         $scope.setCurrentSyncedCheckIn = setCurrentSyncedCheckIn;
         $scope.sendCommand = sendCommand;
         $scope.sync = sync;
