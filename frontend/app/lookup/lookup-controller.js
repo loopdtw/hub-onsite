@@ -73,4 +73,7 @@ angular.module('HubApp')
         $scope.close = close;
         $scope.goToLookup = goToLookup;
         $scope.toggleMenu = toggleMenu;
+        $scope.goToSearch = goToSearch;
+        $scope.goToCheckIn = goToCheckIn;
+        $scope.goToLookup = goToLookup;
 	});
