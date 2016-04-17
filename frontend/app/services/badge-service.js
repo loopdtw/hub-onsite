@@ -1,5 +1,5 @@
 angular.module('HubApp')
-	.factory('badgeService', function($rootScope, $q, $http, utilService, socketService, attendeeService, config) {
+	.factory('badgeService', function($rootScope, $q, $http, utilService, socketService, attendeeService, config, $timeout) {
 		var badgeService = {};
 		var socket = socketService.socket;
 		var socketConnected = false;
@@ -398,7 +398,8 @@ angular.module('HubApp')
 
 		socket.on('disconnect', function() {
 			console.log('socket disconnection!');
-			socket.connect();
+			socketConnected = false;
+			retryConnection();
 		});
 
 		var retryConnection = function() {
