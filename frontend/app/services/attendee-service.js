@@ -153,6 +153,35 @@ angular.module('HubApp')
 			return deferred.promise;
 		}
 
+		var getAttendeeForBadge = function(eventId, identity) {
+			var deferred = $q.defer();
+			var url = config.baseUrl + '/Events/' + eventId + '/eventattendees';
+			console.log(url);
+			$http({
+				method: 'GET',
+				url: url,
+				headers: {
+					'Loopd-Admin-Key': config.authToken
+				},
+				params: {
+					"requestFrom": "WEB",
+					"requestFromId": 123,
+					"badge": identity
+				}
+			}).
+			then(function(res) {
+				if(res.data.length > 0) {
+					deferred.resolve(res.data[0]);
+				} else {
+					deferred.resolve(null);
+				}
+			}, function(data, status, headers, config) {
+				// console.log(data.meta);
+			});
+
+			return deferred.promise;
+		}
+
 		var findAvailableBadgeForAttendee = function(attendee) {
 			attendeeService.currentSyncingAttendee = attendee;
 
@@ -218,6 +247,7 @@ angular.module('HubApp')
 		attendeeService.getAttendeesForEvent = getAttendeesForEvent;
 		attendeeService.setCurrentEvent = setCurrentEvent;
 		attendeeService.getCheckInByEmail = getCheckInByEmail;
+		attendeeService.getAttendeeForBadge = getAttendeeForBadge;		
 
 		return attendeeService;
 	});
