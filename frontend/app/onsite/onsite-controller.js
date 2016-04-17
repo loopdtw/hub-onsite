@@ -175,21 +175,17 @@ angular.module('HubApp')
         }
 
         var completeSync = function(attendee, badge) {
-            console.log('allCheckins', allCheckIns);
             var checkIn = attendeeService.findCheckInForAttendee(attendee, allCheckIns);
-
             if (checkIn) {
                 addBadgeForCheckIn(checkIn, badge);
                 sortCheckIns();
             }
-
             $scope.currentlySyncing = false;
             if ($scope.unsyncedCheckins.length > 0) {
                 $scope.currentCheckIn = $scope.unsyncedCheckins[0];
             } else {
                 $scope.currentCheckIn = null;
             }
-
             alert.play();
             $scope.$apply();
         }
@@ -262,34 +258,12 @@ angular.module('HubApp')
             $scope.$apply();
         });
 
-        $scope.$on('badgeNotFound', function() {
-            $scope.$apply($scope.currentCheckIn = null);
-            $scope.$apply($scope.currentlySyncing = false);
-        });
-
         $scope.$on('currentBadges', function() {
             $scope.$apply($scope.allocatedPeripheralsCount = badgeService.allocatedPeripheralsCount);
         });
 
-        $scope.$on('badgeLookup', function(event, args) {
-            if(!currentlyLooking[args.identity]) {
-                currentlyLooking[args.identity] = 1;
-
-                attendeeService.getAttendeeForBadge($scope.currentEvent, args.identity)
-                    .then(function(attendee) {
-                        console.log(attendee);
-                        delete currentlyLooking[args.identity];
-                        if(attendee) {
-                            $scope.lookedupAttendees[args.identity] = attendee;
-                        } else {
-                            alert('No attendee found for badge!');
-                        }
-                    });
-            }
-        });
-
         /*----------  EXPORT DECLARATIONS  ----------*/
-        $scope.setCurrentCheckIn = setCurrentCheckIn;
+        $scope.setCurrentCheckIn  setCurrentCheckIn;
         $scope.setCurrentSyncedCheckIn = setCurrentSyncedCheckIn;
         $scope.sendCommand = sendCommand;
         $scope.toggleMenu = toggleMenu;
