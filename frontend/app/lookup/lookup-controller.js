@@ -64,7 +64,7 @@ angular.module('HubApp')
         });
 
         var init = function() {
-    		badgeService.triggerLookup();
+    		badgeService.enableLookup();
         }
 
         init();

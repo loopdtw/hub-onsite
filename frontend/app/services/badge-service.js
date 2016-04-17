@@ -332,6 +332,28 @@ angular.module('HubApp')
 			return deferred.promise;
 		}
 
+		//this turns on the trigger functionality
+		var enableLookup = function() {
+			var deferred = $q.defer();
+
+			$http({
+				method: 'POST',
+				url: '/enable-lookup',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}).
+			success(function(data, status, headers, config) {
+				deferred.resolve(data);
+			}).
+			error(function(data, status, headers, config) {
+				deferred.reject(data);
+				console.error(data);
+			});
+
+			return deferred.promise;
+		}
+
 		/*----------  SOCKET LISTENERS  ----------*/
 
 		socket.on('currentStatus', function(data) {
@@ -386,6 +408,13 @@ angular.module('HubApp')
 			$rootScope.$broadcast('badgeNotFound');
 		});
 
+		socket.on('badgeLookup', function(data) {
+			console.log('badge service', 'badge lookup');
+			$rootScope.$broadcast('badgeLookup', {
+				identity: data.identity
+			});
+		});
+
 		socket.on('bulkCommandComplete', function() {
 			badgeService.bulkCommanding = false;
 			$rootScope.$broadcast('bulkCommandComplete');
@@ -422,6 +451,7 @@ angular.module('HubApp')
 		badgeService.allocate = allocate;
 		badgeService.scanForInterval = scanForInterval;
 		badgeService.setRssiThreshold = setRssiThreshold;
+		badgeService.enableLookup = enableLookup;
 
 		return badgeService;
 	});
