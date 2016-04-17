@@ -39,11 +39,11 @@ app.get('/', function(req, res) {
 });
 
 app.get('/lookup', function(req, res) {
-    res.sendFile('onsite/lookup.html', {"root": htmlPath});
+    res.sendFile('lookup/lookup.html', {"root": htmlPath});
 });
 
 app.get('/search', function(req, res) {
-    res.sendFile('onsite/search.html', {"root": htmlPath});
+    res.sendFile('search/search.html', {"root": htmlPath});
 });
 
 var server = app.listen(3000, function() {
