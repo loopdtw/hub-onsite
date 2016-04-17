@@ -273,4 +273,5 @@ angular.module('HubApp')
         $scope.unsync = unsync;
         $scope.goToSearch = goToSearch;
         $scope.goToCheckIn = goToCheckIn;
+        $scope.goToLookup = goToLookup;
     });

@@ -53,7 +53,7 @@ angular.module('HubApp')
         var goToLookup = function() {
             $window.location.href = '/lookup?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
         }
-        
+
         /*----------  FUNC DECLARATIONS  ----------*/
 
         var toggleMenu = function() {
@@ -205,4 +205,5 @@ angular.module('HubApp')
         $scope.unsync = unsync;
         $scope.goToSearch = goToSearch;
         $scope.goToCheckIn = goToCheckIn;
+        $scope.goToLookup = goToLookup;
     });

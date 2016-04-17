@@ -35,7 +35,7 @@ angular.module('HubApp')
 
 
         /*----------  METHODS  ----------*/        
-		$scope.close = function() {
+		var close = function() {
 			$('.badgeInfo').css('display', 'none');
 			$scope.currentAttendee = null;
 			$scope.noAttendeeMessage = null;
@@ -68,4 +68,8 @@ angular.module('HubApp')
         }
 
         init();
+
+        /*----------  EXPORT DECLARATIONS  ----------*/
+        $scope.close = close;
+        $scope.goToLookup = goToLookup;
 	});
