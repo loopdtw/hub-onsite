@@ -72,4 +72,5 @@ angular.module('HubApp')
         /*----------  EXPORT DECLARATIONS  ----------*/
         $scope.close = close;
         $scope.goToLookup = goToLookup;
+        $scope.toggleMenu = toggleMenu;
 	});

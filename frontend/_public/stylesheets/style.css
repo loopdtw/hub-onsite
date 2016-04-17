@@ -685,6 +685,7 @@ input:focus {
     margin-right: 20px; }
 
 #lookup {
+  padding: 20px;
   background: #814696; }
   #lookup .noInfo {
     text-align: center;
