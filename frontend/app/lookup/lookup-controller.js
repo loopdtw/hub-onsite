@@ -1,5 +1,5 @@
 angular.module('HubApp')
-	.controller('LookupController', function($scope, $http, $interval, $q, attendeeService, badgeService, $location, $timeout) {
+	.controller('LookupController', function($scope, $http, $interval, $q, attendeeService, badgeService, $location, $timeout, $window) {
 		$scope.currentEvent = null;
 		$scope.currentAttendee = null;
 		$scope.noAttendeeMessage = null;
