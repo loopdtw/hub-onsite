@@ -50,6 +50,10 @@ angular.module('HubApp')
             $window.location.href = '/onsite/search?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
         }
 
+        var goToLookup = function() {
+            $window.location.href = '/lookup?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
+        }
+        
         /*----------  FUNC DECLARATIONS  ----------*/
 
         var toggleMenu = function() {

@@ -46,11 +46,15 @@ angular.module('HubApp')
         }
 
         var goToCheckIn = function() {
-            $window.location.href = '/onsite?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
+            $window.location.href = '/?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
         }
 
         var goToSearch = function() {
-            $window.location.href = '/onsite/search?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
+            $window.location.href = '/search?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
+        }
+
+        var goToLookup = function() {
+            $window.location.href = '/lookup?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
         }
 
         /*----------  FUNC DECLARATIONS  ----------*/
@@ -199,8 +203,6 @@ angular.module('HubApp')
                     url: '/initial-data'
                 })
                 .then(function(res) {
-                    // $scope.currentEvent = parseInt(res.data.currentEvent);
-                    // $scope.currentWorker = parseInt(res.data.currentWorker);
                     $scope.currentVersion = res.data.currentVersion;
                     $scope.allocationEnabled = res.data.allocationEnabled;
                     deferred.resolve();

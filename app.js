@@ -34,36 +34,16 @@ app.get('/status', function(req,res) {
     res.send(200);
 });
 
-app.get('/badge-state', function(req, res) {
-    res.sendFile('badge-state/badge-state.html', {"root": htmlPath});
-});
-
-app.get('/onsite-demo', function(req, res) {
-    res.sendFile('onsite/onsite-demo.html', {"root": htmlPath});
-});
-
-app.get('/onsite', function(req, res) {
+app.get('/', function(req, res) {
     res.sendFile('onsite/onsite.html', {"root": htmlPath});
 });
 
-app.get('/onsite/lookup', function(req, res) {
+app.get('/lookup', function(req, res) {
     res.sendFile('onsite/lookup.html', {"root": htmlPath});
 });
 
-app.get('/onsite/synced', function(req, res) {
-    res.sendFile('onsite/synced.html', {"root": htmlPath});
-});
-
-app.get('/onsite/search', function(req, res) {
+app.get('/search', function(req, res) {
     res.sendFile('onsite/search.html', {"root": htmlPath});
-});
-
-app.get('/presync', function(req, res) {
-    res.sendFile('presync/presync.html', {"root": htmlPath});
-});
-
-app.get('/duplicates', function(req, res) {
-    res.sendFile('duplicates/duplicates.html', {"root": htmlPath});
 });
 
 var server = app.listen(3000, function() {

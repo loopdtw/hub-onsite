@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="HubApp">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script type="text/javascript" src="/js/vendor/vendor.min.js"></script>
+    <script type="text/javascript" src="/js/vendor/io.js"></script>
+    <script type="text/javascript" src="/js/main.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <div id="lookup" ng-controller="LookupController">
+      <div class="noInfo">
+        <h1 ng-if="!loading">PLACE BADGE HERE</h1>
+        <h1 ng-if="loading">LOOKING...</h1>
+      </div>
+      <div class="badgeInfo">
+        <div ng-if="currentAttendee" class="found">
+          <h2>ATTENDEE INFO</h2>
+          <p><strong>Name:</strong> {{currentAttendee.firstname}} {{currentAttendee.lastname}}</p>
+          <p><strong>Title:</strong> {{currentAttendee.title}}</p>
+          <p><strong>Org:</strong> {{currentAttendee.organization}}</p>
+          <p><strong>Email:</strong> {{currentAttendee.email}}</p>
+        </div>
+        <div ng-if="!currentAttendee" class="notFound">
+          <p>{{noAttendeeMessage}}</p>
+        </div>
+        <div ng-click="close()" class="btn btnShakespeare">CLOSE</div>
+      </div>
+    </div>
+  </body>
+</html>

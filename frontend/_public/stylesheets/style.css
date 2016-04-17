@@ -684,6 +684,44 @@ input:focus {
     width: 300px;
     margin-right: 20px; }
 
+#lookup {
+  background: #814696; }
+  #lookup .noInfo {
+    text-align: center;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -150px;
+    margin-top: -150px; }
+  #lookup .badgeInfo {
+    display: none;
+    border-radius: 10px;
+    text-align: center;
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -250px;
+    margin-top: -250px;
+    background: white;
+    color: #292D35; }
+    #lookup .badgeInfo h2 {
+      margin-bottom: 20px; }
+    #lookup .badgeInfo p {
+      font-size: 1.5em; }
+    #lookup .badgeInfo .notFound {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%); }
+    #lookup .badgeInfo .btn {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      margin-left: -70px; }
+
 #badgeState .bulkCommandContainer label {
   margin-left: 20px; }
 

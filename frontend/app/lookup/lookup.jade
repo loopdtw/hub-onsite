@@ -1,0 +1,18 @@
+extends ../../_views/layout
+
+block content
+	#lookup(ng-controller="LookupController")
+		include ./menu
+		.noInfo
+			h1(ng-if="!loading") PLACE BADGE HERE
+			h1(ng-if="loading") LOOKING...
+		.badgeInfo
+			.found(ng-if="currentAttendee")
+				h2 ATTENDEE INFO
+				p <strong>Name:</strong> {{currentAttendee.firstname}} {{currentAttendee.lastname}}
+				p <strong>Title:</strong> {{currentAttendee.title}}
+				p <strong>Org:</strong> {{currentAttendee.organization}}
+				p <strong>Email:</strong> {{currentAttendee.email}}
+			.notFound(ng-if="!currentAttendee")
+				p {{noAttendeeMessage}}
+			.btn.btnShakespeare(ng-click="close()") CLOSE
