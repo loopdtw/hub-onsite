@@ -2,14 +2,9 @@ angular.module('HubApp')
     .controller('searchController', function($scope, $http, $timeout, $q, utilService, socketService, badgeService, attendeeService, $location, $window) {
 
         /*----------  VAR DECLARATIONS  ----------*/
-
-        var existingBadges = [];
-        var lightBadges = [];
-        var allCheckIns = [];
         var alert = new Audio('/audio/alert.mp3');
 
         /*----------  SCOPE VAR DECLARATIONS  ----------*/
-
         $scope.currentEvent = null;
         $scope.currentCheckIn = null;
         $scope.currentSyncedCheckIn = null;
@@ -17,25 +12,18 @@ angular.module('HubApp')
         $scope.currentlyUnsyncing = false;
 
         //search
-        var searchResults = null;
         $scope.searchTerm = null;
+
+        var searchResults = [];
         $scope.currentlySearching = false;
         $scope.syncedSearchResults = [];
         $scope.unsyncedSearchResults = [];
-
-        //checkin arrays
-        $scope.unsyncedCheckins = [];
-        $scope.syncedCheckins = [];
-        $scope.seenSyncedCheckins = [];
 
         //counts
         $scope.allocatedBadgesCount = 0;
 
         //menu
         $scope.checked = false;
-
-        //allocation
-        $scope.isAllocating = false;
 
         //url location
         $scope.location = $location;
@@ -119,12 +107,12 @@ angular.module('HubApp')
                     .then(function(data) {
                         $scope.currentlySearching = false;
                         searchResults = data.data;
-                        sortSearchResults();
+                        processSearchResults();
                     });
             }
         }
 
-        var sortSearchResults = function() {
+        var processSearchResults = function() {
             $scope.syncedSearchResults = [];
             $scope.unsyncedSearchResults = [];
             
@@ -157,7 +145,7 @@ angular.module('HubApp')
                 badgeService.unsyncBadge($scope.currentSyncedCheckIn.eventAttendee, $scope.currentSyncedCheckIn.badge)
                     .then(function() {
                         removeBadgeForCheckIn($scope.currentSyncedCheckIn);
-                        sortSearchResults();
+                        processSearchResults();
 
                         var existingAttendeeBadges = {};
                         searchResults.forEach(function(checkIn) {
@@ -181,7 +169,7 @@ angular.module('HubApp')
             if (checkIn) {
                 addBadgeForCheckIn(checkIn, args.badge);
                 console.log('check', checkIn);
-                sortSearchResults();
+                processSearchResults();
             }
 
             $scope.currentlySyncing = false;
@@ -199,32 +187,8 @@ angular.module('HubApp')
             $scope.$apply();
         });
 
-        $scope.$on('badgeNotFound', function() {
-            $scope.$apply($scope.currentCheckIn = null);
-            $scope.$apply($scope.currentlySyncing = false);
-        });
-
         $scope.$on('currentBadges', function() {
-            $scope.$apply($scope.currentBadgesCount = badgeService.currentBadges.length);
-            $scope.$apply($scope.currentAvailableBadgesCount = badgeService.currentAvailableBadges.length);
             $scope.$apply($scope.allocatedPeripheralsCount = badgeService.allocatedPeripheralsCount);
-            $scope.$apply($scope.availablePeripheralsCount = badgeService.availablePeripheralsCount);
-        });
-
-        $scope.$on('badgeLookup', function(event, args) {
-            if(!currentlyLooking[args.identity]) {
-                currentlyLooking[args.identity] = 1;
-
-                attendeeService.getAttendeeForBadge($scope.currentEvent, args.identity)
-                    .then(function(attendee) {
-                        delete currentlyLooking[args.identity];
-                        if(attendee) {
-                            $scope.lookedupAttendees[args.identity] = attendee;
-                        } else {
-                            alert('No attendee found for badge!');
-                        }
-                    });
-            }
         });
 
         /*----------  EXPORT DECLARATIONS  ----------*/

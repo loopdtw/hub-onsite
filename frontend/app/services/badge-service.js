@@ -2,6 +2,7 @@ angular.module('HubApp')
 	.factory('badgeService', function($rootScope, $q, $http, utilService, socketService, attendeeService, config) {
 		var badgeService = {};
 		var socket = socketService.socket;
+		var socketConnected = false;
 
 		/*----------  VAR DECLARATIONS  ----------*/
 
@@ -392,12 +393,23 @@ angular.module('HubApp')
 
 		socket.on('connect', function() {
 			console.log("socket connection");
+			socketConnected = true;
 		});
 
 		socket.on('disconnect', function() {
 			console.log('socket disconnection!');
 			socket.connect();
 		});
+
+		var retryConnection = function() {
+			if(!socketConnected) {
+				socket.connect();
+			}
+
+			$timeout(function() {
+				retryConnection();
+			}, 1000);
+		}
 
 		/*----------  EXPORT DECLARATIONS  ----------*/
 		badgeService.reset = reset;
