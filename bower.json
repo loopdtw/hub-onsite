@@ -24,7 +24,8 @@
     "humane-js": "~3.2.2",
     "angular-pageslide-directive": "ng-pageslide#^1.0.8",
     "angular-touch": "^1.5.0",
-    "angular-duration-format": "^1.0.0"
+    "angular-duration-format": "^1.0.0",
+    "jquery": "^2.2.3"
   },
   "overrides": {
     "socket.io": {
