@@ -2,7 +2,7 @@ extends ../../_views/layout
 
 block content
 	#onsite(ng-controller="searchController")
-		include ./menu
+		include ../partials/menu
 		h2 SEARCH
 		input.searchInput(type="text" placeholder="Please type search term." ng-model="searchTerm")
 		.btn.btnShakespeare(ng-click="search()")

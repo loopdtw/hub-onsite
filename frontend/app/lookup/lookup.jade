@@ -2,7 +2,7 @@ extends ../../_views/layout
 
 block content
 	#lookup(ng-controller="LookupController")
-		include ./menu
+		include ../partials/menu
 		.noInfo
 			h1(ng-if="!loading") PLACE BADGE HERE
 			h1(ng-if="loading") LOOKING...
