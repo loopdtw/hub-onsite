@@ -8,7 +8,7 @@ angular.module('HubApp')
 
 		/**
 		 * Description: get check-in records based on current event and check-in service
-		 * 
+		 *
 		 * @param  {Number} eventId        , the event id
 		 * @param  {String} checkInService , the check-in service name
 		 * @param  {Number} workerId       , the check-in worker id (optional)
@@ -68,15 +68,17 @@ angular.module('HubApp')
 			return deferred.promise;
 		};
 
+
 		var getCheckIns = function(eventId, workerId, keyword) {
 			var deferred = $q.defer();
-			var url = config.baseUrl + '/checkins/providers/boomset/workers/' + workerId;
+			var url = config.baseUrl + '/onsite/attendees';
 			$http({
 				method: 'GET',
 				url: url,
 				params: {
 					"eventId": eventId,
-					"fromTime": "0"
+					"checkInWorker": workerId,
+					"isCheckIn": true
 				}
 			}).
 			then(function(res) {
@@ -88,10 +90,9 @@ angular.module('HubApp')
 			return deferred.promise;
 		}
 
-		var searchCheckIns = function(eventId, keyword) {
+		var searchAttendees = function(eventId, keyword) {
 			var deferred = $q.defer();
-			var url = config.baseUrl + '/checkins/search';
-			console.log(url);
+			var url = config.baseUrl + '/onsite/attendees/search';
 			$http({
 				method: 'GET',
 				url: url,
@@ -243,11 +244,11 @@ angular.module('HubApp')
 		attendeeService.getCheckIns = getCheckIns;
 		attendeeService.getCheckInRecords = getCheckInRecords;
 		attendeeService.findCheckInForAttendee = findCheckInForAttendee;
-		attendeeService.searchCheckIns = searchCheckIns;
+		attendeeService.searchAttendees = searchAttendees;
 		attendeeService.getAttendeesForEvent = getAttendeesForEvent;
 		attendeeService.setCurrentEvent = setCurrentEvent;
 		attendeeService.getCheckInByEmail = getCheckInByEmail;
-		attendeeService.getAttendeeForBadge = getAttendeeForBadge;		
+		attendeeService.getAttendeeForBadge = getAttendeeForBadge;
 
 		return attendeeService;
 	});

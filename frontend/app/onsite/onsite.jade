@@ -3,7 +3,7 @@ extends ../../_views/layout
 block content
 	#onsite(ng-controller="onsiteController")
 		include ../partials/menu
-		h2 CHECKINS ( {{unsyncedCheckins.length}} )
+		h2 CHECKINS
 		.header
 			.columnOne Kiosk
 			.columnTwo Checkin Time
@@ -11,15 +11,15 @@ block content
 			.columnFour Email
 		.module.short
 			.body
-				.row(ng-repeat="checkIn in unsyncedCheckins | orderBy:unsyncedPredicate:unsyncedReverse" ng-class="{'active':(checkIn.id==currentCheckIn.id)}" ng-click="setCurrentCheckIn(checkIn)")
+				.row(ng-repeat="attendee in unsyncedAttendees" ng-class="{'active':(attendee.id==currentAttendee.id)}" ng-click="setCurrentAttendee(attendee)")
 					.columnOne
-						{{checkIn.checkInWorker}}
+						{{attendee.checkIn.checkInWorker}}
 					.columnTwo
-						{{checkIn.created | date:'HH:mm:ss'}}
+						{{attendee.checkIn.created | date:'HH:mm:ss'}}
 					.columnTwo
-						{{checkIn.eventAttendee.firstname}} {{checkIn.eventAttendee.lastname}}
+						{{attendee.firstname}} {{attendee.lastname}}
 					.columnFour
-						{{checkIn.eventAttendeeEmail}}
+						{{attendee.email}}
 		h3 Status: <em>{{currentStatus}}</em>
 		h3 Badges: {{allocatedPeripheralsCount}}
 		.btn.btnShakespeare.actionButton(ng-click="sync()" ng-class="{'disabled':!currentCheckIn || isScanning || allocatedPeripheralsCount < 1 || currentlySyncing}")
@@ -33,16 +33,16 @@ block content
 			.columnFour(ng-click="orderSynced('badge.timeSynced')") Email
 		.module.short
 			.body
-				.row(ng-repeat="checkIn in syncedCheckins | orderBy:syncedPredicate:syncedReverse" ng-click="setCurrentSyncedCheckIn(checkIn)" ng-class="{'active':(checkIn.id == currentSyncedCheckIn.id)}")
+				.row(ng-repeat="attendee in syncedAttendees" ng-click="setCurrentSyncedAttendee(attendee)" ng-class="{'active':(currentSyncedAttendee.id == attendee.id)}")
 					.columnOne
-						{{checkIn.checkInWorker}}
+						{{attendee.checkIn.checkInWorker}}
 					.columnTwo
-						{{checkIn.badge.syncTime | date:'HH:mm:ss'}}
+						{{attendee.badge.syncTime | date:'HH:mm:ss'}}
 					.columnTwo
-						{{checkIn.eventAttendee.firstname}} {{checkIn.eventAttendee.lastname}}
+						{{attendee.firstname}} {{attendee.lastname}}
 					.columnFour
-						{{checkIn.eventAttendeeEmail}}
-		.btn.btnShakespeare.actionButton(ng-class="{'disabled':!currentSyncedCheckIn || currentlySyncing || currentlyUnsyncing}" ng-click="sendCommand('f70102')") BLINK
-		.btn.btnRed.actionButton(ng-class="{'disabled':!currentSyncedCheckIn || currentlyUnsyncing || currentlySyncing}" ng-click='unsync()')
+						{{attendee.email}}
+		.btn.btnShakespeare.actionButton(ng-class="{'disabled':!currentSyncedAttendee || currentlySyncing || currentlyUnsyncing}" ng-click="sendCommand('f70102')") BLINK
+		.btn.btnRed.actionButton(ng-class="{'disabled':!currentSyncedAttendee || currentlyUnsyncing || currentlySyncing}" ng-click='unsync()')
 			span(ng-if="!currentlyUnsyncing") UNSYNC
 			span(ng-if="currentlyUnsyncing") UNSYNCING...

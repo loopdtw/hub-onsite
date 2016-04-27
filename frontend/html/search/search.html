@@ -19,18 +19,18 @@
       <div ng-click="search()" class="btn btnShakespeare"><span ng-if="!currentlySearching">SEARCH</span><span ng-if="currentlySearching">SEARCHING...</span></div>
       <h2>UNSYNCED ( {{unsyncedCheckins.length}} )</h2>
       <div class="header">
-        <div ng-click="orderUnsynced('workerId')" class="clickable columnOne">Kiosk</div>
-        <div ng-click="orderUnsynced('created')" class="clickable columnTwo">Checkin Time</div>
-        <div ng-click="orderUnsynced('firstname')" class="clickable columnTwo">Full Name</div>
-        <div ng-click="orderUnsynced('eventAttendeeEmail')" class="clickable columnFour">Email</div>
+        <div class="clickable columnOne">Kiosk</div>
+        <div class="clickable columnTwo">Checkin Time</div>
+        <div class="clickable columnTwo">Full Name</div>
+        <div class="clickable columnFour">Email</div>
       </div>
       <div class="module short">
         <div class="body">
-          <div ng-repeat="checkIn in unsyncedSearchResults | orderBy:unsyncedPredicate:unsyncedReverse" ng-class="{'active':(checkIn.id==currentCheckIn.id)}" ng-click="setCurrentCheckIn(checkIn)" class="row">
-            <div class="columnOne">{{checkIn.checkInWorker}}</div>
-            <div class="columnTwo">{{checkIn.created | date:'HH:mm:ss'}}</div>
-            <div class="columnTwo">{{checkIn.eventAttendee.firstname}} {{checkIn.eventAttendee.lastname}}</div>
-            <div class="columnFour">{{checkIn.eventAttendeeEmail}}</div>
+          <div ng-repeat="attendee in unsyncedSearchResults" ng-class="{'active':(attendee.id==currentAttendee.id)}" ng-click="setCurrentAttendee(attendee)" class="row">
+            <div class="columnOne">{{attendee.checkIn.checkInWorker}}</div>
+            <div class="columnTwo">{{attendee.created | date:'HH:mm:ss'}}</div>
+            <div class="columnTwo">{{attendee.firstname}} {{attendee.lastname}}</div>
+            <div class="columnFour">{{attendee.email}}</div>
           </div>
         </div>
       </div>
@@ -39,24 +39,24 @@
       <div ng-click="sync()" ng-class="{'disabled':!currentCheckIn || isScanning || allocatedPeripheralsCount &lt; 1 || currentlySyncing}" class="btn btnShakespeare actionButton"><span ng-if="!currentlySyncing">SYNC</span><span ng-if="currentlySyncing">SYNCING...</span></div>
       <h2>SYNCED</h2>
       <div class="header">
-        <div ng-click="orderSynced('workerId')" class="clickable columnOne">Kiosk</div>
-        <div ng-click="orderUnsynced('created')" class="clickable columnTwo">Checkin Time</div>
-        <div ng-click="orderSynced('badge.syncTime')" class="clickable columnTwo">Sync Time</div>
-        <div ng-click="orderSynced('eventAttendee.firstname')" class="clickable columnTwo">Full Name</div>
-        <div ng-click="orderSynced('badge.timeSynced')" class="clickable columnFour">Email</div>
+        <div class="clickable columnOne">Kiosk</div>
+        <div class="clickable columnTwo">Checkin Time</div>
+        <div class="clickable columnTwo">Sync Time</div>
+        <div class="clickable columnTwo">Full Name</div>
+        <div class="clickable columnFour">Email</div>
       </div>
-      <div class="module">
+      <div class="module short">
         <div class="body">
-          <div ng-repeat="checkIn in syncedSearchResults" ng-click="setCurrentSyncedCheckIn(checkIn)" ng-class="{'active':(checkIn.id==currentSyncedCheckIn.id)}" class="row">
-            <div class="columnOne">{{checkIn.checkInWorker}}</div>
-            <div class="columnTwo">{{checkIn.created | date:'MM/dd HH:mm:ss'}}</div>
-            <div class="columnTwo">{{checkIn.badge.syncTime | date:'MM/dd HH:mm:ss'}}</div>
-            <div class="columnTwo">{{checkIn.eventAttendee.firstname}} {{checkIn.eventAttendee.lastname}}</div>
-            <div class="columnFour">{{checkIn.eventAttendeeEmail}}</div>
+          <div ng-repeat="attendee in syncedSearchResults" ng-click="setCurrentSyncedAttendee(attendee)" ng-class="{'active':(attendee.id==currentSyncedAttendee.id)}" class="row">
+            <div class="columnOne">{{attendee.checkIn.checkInWorker}}</div>
+            <div class="columnTwo">{{attendee.created | date:'MM/dd HH:mm:ss'}}</div>
+            <div class="columnTwo">{{attendee.badge.syncTime | date:'MM/dd HH:mm:ss'}}</div>
+            <div class="columnTwo">{{attendee.firstname}} {{attendee.lastname}}</div>
+            <div class="columnFour">{{attendee.email}}</div>
           </div>
         </div>
       </div>
-      <div ng-class="{'disabled':!currentSyncedCheckIn}" ng-click="unsync()" class="btn btnRed actionButton"><span ng-if="!currentlyUnsyncing">UNSYNC</span><span ng-if="currentlyUnsyncing">UNSYNCING...</span></div>
+      <div ng-class="{'disabled':!currentSyncedAttendee}" ng-click="unsync()" class="btn btnRed actionButton"><span ng-if="!currentlyUnsyncing">UNSYNC</span><span ng-if="currentlyUnsyncing">UNSYNCING...</span></div>
     </div>
   </body>
 </html>

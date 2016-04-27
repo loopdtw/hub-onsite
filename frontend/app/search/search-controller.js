@@ -5,9 +5,10 @@ angular.module('HubApp')
         var alert = new Audio('/audio/alert.mp3');
 
         /*----------  SCOPE VAR DECLARATIONS  ----------*/
-        $scope.currentEvent = null;
-        $scope.currentCheckIn = null;
-        $scope.currentSyncedCheckIn = null;
+        $scope.eventId = null;
+        $scope.checkInWorker = null;
+        $scope.currentAttendee = null;
+        $scope.currentSyncedAttendee = null;
         $scope.currentlySyncing = false;
         $scope.currentlyUnsyncing = false;
 
@@ -28,13 +29,13 @@ angular.module('HubApp')
         //url location
         $scope.location = $location;
         $scope.$watch('location.search()', function() {
-            $scope.currentEvent = ($location.search()).currentEvent;
-            $scope.currentWorker = ($location.search()).currentWorker;
+            $scope.eventId = ($location.search()).eventId;
+            $scope.checkInWorker = ($location.search()).checkInWorker;
         }, true);
 
         $scope.changeTarget = function(name) {
-            $location.search('currentEvent', name);
-            $location.search('currentWorker', name);
+            $location.search('eventId', name);
+            $location.search('checkInWorker', name);
         }
 
         /*----------  MENU  ----------*/
@@ -43,15 +44,15 @@ angular.module('HubApp')
         }
 
         var goToCheckIn = function() {
-            $window.location.href = '/?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
+            $window.location.href = '/?eventId='+$scope.eventId+'&checkInWorker='+$scope.checkInWorker
         }
 
         var goToSearch = function() {
-            $window.location.href = '/search?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
+            $window.location.href = '/search?eventId='+$scope.eventId+'&checkInWorker='+$scope.checkInWorker
         }
 
         var goToLookup = function() {
-            $window.location.href = '/lookup?currentEvent='+$scope.currentEvent+'&currentWorker='+$scope.currentWorker
+            $window.location.href = '/lookup?eventId='+$scope.eventId+'&checkInWorker='+$scope.checkInWorker
         }
 
         /*----------  FUNC DECLARATIONS  ----------*/
@@ -60,46 +61,46 @@ angular.module('HubApp')
             $scope.checked = !$scope.checked;
         }
 
-        var setCurrentCheckIn = function(checkIn) {
+        var setCurrentAttendee = function(attendee) {
             if (!$scope.currentlySyncing) {
-                if ($scope.currentCheckIn) {
-                    if ($scope.currentCheckIn.id == checkIn.id) {
-                        $scope.currentCheckIn = null;
+                if ($scope.currentAttendee) {
+                    if ($scope.currentAttendee.id == attendee.id) {
+                        $scope.currentAttendee = null;
                     } else {
-                        $scope.currentCheckIn = checkIn;
+                        $scope.currentAttendee = attendee;
                     }
                 } else {
-                    $scope.currentCheckIn = checkIn;
+                    $scope.currentAttendee = attendee;
                 }
             }
         }
 
-        var setCurrentSyncedCheckIn = function(checkIn) {
+        var setCurrentSyncedCheckIn = function(attendee) {
             if (!$scope.currentlyUnsyncing) {
-                if ($scope.currentSyncedCheckIn) {
-                    if ($scope.currentSyncedCheckIn.id == checkIn.id) {
-                        $scope.currentSyncedCheckIn = null;
+                if ($scope.currentSyncedAttendee) {
+                    if ($scope.currentSyncedAttendee.id == attendee.id) {
+                        $scope.currentSyncedAttendee = null;
                     } else {
-                        $scope.currentSyncedCheckIn = checkIn;
+                        $scope.currentSyncedAttendee = attendee;
                     }
                 } else {
-                    $scope.currentSyncedCheckIn = checkIn;
+                    $scope.currentSyncedAttendee = attendee;
                 }
             }
         }
 
-        var removeBadgeForCheckIn = function(checkInTemp) {
-            searchResults.forEach(function(checkIn) {
-                if (checkIn.id == checkInTemp.id) {
-                    checkIn.badge = null;
+        var removeBadgeForAttendee = function(attendeeTemp) {
+            searchResults.forEach(function(attendee) {
+                if (attendee.id == attendeeTemp.id) {
+                    attendee.badge = null;
                 }
             });
         }
 
-        var addBadgeForCheckIn = function(checkInTemp, badge) {
-            searchResults.forEach(function(checkIn) {
-                if (checkIn.id == checkInTemp.id) {
-                    checkIn.badge = badge;
+        var addBadgeForAttendee = function(attendeeTemp, badge) {
+            searchResults.forEach(function(attendee) {
+                if (attendee.id == attendeeTemp.id) {
+                    attendee.badge = badge;
                 }
             });
         }
@@ -107,7 +108,7 @@ angular.module('HubApp')
         var search = function() {
             if (search && search !== "") {
                 $scope.currentlySearching = true;
-                attendeeService.searchCheckIns($scope.currentEvent, $scope.searchTerm)
+                attendeeService.searchAttendees($scope.eventId, $scope.searchTerm)
                     .then(function(data) {
                         $scope.currentlySearching = false;
                         searchResults = data.data;
@@ -119,7 +120,7 @@ angular.module('HubApp')
         var processSearchResults = function() {
             $scope.syncedSearchResults = [];
             $scope.unsyncedSearchResults = [];
-            
+
             searchResults.forEach(function(result) {
                 if(result.badge) {
                     $scope.syncedSearchResults.push(result);
@@ -130,29 +131,29 @@ angular.module('HubApp')
         }
 
         var sendCommand = function(command) {
-            if ($scope.currentSyncedCheckIn.badge) {
-                badgeService.sendCommand($scope.currentSyncedCheckIn.badge, command);
+            if ($scope.currentSyncedAttendee.badge) {
+                badgeService.sendCommand($scope.currentSyncedAttendee.badge, command);
             }
         }
 
         var sync = function() {
-            if ($scope.currentCheckIn && !$scope.currentlySyncing && badgeService.allocatedPeripheralsCount > 0) {
+            if ($scope.currentAttendee && !$scope.currentlySyncing && badgeService.allocatedPeripheralsCount > 0) {
                 $scope.currentlySyncing = true;
-                badgeService.syncBadge($scope.currentCheckIn.eventAttendee);
+                badgeService.syncBadge($scope.currentAttendee.eventAttendee);
             }
         }
 
         var unsync = function() {
-            if (!$scope.currentlyUnsyncing && $scope.currentSyncedCheckIn && $scope.currentSyncedCheckIn.badge) {
+            if (!$scope.currentlyUnsyncing && $scope.currentSyncedAttendee && $scope.currentSyncedAttendee.badge) {
                 $scope.currentlyUnsyncing = true;
                 var existingAttendeeBadges = {};
-                badgeService.unsyncBadge($scope.currentSyncedCheckIn.eventAttendee, $scope.currentSyncedCheckIn.badge)
+                badgeService.unsyncBadge($scope.currentSyncedAttendee, $scope.currentSyncedAttendee.badge)
                     .then(function() {
-                        removeBadgeForCheckIn($scope.currentSyncedCheckIn);
+                        removeBadgeForAttendee($scope.currentSyncedAttendee);
                         processSearchResults();
 
                         var existingAttendeeBadges = {};
-                        searchResults.forEach(function(checkIn) {
+                        searchResults.forEach(function(attendee) {
                             if (checkIn.badge) {
                                 var uniqueId = checkIn.badge.identity + checkIn.badge.macAddress;
                                 existingAttendeeBadges[uniqueId] = checkIn.badge;
@@ -160,7 +161,7 @@ angular.module('HubApp')
                         });
                         badgeService.updateExistingAttendeeBadges(existingAttendeeBadges);
 
-                        $scope.currentSyncedCheckIn = null;
+                        $scope.currentSyncedAttendee = null;
                         $scope.currentlyUnsyncing = false;
                     });
             }
@@ -169,10 +170,8 @@ angular.module('HubApp')
         /*----------  EVENT LISTENERS  ----------*/
 
         $scope.$on('badgeSynced', function(event, args) {
-            var checkIn = attendeeService.findCheckInForAttendee(args.attendee, $scope.unsyncedSearchResults);
-            if (checkIn) {
-                addBadgeForCheckIn(checkIn, args.badge);
-                console.log('check', checkIn);
+            if (attendee) {
+                addBadgeForAttendee(args.attendee, args.badge);
                 processSearchResults();
             }
 
@@ -198,7 +197,7 @@ angular.module('HubApp')
         /*----------  EXPORT DECLARATIONS  ----------*/
         $scope.search = search;
         $scope.toggleMenu = toggleMenu;
-        $scope.setCurrentCheckIn = setCurrentCheckIn;
+        $scope.setCurrentAttendee = setCurrentAttendee;
         $scope.setCurrentSyncedCheckIn = setCurrentSyncedCheckIn;
         $scope.sendCommand = sendCommand;
         $scope.sync = sync;

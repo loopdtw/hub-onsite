@@ -14,7 +14,7 @@
       <pageslide ps-side="left" ps-open="checked">
         <div><a href="#" ng-click="goToCheckIn()">CHECKIN</a><a href="#" ng-click="goToSearch()">SEARCH</a><a href="#" ng-click="goToLookup()">LOOK UP</a></div>
       </pageslide>
-      <h2>CHECKINS ( {{unsyncedCheckins.length}} )</h2>
+      <h2>CHECKINS</h2>
       <div class="header">
         <div class="columnOne">Kiosk</div>
         <div class="columnTwo">Checkin Time</div>
@@ -23,11 +23,11 @@
       </div>
       <div class="module short">
         <div class="body">
-          <div ng-repeat="checkIn in unsyncedCheckins | orderBy:unsyncedPredicate:unsyncedReverse" ng-class="{'active':(checkIn.id==currentCheckIn.id)}" ng-click="setCurrentCheckIn(checkIn)" class="row">
-            <div class="columnOne">{{checkIn.checkInWorker}}</div>
-            <div class="columnTwo">{{checkIn.created | date:'HH:mm:ss'}}</div>
-            <div class="columnTwo">{{checkIn.eventAttendee.firstname}} {{checkIn.eventAttendee.lastname}}</div>
-            <div class="columnFour">{{checkIn.eventAttendeeEmail}}</div>
+          <div ng-repeat="attendee in unsyncedAttendees" ng-class="{'active':(attendee.id==currentAttendee.id)}" ng-click="setCurrentAttendee(attendee)" class="row">
+            <div class="columnOne">{{attendee.checkIn.checkInWorker}}</div>
+            <div class="columnTwo">{{attendee.checkIn.created | date:'HH:mm:ss'}}</div>
+            <div class="columnTwo">{{attendee.firstname}} {{attendee.lastname}}</div>
+            <div class="columnFour">{{attendee.email}}</div>
           </div>
         </div>
       </div>
@@ -43,16 +43,16 @@
       </div>
       <div class="module short">
         <div class="body">
-          <div ng-repeat="checkIn in syncedCheckins | orderBy:syncedPredicate:syncedReverse" ng-click="setCurrentSyncedCheckIn(checkIn)" ng-class="{'active':(checkIn.id == currentSyncedCheckIn.id)}" class="row">
-            <div class="columnOne">{{checkIn.checkInWorker}}</div>
-            <div class="columnTwo">{{checkIn.badge.syncTime | date:'HH:mm:ss'}}</div>
-            <div class="columnTwo">{{checkIn.eventAttendee.firstname}} {{checkIn.eventAttendee.lastname}}</div>
-            <div class="columnFour">{{checkIn.eventAttendeeEmail}}</div>
+          <div ng-repeat="attendee in syncedAttendees" ng-click="setCurrentSyncedAttendee(attendee)" ng-class="{'active':(currentSyncedAttendee.id == attendee.id)}" class="row">
+            <div class="columnOne">{{attendee.checkIn.checkInWorker}}</div>
+            <div class="columnTwo">{{attendee.badge.syncTime | date:'HH:mm:ss'}}</div>
+            <div class="columnTwo">{{attendee.firstname}} {{attendee.lastname}}</div>
+            <div class="columnFour">{{attendee.email}}</div>
           </div>
         </div>
       </div>
-      <div ng-class="{'disabled':!currentSyncedCheckIn || currentlySyncing || currentlyUnsyncing}" ng-click="sendCommand('f70102')" class="btn btnShakespeare actionButton">BLINK</div>
-      <div ng-class="{'disabled':!currentSyncedCheckIn || currentlyUnsyncing || currentlySyncing}" ng-click="unsync()" class="btn btnRed actionButton"><span ng-if="!currentlyUnsyncing">UNSYNC</span><span ng-if="currentlyUnsyncing">UNSYNCING...</span></div>
+      <div ng-class="{'disabled':!currentSyncedAttendee || currentlySyncing || currentlyUnsyncing}" ng-click="sendCommand('f70102')" class="btn btnShakespeare actionButton">BLINK</div>
+      <div ng-class="{'disabled':!currentSyncedAttendee || currentlyUnsyncing || currentlySyncing}" ng-click="unsync()" class="btn btnRed actionButton"><span ng-if="!currentlyUnsyncing">UNSYNC</span><span ng-if="currentlyUnsyncing">UNSYNCING...</span></div>
     </div>
   </body>
 </html>

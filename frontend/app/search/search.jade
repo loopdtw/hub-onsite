@@ -10,21 +10,21 @@ block content
 			span(ng-if="currentlySearching") SEARCHING...
 		h2 UNSYNCED ( {{unsyncedCheckins.length}} )
 		.header
-			.clickable.columnOne(ng-click="orderUnsynced('workerId')") Kiosk
-			.clickable.columnTwo(ng-click="orderUnsynced('created')") Checkin Time
-			.clickable.columnTwo(ng-click="orderUnsynced('firstname')") Full Name
-			.clickable.columnFour(ng-click="orderUnsynced('eventAttendeeEmail')") Email
+			.clickable.columnOne Kiosk
+			.clickable.columnTwo Checkin Time
+			.clickable.columnTwo Full Name
+			.clickable.columnFour Email
 		.module.short
 			.body
-				.row(ng-repeat="checkIn in unsyncedSearchResults | orderBy:unsyncedPredicate:unsyncedReverse" ng-class="{'active':(checkIn.id==currentCheckIn.id)}" ng-click="setCurrentCheckIn(checkIn)")
+				.row(ng-repeat="attendee in unsyncedSearchResults" ng-class="{'active':(attendee.id==currentAttendee.id)}" ng-click="setCurrentAttendee(attendee)")
 					.columnOne
-						{{checkIn.checkInWorker}}
+						{{attendee.checkIn.checkInWorker}}
 					.columnTwo
-						{{checkIn.created | date:'HH:mm:ss'}}
+						{{attendee.created | date:'HH:mm:ss'}}
 					.columnTwo
-						{{checkIn.eventAttendee.firstname}} {{checkIn.eventAttendee.lastname}}
+						{{attendee.firstname}} {{attendee.lastname}}
 					.columnFour
-						{{checkIn.eventAttendeeEmail}}
+						{{attendee.email}}
 		h3 Status: <em>{{currentStatus}}</em>
 		h3 Allocated badges: {{allocatedPeripheralsCount}}
 		.btn.btnShakespeare.actionButton(ng-click="sync()" ng-class="{'disabled':!currentCheckIn || isScanning || allocatedPeripheralsCount < 1 || currentlySyncing}")
@@ -32,24 +32,24 @@ block content
 			span(ng-if="currentlySyncing") SYNCING...
 		h2 SYNCED
 		.header
-			.clickable.columnOne(ng-click="orderSynced('workerId')") Kiosk
-			.clickable.columnTwo(ng-click="orderUnsynced('created')") Checkin Time
-			.clickable.columnTwo(ng-click="orderSynced('badge.syncTime')") Sync Time
-			.clickable.columnTwo(ng-click="orderSynced('eventAttendee.firstname')") Full Name
-			.clickable.columnFour(ng-click="orderSynced('badge.timeSynced')") Email
-		.module
+			.clickable.columnOne Kiosk
+			.clickable.columnTwo Checkin Time
+			.clickable.columnTwo Sync Time
+			.clickable.columnTwo Full Name
+			.clickable.columnFour Email
+		.module.short
 			.body
-				.row(ng-repeat="checkIn in syncedSearchResults" ng-click="setCurrentSyncedCheckIn(checkIn)" ng-class="{'active':(checkIn.id==currentSyncedCheckIn.id)}")
+				.row(ng-repeat="attendee in syncedSearchResults" ng-click="setCurrentSyncedAttendee(attendee)" ng-class="{'active':(attendee.id==currentSyncedAttendee.id)}")
 					.columnOne
-						{{checkIn.checkInWorker}}
+						{{attendee.checkIn.checkInWorker}}
 					.columnTwo
-						{{checkIn.created | date:'MM/dd HH:mm:ss'}}
+						{{attendee.created | date:'MM/dd HH:mm:ss'}}
 					.columnTwo
-						{{checkIn.badge.syncTime | date:'MM/dd HH:mm:ss'}}
+						{{attendee.badge.syncTime | date:'MM/dd HH:mm:ss'}}
 					.columnTwo
-						{{checkIn.eventAttendee.firstname}} {{checkIn.eventAttendee.lastname}}
+						{{attendee.firstname}} {{attendee.lastname}}
 					.columnFour
-						{{checkIn.eventAttendeeEmail}}
-		.btn.btnRed.actionButton(ng-class="{'disabled':!currentSyncedCheckIn}" ng-click='unsync()')
+						{{attendee.email}}
+		.btn.btnRed.actionButton(ng-class="{'disabled':!currentSyncedAttendee}" ng-click='unsync()')
 			span(ng-if="!currentlyUnsyncing") UNSYNC
 			span(ng-if="currentlyUnsyncing") UNSYNCING...
