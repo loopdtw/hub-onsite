@@ -170,10 +170,8 @@ angular.module('HubApp')
         /*----------  EVENT LISTENERS  ----------*/
 
         $scope.$on('badgeSynced', function(event, args) {
-            if (attendee) {
-                addBadgeForAttendee(args.attendee, args.badge);
-                processSearchResults();
-            }
+            addBadgeForAttendee(args.attendee, args.badge);
+            processSearchResults();
 
             $scope.currentlySyncing = false;
             alert.play();
