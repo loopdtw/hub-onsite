@@ -44,15 +44,15 @@ angular.module('HubApp')
         }
 
         var goToCheckIn = function() {
-            $window.location.href = '/?eventId='+$scope.eventId+'&checkInWorker='+$scope.checkInWorker
+            $window.location.href = '/?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
         }
 
         var goToSearch = function() {
-            $window.location.href = '/search?eventId='+$scope.eventId+'&checkInWorker='+$scope.checkInWorker
+            $window.location.href = '/search?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
         }
 
         var goToLookup = function() {
-            $window.location.href = '/lookup?eventId='+$scope.eventId+'&checkInWorker='+$scope.checkInWorker
+            $window.location.href = '/lookup?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
         }
 
         /*----------  FUNC DECLARATIONS  ----------*/
@@ -122,7 +122,7 @@ angular.module('HubApp')
             $scope.unsyncedSearchResults = [];
 
             searchResults.forEach(function(result) {
-                if(result.badge) {
+                if (result.badge) {
                     $scope.syncedSearchResults.push(result);
                 } else {
                     $scope.unsyncedSearchResults.push(result);
@@ -138,9 +138,26 @@ angular.module('HubApp')
 
         var sync = function() {
             if ($scope.currentAttendee && !$scope.currentlySyncing && badgeService.allocatedPeripheralsCount > 0) {
+                var attendeeEmail = $scope.currentAttendee.email;
                 $scope.currentlySyncing = true;
                 badgeService.syncBadge($scope.currentAttendee);
+                setSyncTimeout(attendeeEmail);
             }
+        }
+
+        var setSyncTimeout = function(attendeeEmail) {
+            syncTimeout = $timeout(function() {
+                console.log('timed out, looking for record!');
+                attendeeService.getAttendeeByEmail($scope.eventId, attendeeEmail)
+                    .then(function(attendees) {
+                        var attendee = attendees[0];
+                        if (attendee.badge) {
+                            completeSync(attendee, attendee.badge);
+                        } else {
+                            setSyncTimeout();
+                        }
+                    });
+            }, 3 * 1000);
         }
 
         var unsync = function() {
@@ -167,12 +184,15 @@ angular.module('HubApp')
             }
         }
 
+        var completeSync = function(attendee) {
+            addBadgeForAttendee(attendee, badge);
+            processSearchResults();
+        }
+
         /*----------  EVENT LISTENERS  ----------*/
 
         $scope.$on('badgeSynced', function(event, args) {
-            addBadgeForAttendee(args.attendee, args.badge);
-            processSearchResults();
-
+            // completeSync(args.attendee, args.badge);
             $scope.currentlySyncing = false;
             alert.play();
             $scope.$apply();
