@@ -133,16 +133,15 @@ angular.module('HubApp')
 			return deferred.promise;
 		}
 
-		var getCheckInByEmail = function(eventId, email) {
+		var getAttendeeByEmail = function(eventId, email) {
 			var deferred = $q.defer();
-			var url = config.baseUrl + '/checkins/search';
-			console.log(url);
+			var url = config.baseUrl + '/onsite/attendees/search';
 			$http({
 				method: 'GET',
 				url: url,
 				params: {
 					"eventId": eventId,
-					"q": email
+					"q": keyword
 				}
 			}).
 			then(function(res) {
@@ -247,7 +246,7 @@ angular.module('HubApp')
 		attendeeService.searchAttendees = searchAttendees;
 		attendeeService.getAttendeesForEvent = getAttendeesForEvent;
 		attendeeService.setCurrentEvent = setCurrentEvent;
-		attendeeService.getCheckInByEmail = getCheckInByEmail;
+		attendeeService.getAttendeeByEmail = getAttendeeByEmail;
 		attendeeService.getAttendeeForBadge = getAttendeeForBadge;
 
 		return attendeeService;

@@ -168,9 +168,8 @@ angular.module('HubApp')
         var setSyncTimeout = function(attendeeEmail) {
             syncTimeout = $timeout(function() {
                 console.log('timed out, looking for record!');
-                attendeeService.getCheckInByEmail($scope.eventId, attendeeEmail)
+                attendeeService.getAttendeeByEmail($scope.eventId, attendeeEmail)
                 .then(function(attendees) {
-                    console.log(attendees);
                     var attendee = attendees[0];
                     if(attendee.badge) {
                        completeSync(attendee, attendee.badge);
@@ -182,7 +181,6 @@ angular.module('HubApp')
         }
 
         var completeSync = function(attendeeTemp, badge) {
-            console.log(attendeeTemp);
             $scope.unsyncedAttendees.forEach(function(attendee) {
                 if(attendee.id == attendeeTemp.id) {
                     addBadgeForCheckIn(attendee, badge);
