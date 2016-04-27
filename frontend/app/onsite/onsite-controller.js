@@ -117,8 +117,11 @@ angular.module('HubApp')
             allAttendees.forEach(function(attendee) {
                 if (attendee.id == attendeeTemp.id) {
                     attendee.badge = badge;
+                    console.log('added badge!');
                 }
             });
+
+            $scope.$apply();
         }
 
         var sendCommand = function(command) {
@@ -195,7 +198,6 @@ angular.module('HubApp')
             }
 
             alert.play();
-            $scope.$apply();
         }
 
         /*----------  INIT FUNCTION DECLARATIONS  ----------*/
