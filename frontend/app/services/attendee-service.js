@@ -141,7 +141,7 @@ angular.module('HubApp')
 				url: url,
 				params: {
 					"eventId": eventId,
-					"q": keyword
+					"q": email
 				}
 			}).
 			then(function(res) {
