@@ -178,7 +178,8 @@ angular.module('HubApp')
         }
 
         var completeSync = function(attendeeTemp, badge) {
-            $scope.syncedAttendees.forEach(function(attendee) {
+            console.log(attendeeTemp);
+            $scope.unsyncedAttendees.forEach(function(attendee) {
                 if(attendee.id == attendeeTemp.id) {
                     addBadgeForCheckIn(attendee, badge);
                     processAttendees();
