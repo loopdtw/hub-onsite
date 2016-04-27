@@ -188,6 +188,7 @@ angular.module('HubApp')
         var completeSync = function(attendee, badge) {
             addBadgeForAttendee(attendee, badge);
             processSearchResults();
+            $scope.currentlySyncing = false;
         }
 
         /*----------  EVENT LISTENERS  ----------*/
@@ -196,8 +197,9 @@ angular.module('HubApp')
             // if (syncTimeout) {
             //     $timeout.cancel(syncTimeout);
             // }
+
             // completeSync(args.attendee, args.badge);
-            $scope.currentlySyncing = false;
+
             alert.play();
             $scope.$apply();
         });
