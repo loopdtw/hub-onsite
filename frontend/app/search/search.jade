@@ -27,7 +27,7 @@ block content
 						{{attendee.email}}
 		h3 Status: <em>{{currentStatus}}</em>
 		h3 Allocated badges: {{allocatedPeripheralsCount}}
-		.btn.btnShakespeare.actionButton(ng-click="sync()" ng-class="{'disabled':!currentCheckIn || isScanning || allocatedPeripheralsCount < 1 || currentlySyncing}")
+		.btn.btnShakespeare.actionButton(ng-click="sync()" ng-class="{'disabled':!currentAttendee || isScanning || allocatedPeripheralsCount < 1 || currentlySyncing}")
 			span(ng-if="!currentlySyncing") SYNC
 			span(ng-if="currentlySyncing") SYNCING...
 		h2 SYNCED
