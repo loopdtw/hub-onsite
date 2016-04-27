@@ -238,7 +238,7 @@ angular.module('HubApp')
 
             syncTimeout = $timeout(function() {
                 getAttendeeCheckIns();
-            }, 5 * 1000);
+            }, 2 * 1000);
         }
 
         var init = function() {
