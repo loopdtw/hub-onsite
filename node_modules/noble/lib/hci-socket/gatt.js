@@ -86,9 +86,13 @@ Gatt.prototype.onAclStreamData = function(cid, data) {
   if (this._currentCommand && data.toString('hex') === this._currentCommand.buffer.toString('hex')) {
     debug(this._address + ': echo ... echo ... echo ...');
   } else if (data[0] % 2 === 0) {
-    var requestType = data[0];
-    debug(this._address + ': replying with REQ_NOT_SUPP to 0x' + requestType.toString(16));
-    this.writeAtt(this.errorResponse(requestType, 0x0000, ATT_ECODE_REQ_NOT_SUPP));
+    if (process.env.NOBLE_MULTI_ROLE) {
+      debug(this._address + ': multi-role flag in use, ignoring command meant for peripheral role.');
+    } else {
+      var requestType = data[0];
+      debug(this._address + ': replying with REQ_NOT_SUPP to 0x' + requestType.toString(16));
+      this.writeAtt(this.errorResponse(requestType, 0x0000, ATT_ECODE_REQ_NOT_SUPP));
+    }
   } else if (data[0] === ATT_OP_HANDLE_NOTIFY || data[0] === ATT_OP_HANDLE_IND) {
     var valueHandle = data.readUInt16LE(1);
     var valueData = data.slice(3);
@@ -167,10 +171,10 @@ Gatt.prototype.writeAtt = function(data) {
 Gatt.prototype.errorResponse = function(opcode, handle, status) {
     var buf = new Buffer(5);
 
-    buf.writeUInt8(ATT_OP_ERROR, 0);  
+    buf.writeUInt8(ATT_OP_ERROR, 0);
     buf.writeUInt8(opcode, 1);
     buf.writeUInt16LE(handle, 2);
-    buf.writeUInt8(status, 4);        
+    buf.writeUInt8(status, 4);
 
     return buf;
 };
@@ -380,7 +384,7 @@ Gatt.prototype.discoverCharacteristics = function(serviceUuid, characteristicUui
   var characteristics = [];
 
   this._characteristics[serviceUuid] = {};
-  this._descriptors[serviceUuid] = {};
+  this._descriptors[serviceUuid] = this._descriptors[serviceUuid] || {};
 
   var callback = function(data) {
     var opcode = data[0];
