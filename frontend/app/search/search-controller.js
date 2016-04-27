@@ -154,9 +154,9 @@ angular.module('HubApp')
 
                         var existingAttendeeBadges = {};
                         searchResults.forEach(function(attendee) {
-                            if (checkIn.badge) {
-                                var uniqueId = checkIn.badge.identity + checkIn.badge.macAddress;
-                                existingAttendeeBadges[uniqueId] = checkIn.badge;
+                            if (attendee.badge) {
+                                var uniqueId = attendee.badge.identity + attendee.badge.macAddress;
+                                existingAttendeeBadges[uniqueId] = attendee.badge;
                             }
                         });
                         badgeService.updateExistingAttendeeBadges(existingAttendeeBadges);
