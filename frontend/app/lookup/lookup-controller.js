@@ -42,7 +42,7 @@ angular.module('HubApp')
 		}
 
 		$scope.$on('badgeLookup', function(event, args) {
-            if(!$scope.currentAttendee) {
+            if(!$scope.currentAttendee && !$scope.loading) {
             	$('.badgeInfo').css('display', 'block');
             	$scope.loading = true;
                 attendeeService.getAttendeeForBadge($scope.eventId, args.identity)
