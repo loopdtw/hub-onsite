@@ -135,7 +135,7 @@ angular.module('HubApp')
                 badgeService.syncBadge($scope.currentAttendee);
             }
 
-            setSyncTimeout();
+            setSyncTimeout(attendeeEmail);
         }
 
         var unsync = function() {
@@ -162,9 +162,8 @@ angular.module('HubApp')
         }
 
         //we have sync timeout here to force the sync button to go back if we don't get a socket message that our badge has been synced
-        var setSyncTimeout = function() {
+        var setSyncTimeout = function(attendeeEmail) {
             syncTimeout = $timeout(function() {
-                console.log(attendeeEmail);
                 attendeeService.getCheckInByEmail($scope.eventId, attendeeEmail)
                 .then(function(attendees) {
                     var attendee = attendees[0];
