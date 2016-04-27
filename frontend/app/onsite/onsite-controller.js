@@ -252,10 +252,9 @@ angular.module('HubApp')
         /*----------  EVENT LISTENERS  ----------*/
 
         $scope.$on('badgeSynced', function(event, args) {
-            if (syncTimeout) {
-                $timeout.cancel(syncTimeout);
-            }
-
+        // if (syncTimeout) {
+        //     $timeout.cancel(syncTimeout);
+        // }
             // completeSync(args.attendee, args.badge);
         });
 
