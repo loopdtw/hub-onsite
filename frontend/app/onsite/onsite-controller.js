@@ -141,7 +141,6 @@ angular.module('HubApp')
         var unsync = function() {
             if (!$scope.currentlyUnsyncing && $scope.currentSyncedAttendee && $scope.currentSyncedAttendee.badge) {
                 $scope.currentlyUnsyncing = true;
-                console.log($scope.currentlyUnsyncing);
                 badgeService.unsyncBadge($scope.currentSyncedAttendee, $scope.currentSyncedAttendee.badge)
                     .then(function() {
                         removeBadgeForCheckIn($scope.currentSyncedAttendee);
@@ -178,18 +177,21 @@ angular.module('HubApp')
             }, 5 * 1000);
         }
 
-        var completeSync = function(attendee, badge) {
-            var attendee = attendeeService.findCheckInForAttendee(attendee, allAttendees);
-            if (attendee) {
-                addBadgeForCheckIn(attendee, badge);
-                processAttendees();
-            }
+        var completeSync = function(attendeeTemp, badge) {
+            $scope.syncedAttendees.forEach(function(attendee) {
+                if(attendee.id == attendeeTemp.id) {
+                    addBadgeForCheckIn(attendee, badge);
+                    processAttendees();
+                }
+            });
+
             $scope.currentlySyncing = false;
             if ($scope.unsyncedAttendees.length > 0) {
                 $scope.currentAttendee = $scope.unsyncedAttendees[0];
             } else {
                 $scope.currentAttendee = null;
             }
+
             alert.play();
             $scope.$apply();
         }
