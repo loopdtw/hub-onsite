@@ -46,15 +46,15 @@ angular.module('HubApp')
         }
 
         var goToCheckIn = function() {
-            $window.location.href = '/?eventId='+$scope.eventId+'&checkInWorker='+$scope.checkInWorker
+            $window.location.href = '/?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
         }
 
         var goToSearch = function() {
-            $window.location.href = '/search?eventId='+$scope.eventId+'&checkInWorker='+$scope.checkInWorker
+            $window.location.href = '/search?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
         }
 
         var goToLookup = function() {
-            $window.location.href = '/lookup?eventId='+$scope.eventId+'&checkInWorker='+$scope.checkInWorker
+            $window.location.href = '/lookup?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
         }
 
         /*----------  FUNC DECLARATIONS  ----------*/
@@ -101,8 +101,8 @@ angular.module('HubApp')
                 }
             });
 
-            $scope.unsyncedAttendees = (allUnsyncedAttendees.length > 3)?allUnsyncedAttendees.slice(allUnsyncedAttendees.length-3).reverse():allUnsyncedAttendees.reverse();
-            $scope.syncedAttendees = (allSyncedAttendees.length > 3)?allSyncedAttendees.slice(allSyncedAttendees.length-3).reverse():allSyncedAttendees.reverse();
+            $scope.unsyncedAttendees = (allUnsyncedAttendees.length > 3) ? allUnsyncedAttendees.slice(allUnsyncedAttendees.length - 3).reverse() : allUnsyncedAttendees.reverse();
+            $scope.syncedAttendees = (allSyncedAttendees.length > 3) ? allSyncedAttendees.slice(allSyncedAttendees.length - 3).reverse() : allSyncedAttendees.reverse();
         }
 
         var removeBadgeForCheckIn = function(attendeeTemp) {
@@ -117,11 +117,8 @@ angular.module('HubApp')
             allAttendees.forEach(function(attendee) {
                 if (attendee.id == attendeeTemp.id) {
                     attendee.badge = badge;
-                    console.log('added badge!');
                 }
             });
-
-            $scope.$apply();
         }
 
         var sendCommand = function(command) {
@@ -169,20 +166,20 @@ angular.module('HubApp')
             syncTimeout = $timeout(function() {
                 console.log('timed out, looking for record!');
                 attendeeService.getAttendeeByEmail($scope.eventId, attendeeEmail)
-                .then(function(attendees) {
-                    var attendee = attendees[0];
-                    if(attendee.badge) {
-                       completeSync(attendee, attendee.badge);
-                    } else {
-                        setSyncTimeout();
-                    }
-                });
+                    .then(function(attendees) {
+                        var attendee = attendees[0];
+                        if (attendee.badge) {
+                            completeSync(attendee, attendee.badge);
+                        } else {
+                            setSyncTimeout();
+                        }
+                    });
             }, 3 * 1000);
         }
 
         var completeSync = function(attendeeTemp, badge) {
             $scope.unsyncedAttendees.forEach(function(attendee) {
-                if(attendee.id == attendeeTemp.id) {
+                if (attendee.id == attendeeTemp.id) {
                     addBadgeForCheckIn(attendee, badge);
                     processAttendees();
                 }
@@ -220,7 +217,7 @@ angular.module('HubApp')
 
         var getAttendeeCheckIns = function() {
             attendeeService.getCheckIns($scope.eventId, $scope.checkInWorker, "")
-              .then(function(attendees) {
+                .then(function(attendees) {
                     allAttendees = attendees;
                     processAttendees();
                 })
@@ -255,7 +252,7 @@ angular.module('HubApp')
         /*----------  EVENT LISTENERS  ----------*/
 
         $scope.$on('badgeSynced', function(event, args) {
-            if(syncTimeout) {
+            if (syncTimeout) {
                 $timeout.cancel(syncTimeout);
             }
 
