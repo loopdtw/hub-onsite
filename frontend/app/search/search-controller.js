@@ -3,6 +3,7 @@ angular.module('HubApp')
 
         /*----------  VAR DECLARATIONS  ----------*/
         var alert = new Audio('/audio/alert.mp3');
+        var syncTimeout = null;
 
         /*----------  SCOPE VAR DECLARATIONS  ----------*/
         $scope.eventId = null;
@@ -184,7 +185,7 @@ angular.module('HubApp')
             }
         }
 
-        var completeSync = function(attendee) {
+        var completeSync = function(attendee, badge) {
             addBadgeForAttendee(attendee, badge);
             processSearchResults();
         }
@@ -192,6 +193,9 @@ angular.module('HubApp')
         /*----------  EVENT LISTENERS  ----------*/
 
         $scope.$on('badgeSynced', function(event, args) {
+            // if (syncTimeout) {
+            //     $timeout.cancel(syncTimeout);
+            // }
             // completeSync(args.attendee, args.badge);
             $scope.currentlySyncing = false;
             alert.play();
