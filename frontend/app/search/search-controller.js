@@ -139,7 +139,7 @@ angular.module('HubApp')
         var sync = function() {
             if ($scope.currentAttendee && !$scope.currentlySyncing && badgeService.allocatedPeripheralsCount > 0) {
                 $scope.currentlySyncing = true;
-                badgeService.syncBadge($scope.currentAttendee.eventAttendee);
+                badgeService.syncBadge($scope.currentAttendee);
             }
         }
 
