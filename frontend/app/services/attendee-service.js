@@ -71,13 +71,21 @@ angular.module('HubApp')
 
 		var getCheckIns = function(eventId, workerId, keyword) {
 			var deferred = $q.defer();
-			var url = config.baseUrl + '/onsite/attendees';
+			var url = "";
+
+			if (workerId) {
+				url = config.baseUrl + '/onsite/attendees?checkInWorker=' + workerId;
+			} else {
+				url = config.baseUrl + '/onsite/attendees';
+			}
+
+			console.log(url);
+
 			$http({
 				method: 'GET',
 				url: url,
 				params: {
-					"eventId": eventId,
-					"checkInWorker": workerId ? workerId : ""
+					"eventId": eventId
 				}
 			}).
 			then(function(res) {
