@@ -16,9 +16,9 @@ angular.module('HubApp')
 		 */
 		var getCheckInRecords = function(eventId, checkInService, workerId) {
 			var deferred = $q.defer();
-			var url = config.baseUrl + '/checkins/providers/'+ checkInService;
+			var url = config.baseUrl + '/checkins/providers/' + checkInService;
 			if (workerId) {
-				url += '/workers/'+workerId;
+				url += '/workers/' + workerId;
 			}
 			$http({
 				method: 'GET',
@@ -77,8 +77,7 @@ angular.module('HubApp')
 				url: url,
 				params: {
 					"eventId": eventId,
-					"checkInWorker": workerId,
-					"isCheckIn": true
+					"checkInWorker": workerId ? workerId : ""
 				}
 			}).
 			then(function(res) {
@@ -170,7 +169,7 @@ angular.module('HubApp')
 				}
 			}).
 			then(function(res) {
-				if(res.data.length > 0) {
+				if (res.data.length > 0) {
 					deferred.resolve(res.data[0]);
 				} else {
 					deferred.resolve(null);
