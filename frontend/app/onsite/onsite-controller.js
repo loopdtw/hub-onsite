@@ -8,6 +8,7 @@ angular.module('HubApp')
         var alert = new Audio('/audio/alert.mp3');
 
         var syncTimeout = null;
+        var getAttendeesTimeout = null;
 
         /*----------  SCOPE VAR DECLARATIONS  ----------*/
 
@@ -234,7 +235,7 @@ angular.module('HubApp')
                     console.log(new Date(), 'updated checkins');
                 });
 
-            syncTimeout = $timeout(function() {
+            getAttendeesTimeout = $timeout(function() {
                 getAttendeeCheckIns();
             }, 2 * 1000);
         }
@@ -252,10 +253,11 @@ angular.module('HubApp')
         /*----------  EVENT LISTENERS  ----------*/
 
         $scope.$on('badgeSynced', function(event, args) {
-        if (syncTimeout) {
-            $timeout.cancel(syncTimeout);
-        }
-        completeSync(args.attendee, args.badge);
+            if (syncTimeout) {
+                $timeout.cancel(syncTimeout);
+            }
+
+            completeSync(args.attendee, args.badge);
         });
 
         $scope.$on('badgeDisconnect', function() {
