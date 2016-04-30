@@ -262,6 +262,9 @@ angular.module('HubApp')
 
         $scope.$on('badgeDisconnect', function() {
             $scope.currentlySyncing = false;
+            if (syncTimeout) {
+                $timeout.cancel(syncTimeout);
+            }
             $scope.$apply();
         });
 
