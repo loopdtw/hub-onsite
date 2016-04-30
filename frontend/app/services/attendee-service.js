@@ -152,6 +152,7 @@ angular.module('HubApp')
 				}
 			}).
 			then(function(res) {
+				console.log(res);
 				deferred.resolve(res.data);
 			}, function(data, status, headers, config) {
 				// console.log(data.meta);
