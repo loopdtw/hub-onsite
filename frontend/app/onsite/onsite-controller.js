@@ -172,7 +172,7 @@ angular.module('HubApp')
                         if (attendee.badge) {
                             completeSync(attendee, attendee.badge);
                         } else {
-                            setSyncTimeout();
+                            setSyncTimeout(attendeeEmail);
                         }
                     });
             }, 3 * 1000);
