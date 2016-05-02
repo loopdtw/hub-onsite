@@ -22,7 +22,7 @@ body {
 body {
     margin: 0;
     padding: 0;
-    background: $purple;
+    background: #006ec9;
     background-size: cover;
     font-family: "Proxima Nova", "Avenir", "Verdana";
     color: white;
@@ -127,7 +127,7 @@ body {
     &.waiting {
         background: rgba(255, 100, 255, 0.2);
     }
-    
+
     &:hover {
         cursor: pointer;
         // background: rgba(255, 255, 255, 0.2);
@@ -170,6 +170,23 @@ body {
     }
 }
 
+.form {
+    display: block;
+    margin: auto;
+    text-align: center;
+
+    input[type="text"] {
+        background: none;
+        font-size: 2em;
+        display: block;
+        margin: 10px auto;
+        padding: 10px;
+        border: none;
+        border-bottom: 1px solid #fff;
+        color: #fff;
+    }
+}
+
 hamburger-menu {
     float: right;
     &:hover {
@@ -184,7 +201,7 @@ hamburger-menu {
 }
 
 .ng-pageslide {
-    background: $darkBlue;
+    background: #fbb30e;
     @include box-shadow(1px 1px 3px black);
     div {
         margin-top: 20px;

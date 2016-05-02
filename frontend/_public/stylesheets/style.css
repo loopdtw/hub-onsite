@@ -352,7 +352,7 @@ body {
 body {
   margin: 0;
   padding: 0;
-  background: #814696;
+  background: #006ec9;
   background-size: cover;
   font-family: "Proxima Nova", "Avenir", "Verdana";
   color: white; }
@@ -461,6 +461,20 @@ body {
       color: white;
       font-weight: bold; }
 
+.form {
+  display: block;
+  margin: auto;
+  text-align: center; }
+  .form input[type="text"] {
+    background: none;
+    font-size: 2em;
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    color: #fff; }
+
 hamburger-menu {
   float: right; }
   hamburger-menu:hover {
@@ -472,7 +486,7 @@ hamburger-menu {
     margin: 3px 0; }
 
 .ng-pageslide {
-  background: #199ad6;
+  background: #fbb30e;
   -webkit-box-shadow: 1px;
   -moz-box-shadow: 1px;
   box-shadow: 1px; }
