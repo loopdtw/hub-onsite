@@ -254,6 +254,7 @@ angular.module('HubApp')
 				organization: attendee.organization,
 				provider: attendee.provider,
 				providerAttendeeId: attendee.providerAttendeeId,
+				checkInWorker: attendee.checkInWorker
 			};
 
 			$http.defaults.headers.get = {};
