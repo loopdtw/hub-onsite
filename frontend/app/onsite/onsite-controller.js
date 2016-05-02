@@ -104,6 +104,8 @@ angular.module('HubApp')
 
             $scope.unsyncedAttendees = (allUnsyncedAttendees.length > 3) ? allUnsyncedAttendees.slice(allUnsyncedAttendees.length - 3).reverse() : allUnsyncedAttendees.reverse();
             $scope.syncedAttendees = (allSyncedAttendees.length > 3) ? allSyncedAttendees.slice(allSyncedAttendees.length - 3) : allSyncedAttendees.reverse();
+
+            console.log($scope.syncedAttendees);
         }
 
         var removeBadgeForCheckIn = function(attendeeTemp) {
@@ -232,7 +234,7 @@ angular.module('HubApp')
                     });
                     badgeService.updateExistingAttendeeBadges(existingAttendeeBadges);
                     $scope.currentStatus = badgeService.currentStatus;
-                    console.log(new Date(), 'updated checkins');
+                    // console.log(new Date(), 'updated checkins');
                 });
 
             getAttendeesTimeout = $timeout(function() {

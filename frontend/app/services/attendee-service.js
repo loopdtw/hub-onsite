@@ -68,7 +68,6 @@ angular.module('HubApp')
 			return deferred.promise;
 		};
 
-
 		var getCheckIns = function(eventId, workerId, keyword) {
 			var deferred = $q.defer();
 			var url = "";
@@ -78,8 +77,6 @@ angular.module('HubApp')
 			} else {
 				url = config.baseUrl + '/onsite/attendees';
 			}
-
-			console.log(url);
 
 			$http({
 				method: 'GET',
