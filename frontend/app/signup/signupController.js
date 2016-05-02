@@ -30,7 +30,7 @@ angular.module('HubApp')
             title: null,
             organization: null,
             provider: 'loopd',
-            providerAttendeeId: generate,
+            providerAttendeeId: generate(),
             checkInWorker: $scope.checkInWorker
         }
 
