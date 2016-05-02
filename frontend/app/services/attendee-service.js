@@ -252,7 +252,7 @@ angular.module('HubApp')
 				email: attendee.email,
 				title: attendee.title,
 				organization: attendee.organization,
-				provider: "loopd-manual",
+				provider: attendee.provider,
 				providerAttendeeId: attendee.providerAttendeeId,
 			};
 
