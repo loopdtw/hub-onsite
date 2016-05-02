@@ -13,6 +13,7 @@ block content
 			.clickable.columnOne Kiosk
 			.clickable.columnTwo Checkin Time
 			.clickable.columnTwo Full Name
+			.clickable.columnTwo Provider Badge Id
 			.clickable.columnFour Email
 		.module.short
 			.body
@@ -23,6 +24,8 @@ block content
 						{{attendee.created | date:'HH:mm:ss'}}
 					.columnTwo
 						{{attendee.firstname}} {{attendee.lastname}}
+					.columnTwo
+						{{attendee.providerBadgeId}}
 					.columnFour
 						{{attendee.email}}
 		h3 Status: <em>{{currentStatus}}</em>

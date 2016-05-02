@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="HubApp">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script type="text/javascript" src="/js/vendor/vendor.min.js"></script>
+    <script type="text/javascript" src="/js/vendor/io.js"></script>
+    <script type="text/javascript" src="/js/main.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <div id="onsite" ng-controller="signupController">
+      <hamburger-menu ng-click="toggleMenu()" class="hamburgerMenu"></hamburger-menu>
+      <pageslide ps-side="left" ps-open="checked">
+        <div><a href="#" ng-click="goToCheckIn()">CHECKIN</a><a href="#" ng-click="goToSearch()">SEARCH</a><a href="#" ng-click="goToLookup()">LOOK UP</a></div>
+      </pageslide><img src="/images/intel.png" class="intelBanner">
+      <div class="intelContainer">
+        <form class="form">
+          <input type="text" placeholder="First Name" ng-model="currentAttendee.firstname">
+          <input type="text" placeholder="Last Name" ng-model="currentAttendee.lastname">
+          <input type="text" placeholder="Email" ng-model="currentAttendee.email">
+          <input type="text" placeholder="Title" ng-model="currentAttendee.title">
+          <input type="text" placeholder="Organization" ng-model="currentAttendee.organization">
+          <input type="hidden" ng-model="currentAttendee.provider">
+          <input type="text" placeholder="Line ID" ng-model="currentAttendee.providerAttendeeId">
+          <div ng-class="{'disabled':currentlyLoading}" ng-click="signup()" class="btn btnRed actionButton"><span ng-if="!currentlyLoading">SIGN UP</span><span ng-if="currentlyLoading">LOADING...</span></div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

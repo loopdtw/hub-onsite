@@ -22,6 +22,7 @@
         <div class="clickable columnOne">Kiosk</div>
         <div class="clickable columnTwo">Checkin Time</div>
         <div class="clickable columnTwo">Full Name</div>
+        <div class="clickable columnTwo">Provider Badge Id</div>
         <div class="clickable columnFour">Email</div>
       </div>
       <div class="module short">
@@ -30,6 +31,7 @@
             <div class="columnOne">{{attendee.checkIn.checkInWorker}}</div>
             <div class="columnTwo">{{attendee.created | date:'HH:mm:ss'}}</div>
             <div class="columnTwo">{{attendee.firstname}} {{attendee.lastname}}</div>
+            <div class="columnTwo">{{attendee.providerBadgeId}}</div>
             <div class="columnFour">{{attendee.email}}</div>
           </div>
         </div>
