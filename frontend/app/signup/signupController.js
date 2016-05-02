@@ -27,10 +27,9 @@ angular.module('HubApp')
             lastname: null,
             email: null,
             line: null,
-            provider: "Intel",
-            providerAttendeeId: null,
             title: null,
-            organization: null
+            organization: null,
+            checkInWorker: $scope.checkInWorker
         }
 
         /*----------  MENU  ----------*/
