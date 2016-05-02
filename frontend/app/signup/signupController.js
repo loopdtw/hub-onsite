@@ -29,7 +29,22 @@ angular.module('HubApp')
             line: null,
             title: null,
             organization: null,
+            provider: 'loopd',
+            providerAttendeeId: generate,
             checkInWorker: $scope.checkInWorker
+        }
+
+        var generate = function() {
+            var ts = this.timestamp.toString();
+            var parts = ts.split("").reverse();
+            var id = "";
+
+            for (var i = 0; i < this.length; ++i) {
+                var index = _getRandomInt(0, parts.length - 1);
+                id += parts[index];
+            }
+
+            return id;
         }
 
         /*----------  MENU  ----------*/
