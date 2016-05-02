@@ -2,7 +2,6 @@ angular.module('HubApp')
     .controller('signupController', function($scope, $http, $timeout, $q, utilService, socketService, badgeService, attendeeService, $location, $window) {
 
         /*----------  SCOPE VAR DECLARATIONS  ----------*/
-
         $scope.eventId = null;
         $scope.checkInWorker = null;
         $scope.currentlyLoading = false;
@@ -30,21 +29,8 @@ angular.module('HubApp')
             title: null,
             organization: null,
             provider: 'loopd',
-            providerAttendeeId: generate(),
+            providerAttendeeId: $scope.checkInWorker + new Date().valueOf(),
             checkInWorker: $scope.checkInWorker
-        }
-
-        var generate = function() {
-            var ts = this.timestamp.toString();
-            var parts = ts.split("").reverse();
-            var id = "";
-
-            for (var i = 0; i < this.length; ++i) {
-                var index = _getRandomInt(0, parts.length - 1);
-                id += parts[index];
-            }
-
-            return id;
         }
 
         /*----------  MENU  ----------*/
