@@ -22,7 +22,7 @@ body {
 body {
     margin: 0;
     padding: 0;
-    background: #006ec9;
+    background: $purple;
     background-size: cover;
     font-family: "Proxima Nova", "Avenir", "Verdana";
     color: white;
@@ -201,7 +201,7 @@ hamburger-menu {
 }
 
 .ng-pageslide {
-    background: #fbb30e;
+    background: $blue;
     @include box-shadow(1px 1px 3px black);
     div {
         margin-top: 20px;

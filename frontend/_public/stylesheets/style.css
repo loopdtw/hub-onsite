@@ -352,7 +352,7 @@ body {
 body {
   margin: 0;
   padding: 0;
-  background: #006ec9;
+  background: #814696;
   background-size: cover;
   font-family: "Proxima Nova", "Avenir", "Verdana";
   color: white; }
@@ -486,7 +486,7 @@ hamburger-menu {
     margin: 3px 0; }
 
 .ng-pageslide {
-  background: #fbb30e;
+  background: #6fbfe5;
   -webkit-box-shadow: 1px;
   -moz-box-shadow: 1px;
   box-shadow: 1px; }
