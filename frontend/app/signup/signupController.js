@@ -43,11 +43,11 @@ angular.module('HubApp')
         }
 
         var goToSignup = function() {
-            $window.location.href = '/search?eventId=' + $scope.eventId
+            $window.location.href = '/search?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
         }
 
         var goToCheckIn = function() {
-            $window.location.href = '/?eventId=' + $scope.eventId
+            $window.location.href = '/?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
         }
 
         var goToLookup = function() {
@@ -75,4 +75,5 @@ angular.module('HubApp')
         $scope.goToSearch = goToSearch;
         $scope.goToCheckIn = goToCheckIn;
         $scope.goToLookup = goToLookup;
+        $scope.goToSignup = goToSignup;
     });

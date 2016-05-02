@@ -12,12 +12,12 @@
     <div id="onsite" ng-controller="searchController">
       <hamburger-menu ng-click="toggleMenu()" class="hamburgerMenu"></hamburger-menu>
       <pageslide ps-side="left" ps-open="checked">
-        <div><a href="#" ng-click="goToCheckIn()">CHECKIN</a><a href="#" ng-click="goToSearch()">SEARCH</a><a href="#" ng-click="goToLookup()">LOOK UP</a></div>
+        <div><a href="#" ng-click="goToCheckIn()">CHECKIN</a><a href="#" ng-click="goToSearch()">SEARCH</a><a href="#" ng-click="goToLookup()">LOOK UP</a><a href="#" ng-click="goToSignup()">MANUAL SIGNUP</a></div>
       </pageslide>
       <h2>SEARCH</h2>
       <input type="text" placeholder="Please type search term." ng-model="searchTerm" class="searchInput">
       <div ng-click="search()" class="btn btnShakespeare"><span ng-if="!currentlySearching">SEARCH</span><span ng-if="currentlySearching">SEARCHING...</span></div>
-      <h2>UNSYNCED ( {{unsyncedCheckins.length}} )</h2>
+      <h2>UNSYNCED</h2>
       <div class="header">
         <div class="clickable columnOne">Kiosk</div>
         <div class="clickable columnTwo">Checkin Time</div>

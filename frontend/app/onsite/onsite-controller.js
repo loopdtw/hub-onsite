@@ -58,6 +58,10 @@ angular.module('HubApp')
             $window.location.href = '/lookup?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
         }
 
+        var goToSignup = function() {
+            $window.location.href = '/signup?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
+        }
+
         /*----------  FUNC DECLARATIONS  ----------*/
         var setCurrentAttendee = function(attendee) {
             if (!$scope.currentlySyncing) {
@@ -290,4 +294,5 @@ angular.module('HubApp')
         $scope.goToSearch = goToSearch;
         $scope.goToCheckIn = goToCheckIn;
         $scope.goToLookup = goToLookup;
+        $scope.goToSignup = goToSignup;
     });

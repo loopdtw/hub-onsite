@@ -30,20 +30,32 @@ app.use(express.static(path.join(__dirname, './frontend/_public')));
 app.use(express.static(path.join(__dirname, './frontend/html')));
 app.disable('view cache');
 
-app.get('/status', function(req,res) {
+app.get('/status', function(req, res) {
     res.send(200);
 });
 
 app.get('/', function(req, res) {
-    res.sendFile('onsite/onsite.html', {"root": htmlPath});
+    res.sendFile('onsite/onsite.html', {
+        "root": htmlPath
+    });
 });
 
 app.get('/lookup', function(req, res) {
-    res.sendFile('lookup/lookup.html', {"root": htmlPath});
+    res.sendFile('lookup/lookup.html', {
+        "root": htmlPath
+    });
 });
 
 app.get('/search', function(req, res) {
-    res.sendFile('search/search.html', {"root": htmlPath});
+    res.sendFile('search/search.html', {
+        "root": htmlPath
+    });
+});
+
+app.get('/signup', function(req, res) {
+    res.sendFile('signup/signup.html', {
+        "root": htmlPath
+    });
 });
 
 var server = app.listen(3000, function() {

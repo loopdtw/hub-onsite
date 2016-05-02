@@ -56,6 +56,10 @@ angular.module('HubApp')
             $window.location.href = '/lookup?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
         }
 
+        var goToSignup = function() {
+            $window.location.href = '/signup?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
+        }
+
         /*----------  FUNC DECLARATIONS  ----------*/
 
         var toggleMenu = function() {
@@ -229,4 +233,5 @@ angular.module('HubApp')
         $scope.goToSearch = goToSearch;
         $scope.goToCheckIn = goToCheckIn;
         $scope.goToLookup = goToLookup;
+        $scope.goToSignup = goToSignup;
     });
