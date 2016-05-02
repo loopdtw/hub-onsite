@@ -10,20 +10,18 @@
   </head>
   <body>
     <div id="signup" ng-controller="signupController">
-      <h2>MANUAL SIGN UP</h2>
       <hamburger-menu ng-click="toggleMenu()" class="hamburgerMenu"></hamburger-menu>
       <pageslide ps-side="left" ps-open="checked">
         <div><a href="#" ng-click="goToCheckIn()">CHECKIN</a><a href="#" ng-click="goToSearch()">SEARCH</a><a href="#" ng-click="goToLookup()">LOOK UP</a><a href="#" ng-click="goToSignup()">MANUAL SIGNUP</a></div>
       </pageslide>
       <div class="intelContainer">
+        <h2>MANUAL SIGN UP</h2>
         <form class="form">
           <input type="text" placeholder="First Name" ng-model="currentAttendee.firstname">
           <input type="text" placeholder="Last Name" ng-model="currentAttendee.lastname">
           <input type="text" placeholder="Email" ng-model="currentAttendee.email">
           <input type="text" placeholder="Title" ng-model="currentAttendee.title">
           <input type="text" placeholder="Organization" ng-model="currentAttendee.organization">
-          <input type="hidden" ng-model="currentAttendee.provider">
-          <input type="text" placeholder="Line ID" ng-model="currentAttendee.providerAttendeeId">
           <div ng-class="{'disabled':currentlyLoading}" ng-click="signup()" class="btn btnRed actionButton"><span ng-if="!currentlyLoading">SIGN UP</span><span ng-if="currentlyLoading">LOADING...</span></div>
         </form>
       </div>
