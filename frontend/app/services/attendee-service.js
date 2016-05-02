@@ -257,9 +257,7 @@ angular.module('HubApp')
 				checkInWorker: attendee.checkInWorker
 			};
 
-			$http.defaults.headers.get = {};
-			$http.defaults.headers.post = {};
-			console.log($http.defaults.headers.post);
+			console.log(signupAttendee);
 
 			$http({
 				method: 'POST',
