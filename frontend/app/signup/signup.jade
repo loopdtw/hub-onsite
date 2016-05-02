@@ -2,17 +2,15 @@ extends ../../_views/layout
 
 block content
 	#signup(ng-controller="signupController")
-		h2 MANUAL SIGN UP
 		include ../partials/menu
 		.intelContainer
+			h2 MANUAL SIGN UP
 			form.form
 				input(type="text" placeholder="First Name" ng-model="currentAttendee.firstname")
 				input(type="text" placeholder="Last Name" ng-model="currentAttendee.lastname")
 				input(type="text" placeholder="Email" ng-model="currentAttendee.email")
 				input(type="text" placeholder="Title" ng-model="currentAttendee.title")
 				input(type="text" placeholder="Organization" ng-model="currentAttendee.organization")
-				input(type="hidden" ng-model="currentAttendee.provider")
-				input(type="text" placeholder="Line ID" ng-model="currentAttendee.providerAttendeeId")
 				.btn.btnRed.actionButton(ng-class="{'disabled':currentlyLoading}" ng-click='signup()')
 					span(ng-if="!currentlyLoading") SIGN UP
 					span(ng-if="currentlyLoading") LOADING...
