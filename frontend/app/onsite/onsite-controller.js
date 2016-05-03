@@ -98,7 +98,6 @@ angular.module('HubApp')
             var allUnsyncedAttendees = [];
             var allSyncedAttendees = [];
 
-            console.log('process start', new Date());
             allAttendees.forEach(function(attendee) {
                 if (!attendee.badge) {
                     allUnsyncedAttendees.push(attendee);
@@ -109,7 +108,6 @@ angular.module('HubApp')
                     });
                 }
             });
-            console.log('process end', new Date());
 
             $scope.unsyncedAttendees = (allUnsyncedAttendees.length > 3) ? allUnsyncedAttendees.slice(allUnsyncedAttendees.length - 3).reverse() : allUnsyncedAttendees.reverse();
             $scope.syncedAttendees = (allSyncedAttendees.length > 3) ? allSyncedAttendees.slice(allSyncedAttendees.length - 3) : allSyncedAttendees.reverse();
