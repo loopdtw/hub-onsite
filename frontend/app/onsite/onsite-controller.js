@@ -1,5 +1,5 @@
 angular.module('HubApp')
-    .controller('onsiteController', function($scope, $http, $timeout, $q, utilService, socketService, badgeService, attendeeService, $location, $window) {
+    .controller('onsiteController', function($scope, $http, $timeout, $q, utilService, badgeService, attendeeService, $location, $window) {
 
         /*----------  VAR DECLARATIONS  ----------*/
 
@@ -98,6 +98,7 @@ angular.module('HubApp')
             var allUnsyncedAttendees = [];
             var allSyncedAttendees = [];
 
+            console.log('process start', new Date());
             allAttendees.forEach(function(attendee) {
                 if (!attendee.badge) {
                     allUnsyncedAttendees.push(attendee);
@@ -108,6 +109,7 @@ angular.module('HubApp')
                     });
                 }
             });
+            console.log('process end', new Date());
 
             $scope.unsyncedAttendees = (allUnsyncedAttendees.length > 3) ? allUnsyncedAttendees.slice(allUnsyncedAttendees.length - 3).reverse() : allUnsyncedAttendees.reverse();
             $scope.syncedAttendees = (allSyncedAttendees.length > 3) ? allSyncedAttendees.slice(allSyncedAttendees.length - 3) : allSyncedAttendees.reverse();
@@ -205,24 +207,6 @@ angular.module('HubApp')
 
         /*----------  INIT FUNCTION DECLARATIONS  ----------*/
 
-        var getInitialData = function() {
-            var deferred = $q.defer();
-            $http({
-                    method: 'GET',
-                    url: '/initial-data'
-                })
-                .then(function(res) {
-                    $scope.currentVersion = res.data.currentVersion;
-                    $scope.allocationEnabled = res.data.allocationEnabled;
-                    deferred.resolve();
-                })
-                .catch(function(err) {
-                    deferred.reject(err);
-                });
-
-            return deferred.promise;
-        }
-
         var getAttendeeCheckIns = function() {
             attendeeService.getCheckIns($scope.eventId, $scope.checkInWorker, "")
                 .then(function(attendees) {
@@ -237,7 +221,6 @@ angular.module('HubApp')
                             existingAttendeeBadges[uniqueId] = attendee.badge;
                         }
                     });
-                    badgeService.updateExistingAttendeeBadges(existingAttendeeBadges);
                     $scope.currentStatus = badgeService.currentStatus;
                     // console.log(new Date(), 'updated checkins');
                 });
@@ -247,15 +230,7 @@ angular.module('HubApp')
             }, 2 * 1000);
         }
 
-        var init = function() {
-            $scope.eventLoading = true;
-            getInitialData()
-                .then(function() {
-                    getAttendeeCheckIns();
-                });
-        }
-
-        init();
+        getAttendeeCheckIns();
 
         /*----------  EVENT LISTENERS  ----------*/
 
