@@ -168,6 +168,7 @@ angular.module('HubApp')
 
                         $scope.currentSyncedAttendee = null;
                         $scope.currentlyUnsyncing = false;
+                        lastUserUpdateTime = new Date();
                     });
             }
         }
@@ -218,6 +219,8 @@ angular.module('HubApp')
                     //here we make sure that the polling time is
                     if (result.requestTime > lastUserUpdateTime) {
                         processAttendees();
+                    } else {
+                        console.log('request too old to update ui!');
                     }
                 })
                 .finally(function() {
