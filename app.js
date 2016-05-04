@@ -58,6 +58,10 @@ app.get('/signup', function(req, res) {
     });
 });
 
+app.get('/status', function(req, res) {
+    res.send(200);
+});
+
 var server = app.listen(3000, function() {
     var host = server.address().address;
     var port = server.address().port;
