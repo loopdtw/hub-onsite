@@ -86,7 +86,8 @@ angular.module('HubApp')
 				method: 'GET',
 				url: url,
 				params: {
-					"eventId": eventId
+					"eventId": eventId,
+					"limit": ATTENDEE_LIMIT
 				}
 			}).
 			then(function(res) {
