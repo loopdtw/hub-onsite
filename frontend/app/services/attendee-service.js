@@ -119,6 +119,7 @@ angular.module('HubApp')
 		var getAttendeesForEvent = function(eventId) {
 			var deferred = $q.defer();
 			var requestTime = new Date();
+			console.log('defined', requestTime);
 			$http({
 				method: 'GET',
 				url: config.baseUrl + '/events/' + eventId + '/eventattendees',
@@ -131,6 +132,7 @@ angular.module('HubApp')
 				}
 			}).
 			then(function(res) {
+				console.log('callback', requestTime);
 				deferred.resolve(res.data, requestTime);
 			}, function(data, status, headers, config) {
 				// console.log(data.meta);
