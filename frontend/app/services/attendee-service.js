@@ -92,7 +92,11 @@ angular.module('HubApp')
 			}).
 			then(function(res) {
 				console.log('callback', requestTime);
-				deferred.resolve(res.data, requestTime);
+				deferred.resolve({
+					attendees: res.data,
+					requestTime: requestTime
+				});
+
 			}, function(data, status, headers, config) {
 				// console.log(data.meta);
 			});

@@ -212,13 +212,11 @@ angular.module('HubApp')
         var getAttendeeCheckIns = function() {
 
             attendeeService.getCheckIns($scope.eventId, $scope.checkInWorker, "")
-                .then(function(attendees, requestTime) {
-                    allAttendees = attendees;
+                .then(function(result) {
+                    allAttendees = result.attendees;
 
                     //here we make sure that the polling time is
-                    console.log('pollTime', requestTime);
-                    console.log('userUpdateTime', lastUserUpdateTime);
-                    if (requestTime > lastUserUpdateTime) {
+                    if (result.requestTime > lastUserUpdateTime) {
                         processAttendees();
                     }
                 })
