@@ -10,6 +10,9 @@ angular.module('HubApp')
         var syncTimeout = null;
         var getAttendeesTimeout = null;
 
+        //we track the last user update time, giving an initial value of page load time
+        var lastUserUpdateTime = new Date();
+
         /*----------  SCOPE VAR DECLARATIONS  ----------*/
 
         $scope.eventId = null;
@@ -200,16 +203,22 @@ angular.module('HubApp')
                 $scope.currentAttendee = null;
             }
 
+            lastUserUpdateTime = new Date();
             alert.play();
         }
 
         /*----------  INIT FUNCTION DECLARATIONS  ----------*/
 
         var getAttendeeCheckIns = function() {
+
             attendeeService.getCheckIns($scope.eventId, $scope.checkInWorker, "")
-                .then(function(attendees) {
+                .then(function(attendees, requestTime) {
                     allAttendees = attendees;
-                    processAttendees();
+
+                    //here we make sure that the polling time is
+                    if (requestTime > lastUserUpdateTime) {
+                        processAttendees();
+                    }
                 })
                 .finally(function() {
                     var existingAttendeeBadges = {};
