@@ -3,6 +3,8 @@ angular.module('HubApp')
 		var attendeeService = {};
 		var socket = socketService.socket;
 
+		const ATTENDEE_LIMIT = 20;
+
 		attendeeService.currentSyncingAttendee = null;
 		attendeeService.existingAttendeeBadges = {};
 

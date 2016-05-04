@@ -216,6 +216,8 @@ angular.module('HubApp')
                     allAttendees = attendees;
 
                     //here we make sure that the polling time is
+                    console.log('pollTime', requestTime);
+                    console.log('userUpdateTime', lastUserUpdateTime);
                     if (requestTime > lastUserUpdateTime) {
                         processAttendees();
                     }
