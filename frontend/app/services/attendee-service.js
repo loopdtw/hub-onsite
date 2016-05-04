@@ -74,6 +74,9 @@ angular.module('HubApp')
 			var deferred = $q.defer();
 			var url = "";
 
+			var deferred = $q.defer();
+			var requestTime = new Date();
+
 			if (workerId) {
 				url = config.baseUrl + '/onsite/attendees?checkInWorker=' + workerId;
 			} else {
@@ -88,7 +91,7 @@ angular.module('HubApp')
 				}
 			}).
 			then(function(res) {
-				deferred.resolve(res.data);
+				deferred.resolve(res.data, requestTime);
 			}, function(data, status, headers, config) {
 				// console.log(data.meta);
 			});
