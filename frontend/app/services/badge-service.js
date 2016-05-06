@@ -281,7 +281,7 @@ angular.module('HubApp')
 				}
 			}).
 			success(function(data) {
-				console.log(badge.identity, attendee.id);
+				console.log(badge.identity, attendee.id, attendee.eventId);
 				$http({
 						method: 'PUT',
 						url: config.baseUrl + '/Events/' + attendee.eventId + '/eventattendees/badges',
