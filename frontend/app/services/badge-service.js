@@ -266,56 +266,56 @@ angular.module('HubApp')
 		}
 
 		//removes the relationship between the attendee and badge
+		// var unsyncBadge = function(attendee, badge) {
+		// 	var deferred = $q.defer();
+		// 	var baseConfig = config;
+
+		// 	$http({
+		// 		method: 'POST',
+		// 		url: '/unsync-badge',
+		// 		headers: {
+		// 			'Content-Type': 'application/json'
+		// 		},
+		// 		data: {
+		// 			badge: badge
+		// 		}
+		// 	}).
+		// 	success(function(data) {
+		// 		console.log(badge.identity, attendee.id, attendee.eventId);
+		// 		$http({
+		// 				method: 'PUT',
+		// 				url: config.baseUrl + '/Events/' + attendee.eventId + '/eventattendees/badges',
+		// 				headers: {
+		// 					'Loopd-Admin-Key': config.authToken
+		// 				},
+		// 				data: {
+		// 					"eventAttendees": [{
+		// 						"eventAttendeeId": attendee.id,
+		// 						"badge": badge.identity,
+		// 						"isReturned": true
+		// 					}],
+		// 					"source": "WEB_E",
+		// 					"sourceId": "WE:WE:WE:WE"
+		// 				}
+		// 			})
+		// 			.success(function(data, status, headers, config) {
+		// 				console.log(data);
+		// 				attendee.badgeIdentity = null;
+		// 				deferred.resolve(data);
+		// 			})
+		// 			.error(function(data, status, headers, config) {
+		// 				deferred.reject(data);
+		// 			});
+
+		// 	}).
+		// 	error(function(data, status, headers, config) {
+		// 		deferred.reject();
+		// 	});
+
+		// 	return deferred.promise;
+		// }
+
 		var unsyncBadge = function(attendee, badge) {
-			var deferred = $q.defer();
-			var baseConfig = config;
-
-			$http({
-				method: 'POST',
-				url: '/unsync-badge',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				data: {
-					badge: badge
-				}
-			}).
-			success(function(data) {
-				console.log(badge.identity, attendee.id, attendee.eventId);
-				$http({
-						method: 'PUT',
-						url: config.baseUrl + '/Events/' + attendee.eventId + '/eventattendees/badges',
-						headers: {
-							'Loopd-Admin-Key': config.authToken
-						},
-						data: {
-							"eventAttendees": [{
-								"eventAttendeeId": attendee.id,
-								"badge": badge.identity,
-								"isReturned": true
-							}],
-							"source": "WEB_E",
-							"sourceId": "WE:WE:WE:WE"
-						}
-					})
-					.success(function(data, status, headers, config) {
-						console.log(data);
-						attendee.badgeIdentity = null;
-						deferred.resolve(data);
-					})
-					.error(function(data, status, headers, config) {
-						deferred.reject(data);
-					});
-
-			}).
-			error(function(data, status, headers, config) {
-				deferred.reject();
-			});
-
-			return deferred.promise;
-		}
-
-		var deleteBadge = function(attendee, badge) {
 			var deferred = $q.defer();
 			var baseConfig = config;
 
