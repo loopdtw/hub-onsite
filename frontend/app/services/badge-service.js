@@ -283,7 +283,7 @@ angular.module('HubApp')
 			success(function(data) {
 				$http({
 						method: 'PUT',
-						url: config.baseUrl + '/Events/' + attendee.eventId + '/eventattendees/badges,
+						url: config.baseUrl + '/Events/' + attendee.eventId + '/eventattendees/badges',
 						headers: {
 							'Loopd-Admin-Key': config.authToken
 						},
