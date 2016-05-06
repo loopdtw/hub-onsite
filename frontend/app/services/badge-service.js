@@ -298,6 +298,7 @@ angular.module('HubApp')
 						}
 					})
 					.success(function(data, status, headers, config) {
+						console.log(data);
 						attendee.badgeIdentity = null;
 						deferred.resolve(data);
 					})
