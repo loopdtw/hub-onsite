@@ -112,8 +112,8 @@ angular.module('HubApp')
                 }
             });
 
-            $scope.unsyncedAttendees = (allUnsyncedAttendees.length > 3) ? allUnsyncedAttendees.slice(allUnsyncedAttendees.length - 3).reverse() : allUnsyncedAttendees.reverse();
-            $scope.syncedAttendees = (allSyncedAttendees.length > 3) ? allSyncedAttendees.slice(allSyncedAttendees.length - 3) : allSyncedAttendees.reverse();
+            $scope.unsyncedAttendees = (allUnsyncedAttendees.length > 3) ? allUnsyncedAttendees.slice(allUnsyncedAttendees.length - 10).reverse() : allUnsyncedAttendees.reverse();
+            $scope.syncedAttendees = (allSyncedAttendees.length > 3) ? allSyncedAttendees.slice(allSyncedAttendees.length - 10) : allSyncedAttendees.reverse();
         }
 
         var removeBadgeForCheckIn = function(attendeeTemp) {

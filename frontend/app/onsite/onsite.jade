@@ -8,7 +8,7 @@ block content
 			.columnOne Kiosk
 			.columnTwo Checkin Time
 			.columnTwo Full Name
-			.columnTwo Provider Badge Id
+			//- .columnTwo Provider Badge Id
 			.columnFour Email
 		.module.short
 			.body
@@ -19,8 +19,8 @@ block content
 						{{attendee.checkIn.created | date:'HH:mm:ss'}}
 					.columnTwo
 						{{attendee.firstname}} {{attendee.lastname}}
-					.columnTwo
-						{{attendee.providerBadgeId}}
+					//- .columnTwo
+					//- 	{{attendee.providerBadgeId}}
 					.columnFour
 						{{attendee.email}}
 		h3 Status: <em>{{currentStatus}}</em>
@@ -33,7 +33,7 @@ block content
 			.columnOne Kiosk
 			.columnTwo Sync Time
 			.columnTwo Full Name
-			.columnTwo Provider Badge Id
+			//- .columnTwo Provider Badge Id
 			.columnFour(ng-click="orderSynced('badge.timeSynced')") Email
 		.module.short
 			.body
@@ -44,8 +44,8 @@ block content
 						{{attendee.badge.syncTime | date:'HH:mm:ss'}}
 					.columnTwo
 						{{attendee.firstname}} {{attendee.lastname}}
-					.columnTwo
-						{{attendee.providerBadgeId}}
+					//- .columnTwo
+					//- 	{{attendee.providerBadgeId}}
 					.columnFour
 						{{attendee.email}}
 		.btn.btnShakespeare.actionButton(ng-class="{'disabled':!currentSyncedAttendee || currentlySyncing || currentlyUnsyncing}" ng-click="sendCommand('f70102')") BLINK

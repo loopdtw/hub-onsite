@@ -19,7 +19,6 @@
         <div class="columnOne">Kiosk</div>
         <div class="columnTwo">Checkin Time</div>
         <div class="columnTwo">Full Name</div>
-        <div class="columnTwo">Provider Badge Id</div>
         <div class="columnFour">Email</div>
       </div>
       <div class="module short">
@@ -28,7 +27,6 @@
             <div class="columnOne">{{attendee.checkIn.checkInWorker}}</div>
             <div class="columnTwo">{{attendee.checkIn.created | date:'HH:mm:ss'}}</div>
             <div class="columnTwo">{{attendee.firstname}} {{attendee.lastname}}</div>
-            <div class="columnTwo">{{attendee.providerBadgeId}}</div>
             <div class="columnFour">{{attendee.email}}</div>
           </div>
         </div>
@@ -41,7 +39,6 @@
         <div class="columnOne">Kiosk</div>
         <div class="columnTwo">Sync Time</div>
         <div class="columnTwo">Full Name</div>
-        <div class="columnTwo">Provider Badge Id</div>
         <div ng-click="orderSynced('badge.timeSynced')" class="columnFour">Email</div>
       </div>
       <div class="module short">
@@ -50,7 +47,6 @@
             <div class="columnOne">{{attendee.checkIn.checkInWorker}}</div>
             <div class="columnTwo">{{attendee.badge.syncTime | date:'HH:mm:ss'}}</div>
             <div class="columnTwo">{{attendee.firstname}} {{attendee.lastname}}</div>
-            <div class="columnTwo">{{attendee.providerBadgeId}}</div>
             <div class="columnFour">{{attendee.email}}</div>
           </div>
         </div>
