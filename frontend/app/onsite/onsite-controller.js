@@ -226,6 +226,9 @@ angular.module('HubApp')
             attendeeService.getCheckIns($scope.eventId, $scope.checkInWorker, "")
                 .then(function(result) {
                     allAttendees = result.attendees;
+                    allAttendees.forEach(function(attendee) {
+                        console.log(attendee.checkIn.created);
+                    });
 
                     //here we make sure that the polling time is
                     if (result.requestTime > lastUserUpdateTime) {
