@@ -117,6 +117,9 @@ angular.module('HubApp')
                     allUnsyncedAttendees.push(attendee);
                 } else {
                     allSyncedAttendees.push(attendee);
+                    allSyncedAttendees = allSyncedAttendees.sort(function(a, b) {
+                        return (a.checkIn.created > b.checkIn.created) ? 1 : ((b.checkIn.created > a.checkIn.created) ? -1 : 0);
+                    });
                 }
             });
 
