@@ -41,7 +41,7 @@ block content
 					.columnOne
 						{{attendee.checkIn.checkInWorker}}
 					.columnTwo
-						{{attendee.badge.syncTime | date:'h:mm:ss'}}
+						{{attendee.checkIn.created | date:'h:mm:ss'}}
 					.columnTwo
 						{{attendee.firstname}} {{attendee.lastname}}
 					//- .columnTwo

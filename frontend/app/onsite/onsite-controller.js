@@ -107,24 +107,13 @@ angular.module('HubApp')
             $scope.unsyncedAttendees = [];
             $scope.syncedAttendees = [];
 
-            var allUnsyncedAttendees = [];
-            var allSyncedAttendees = [];
-
-            console.log(allAttendees);
-
             allAttendees.forEach(function(attendee) {
                 if (!attendee.badge) {
-                    allUnsyncedAttendees.push(attendee);
+                    $scope.unsyncedAttendees.push(attendee);
                 } else {
-                    allSyncedAttendees.push(attendee);
-                    allSyncedAttendees = allSyncedAttendees.sort(function(a, b) {
-                        return (a.checkIn.created > b.checkIn.created) ? 1 : ((b.checkIn.created > a.checkIn.created) ? -1 : 0);
-                    });
+                    $scope.syncedAttendees.push(attendee);
                 }
             });
-
-            $scope.unsyncedAttendees = (allUnsyncedAttendees.length > 10) ? allUnsyncedAttendees.slice(allUnsyncedAttendees.length - 10).reverse() : allUnsyncedAttendees.reverse();
-            $scope.syncedAttendees = (allSyncedAttendees.length > 10) ? allSyncedAttendees.slice(allSyncedAttendees.length - 10) : allSyncedAttendees.reverse();
         }
 
         var removeBadgeForCheckIn = function(attendeeTemp) {
