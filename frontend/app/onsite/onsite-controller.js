@@ -101,6 +101,8 @@ angular.module('HubApp')
             var allUnsyncedAttendees = [];
             var allSyncedAttendees = [];
 
+            console.log(allAttendees);
+
             allAttendees.forEach(function(attendee) {
                 if (!attendee.badge) {
                     allUnsyncedAttendees.push(attendee);
