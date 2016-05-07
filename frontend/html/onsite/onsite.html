@@ -14,7 +14,7 @@
       <pageslide ps-side="left" ps-open="checked">
         <div><a href="#" ng-click="goToCheckIn()">CHECKIN</a><a href="#" ng-click="goToSearch()">SEARCH</a><a href="#" ng-click="goToLookup()">LOOK UP</a><a href="#" ng-click="goToSignup()">MANUAL SIGNUP</a></div>
       </pageslide>
-      <h2>CHECKINS</h2>
+      <h2>CHECKINS ({{unsyncedAttendees.length}})</h2>
       <div class="header">
         <div class="columnOne">Kiosk</div>
         <div class="columnTwo">Checkin Time</div>
@@ -34,12 +34,12 @@
       <h3>Status: <em>{{currentStatus}}</em></h3>
       <h3>Badges: {{allocatedPeripheralsCount}}</h3>
       <div ng-click="sync()" ng-class="{'disabled':!currentAttendee || isScanning || allocatedPeripheralsCount &lt; 1 || currentlySyncing}" class="btn btnShakespeare actionButton"><span ng-if="!currentlySyncing">SYNC</span><span ng-if="currentlySyncing">SYNCING...</span></div>
-      <h2>SYNCED CHECKINS</h2>
+      <h2>SYNCED CHECKINS ({{syncedAttendees.length}})</h2>
       <div class="header">
         <div class="columnOne">Kiosk</div>
         <div class="columnTwo">Sync Time</div>
         <div class="columnTwo">Full Name</div>
-        <div ng-click="orderSynced('badge.timeSynced')" class="columnFour">Email</div>
+        <div class="columnFour">Email</div>
       </div>
       <div class="module short">
         <div class="body">

@@ -3,7 +3,7 @@ extends ../../_views/layout
 block content
 	#onsite(ng-controller="onsiteController")
 		include ../partials/menu
-		h2 CHECKINS
+		h2 CHECKINS ({{unsyncedAttendees.length}})
 		.header
 			.columnOne Kiosk
 			.columnTwo Checkin Time
@@ -28,13 +28,13 @@ block content
 		.btn.btnShakespeare.actionButton(ng-click="sync()" ng-class="{'disabled':!currentAttendee || isScanning || allocatedPeripheralsCount < 1 || currentlySyncing}")
 			span(ng-if="!currentlySyncing") SYNC
 			span(ng-if="currentlySyncing") SYNCING...
-		h2 SYNCED CHECKINS
+		h2 SYNCED CHECKINS ({{syncedAttendees.length}})
 		.header
 			.columnOne Kiosk
 			.columnTwo Sync Time
 			.columnTwo Full Name
 			//- .columnTwo Provider Badge Id
-			.columnFour(ng-click="orderSynced('badge.timeSynced')") Email
+			.columnFour Email
 		.module.short
 			.body
 				.row(ng-repeat="attendee in syncedAttendees" ng-click="setCurrentSyncedAttendee(attendee)" ng-class="{'active':(currentSyncedAttendee.id == attendee.id)}")
