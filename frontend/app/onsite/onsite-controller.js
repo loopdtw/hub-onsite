@@ -216,7 +216,7 @@ angular.module('HubApp')
                 .then(function(result) {
                     if ($scope.checkInWorker) {
                         allAttendees = result.attendees.sort(function(a, b) {
-                            return (a.checkIn.created > b.checkIn.created) ? 1 : ((b.checkIn.created > a.checkIn.created) ? -1 : 0);
+                            return (a.checkIn.created < b.checkIn.created) ? 1 : ((b.checkIn.created < a.checkIn.created) ? -1 : 0);
                         });
                     } else {
                         allAttendees = result.attendees;
