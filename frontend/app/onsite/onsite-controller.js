@@ -114,10 +114,8 @@ angular.module('HubApp')
                 }
             });
 
-            if (allAttendees.length >= 20) {
-                $scope.unsyncedAttendees = (allUnsyncedAttendees.length > 3) ? allUnsyncedAttendees.slice(allUnsyncedAttendees.length - 10).reverse() : allUnsyncedAttendees.reverse();
-                $scope.syncedAttendees = (allSyncedAttendees.length > 3) ? allSyncedAttendees.slice(allSyncedAttendees.length - 10) : allSyncedAttendees.reverse();
-            }
+            $scope.unsyncedAttendees = (allUnsyncedAttendees.length > 10) ? allUnsyncedAttendees.slice(allUnsyncedAttendees.length - 10).reverse() : allUnsyncedAttendees.reverse();
+            $scope.syncedAttendees = (allSyncedAttendees.length > 10) ? allSyncedAttendees.slice(allSyncedAttendees.length - 10) : allSyncedAttendees.reverse();
         }
 
         var removeBadgeForCheckIn = function(attendeeTemp) {
