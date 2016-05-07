@@ -66,6 +66,15 @@ angular.module('HubApp')
         }
 
         /*----------  FUNC DECLARATIONS  ----------*/
+        var compare = function(a, b) {
+            if (a.checkIn.created < b.checkIn.created)
+                return -1;
+            else if (a.checkIn.created > b.checkIn.created)
+                return 1;
+            else
+                return 0;
+        }
+
         var setCurrentAttendee = function(attendee) {
             if (!$scope.currentlySyncing) {
                 if ($scope.currentAttendee) {
@@ -108,9 +117,6 @@ angular.module('HubApp')
                     allUnsyncedAttendees.push(attendee);
                 } else {
                     allSyncedAttendees.push(attendee);
-                    allSyncedAttendees = allSyncedAttendees.sort(function(a, b) {
-                        return (a.badge.syncTime > b.badge.syncTime) ? 1 : ((b.badge.syncTime > a.badge.syncTime) ? -1 : 0);
-                    });
                 }
             });
 
@@ -199,12 +205,12 @@ angular.module('HubApp')
                 }
             });
 
-            $scope.currentlySyncing = false;
             if ($scope.unsyncedAttendees.length > 0) {
                 $scope.currentAttendee = $scope.unsyncedAttendees[0];
             } else {
                 $scope.currentAttendee = null;
             }
+            $scope.currentlySyncing = false;
 
             lastUserUpdateTime = new Date();
             alert.play();
