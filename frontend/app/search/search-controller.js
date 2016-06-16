@@ -44,20 +44,36 @@ angular.module('HubApp')
             $scope.checked = !$scope.checked;
         }
 
-        var goToCheckIn = function() {
-            $window.location.href = '/?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
-        }
-
         var goToSearch = function() {
-            $window.location.href = '/search?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
-        }
-
-        var goToLookup = function() {
-            $window.location.href = '/lookup?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
+            if ($scope.checkInWorker) {
+                $window.location.href = '/search?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker;
+            } else {
+                $window.location.href = '/search?eventId=' + $scope.eventId;
+            }
         }
 
         var goToSignup = function() {
-            $window.location.href = '/signup?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
+            if ($scope.checkInWorker) {
+                $window.location.href = '/signup?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker;
+            } else {
+                $window.location.href = '/signup?eventId=' + $scope.eventId;
+            }
+        }
+
+        var goToCheckIn = function() {
+            if ($scope.checkInWorker) {
+                $window.location.href = '/?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker
+            } else {
+                $window.location.href = '/?eventId=' + $scope.eventId;
+            }
+        }
+
+        var goToLookup = function() {
+            if ($scope.checkInWorker) {
+                $window.location.href = '/lookup?eventId=' + $scope.eventId + '&checkInWorker=' + $scope.checkInWorker;
+            } else {
+                $window.location.href = '/lookup?eventId=' + $scope.eventId;
+            }
         }
 
         /*----------  FUNC DECLARATIONS  ----------*/
