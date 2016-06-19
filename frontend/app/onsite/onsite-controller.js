@@ -274,6 +274,14 @@ angular.module('HubApp')
             completeSync(args.attendee, args.badge);
         });
 
+        $scope.$on('badgeSyncError', function(event, args) {
+            $scope.currentlySyncing = false;
+            if (syncTimeout) {
+                $timeout.cancel(syncTimeout);
+            }
+            $scope.$apply();
+        });
+
         $scope.$on('badgeDisconnect', function() {
             $scope.currentlySyncing = false;
             if (syncTimeout) {
