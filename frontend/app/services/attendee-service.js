@@ -53,7 +53,7 @@ angular.module('HubApp')
 				}
 			}).
 			then(function(res) {
-				deferred.resolve(res);
+				deferred.resolve(res.data);
 			}, function(data, status, headers, config) {
 				// console.log(data.meta);
 			});
@@ -62,6 +62,7 @@ angular.module('HubApp')
 		}
 
 		var getAttendeesForEvent = function(eventId) {
+			console.log(config.baseUrl + '/events/' + eventId + '/eventattendees');
 			var deferred = $q.defer();
 			$http({
 				method: 'GET',
@@ -70,6 +71,7 @@ angular.module('HubApp')
 					'Loopd-Admin-Key': config.authToken
 				},
 				params: {
+					"limit": 3000,
 					"requestFrom": "home",
 					"requestFromId": "unknown"
 				}

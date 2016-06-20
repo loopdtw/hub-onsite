@@ -149,9 +149,9 @@ angular.module('HubApp')
             if (search && search !== "") {
                 $scope.currentlySearching = true;
                 attendeeService.searchAttendees($scope.eventId, $scope.searchTerm)
-                    .then(function(data) {
+                    .then(function(attendees) {
                         $scope.currentlySearching = false;
-                        searchResults = data.data;
+                        searchResults = attendees;
                         processSearchResults();
                     });
             }
@@ -233,7 +233,14 @@ angular.module('HubApp')
         var cacheAttendees = function() {
             if ($scope.eventId) {
                 attendeeService.getAttendeesForEvent($scope.eventId).then(function(attendees) {
-                    console.log(attendees.length + " attendees cached!");
+                    console.log('cached ' + attendees.length + ' attendees');
+                    attendees.forEach(function(attendee) {
+                        attendee.badges.forEach(function(badge) {
+                            if (!badge.isReturned) {
+                                attendee.badge = badge;
+                            }
+                        });
+                    });
                     $scope.cachedAttendees = attendees;
                 });
             }
