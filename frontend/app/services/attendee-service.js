@@ -8,68 +8,6 @@ angular.module('HubApp')
 		attendeeService.currentSyncingAttendee = null;
 		attendeeService.existingAttendeeBadges = {};
 
-		/**
-		 * Description: get check-in records based on current event and check-in service
-		 *
-		 * @param  {Number} eventId        , the event id
-		 * @param  {String} checkInService , the check-in service name
-		 * @param  {Number} workerId       , the check-in worker id (optional)
-		 * @return {Array}                 , an array of check-in records
-		 */
-		var getCheckInRecords = function(eventId, checkInService, workerId) {
-			var deferred = $q.defer();
-			var url = config.baseUrl + '/checkins/providers/' + checkInService;
-			if (workerId) {
-				url += '/workers/' + workerId;
-			}
-			$http({
-				method: 'GET',
-				url: url,
-				params: {
-					"eventId": eventId,
-					"fromTime": "0"
-				}
-			}).then(function(res) {
-				deferred.resolve(res.data);
-			});
-			return deferred.promise;
-		};
-
-		var getOnsiteWalkups = function(eventId, sinceTime) {
-			var deferred = $q.defer();
-			var url = config.baseUrl + '/onsite/attendees';
-			$http({
-				method: 'GET',
-				url: url,
-				params: {
-					eventId: eventId,
-					isCheckIn: 'false',
-					registerFromTime: sinceTime
-				}
-			}).then(function(res) {
-				deferred.resolve(res.data);
-			});
-			return deferred.promise;
-		};
-
-		var getOnsiteCheckIns = function(eventId, checkInWorker, sinceTime) {
-			var deferred = $q.defer();
-			var url = config.baseUrl + '/onsite/attendees';
-			$http({
-				method: 'GET',
-				url: url,
-				params: {
-					eventId: eventId,
-					isCheckIn: 'true',
-					checkInWorker: checkInWorker,
-					checkInFromTime: sinceTime ? sinceTime : 0
-				}
-			}).then(function(res) {
-				deferred.resolve(res.data);
-			});
-			return deferred.promise;
-		};
-
 		var getCheckIns = function(eventId, workerId, keyword) {
 			var deferred = $q.defer();
 			var url = "";
@@ -218,39 +156,6 @@ angular.module('HubApp')
 			});
 		}
 
-		var findCheckInForAttendee = function(attendee, checkIns) {
-			for (var x = 0; x < checkIns.length; x++) {
-				if (checkIns[x].eventAttendee.id == attendee.id) {
-					return checkIns[x];
-				}
-			}
-
-			return null;
-		}
-
-		var setCurrentEvent = function(eventId) {
-			var deferred = $q.defer();
-
-			$http({
-				method: 'POST',
-				url: '/current-event',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				data: {
-					eventId: eventId,
-				}
-			}).
-			success(function(data, status, headers, config) {
-				deferred.resolve();
-			}).
-			error(function(data, status, headers, config) {
-				deferred.reject();
-			});
-
-			return deferred.promise;
-		}
-
 		var signupAttendee = function(eventId, attendee) {
 			var deferred = $q.defer();
 
@@ -291,14 +196,9 @@ angular.module('HubApp')
 		}
 
 		/*----------  EXPORT DECLARTIONS  ----------*/
-		attendeeService.getOnsiteCheckIns = getOnsiteCheckIns;
-		attendeeService.getOnsiteWalkups = getOnsiteWalkups;
 		attendeeService.getCheckIns = getCheckIns;
-		attendeeService.getCheckInRecords = getCheckInRecords;
-		attendeeService.findCheckInForAttendee = findCheckInForAttendee;
 		attendeeService.searchAttendees = searchAttendees;
 		attendeeService.getAttendeesForEvent = getAttendeesForEvent;
-		attendeeService.setCurrentEvent = setCurrentEvent;
 		attendeeService.getAttendeeByEmail = getAttendeeByEmail;
 		attendeeService.getAttendeeForBadge = getAttendeeForBadge;
 		attendeeService.signupAttendee = signupAttendee;
