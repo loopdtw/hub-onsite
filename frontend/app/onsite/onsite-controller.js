@@ -227,7 +227,6 @@ angular.module('HubApp')
         /*----------  INIT FUNCTION DECLARATIONS  ----------*/
 
         var getAttendeeCheckIns = function() {
-
             attendeeService.getCheckIns($scope.eventId, $scope.checkInWorker, "")
                 .then(function(result) {
                     if ($scope.checkInWorker) {

@@ -2,7 +2,6 @@ angular.module('HubApp')
     .controller('searchController', function($scope, $http, $timeout, $q, utilService, socketService, badgeService, attendeeService, $location, $window) {
 
         /*----------  VAR DECLARATIONS  ----------*/
-        var alert = new Audio('/audio/alert.mp3');
         var syncTimeout = null;
 
         /*----------  SCOPE VAR DECLARATIONS  ----------*/
@@ -32,6 +31,7 @@ angular.module('HubApp')
         $scope.$watch('location.search()', function() {
             $scope.eventId = ($location.search()).eventId;
             $scope.checkInWorker = ($location.search()).checkInWorker;
+            cacheAttendees();
         }, true);
 
         $scope.changeTarget = function(name) {
@@ -126,6 +126,25 @@ angular.module('HubApp')
             });
         }
 
+        var searchCachedAttendees = function() {
+            searchResults = [];
+            if ($scope.searchTerm.length && $scope.searchTerm.length >= 3) {
+                var regex = new RegExp($scope.searchTerm, "i");
+                $scope.cachedAttendees.forEach(function(attendee) {
+                    if (attendee.email.search(regex) > -1) {
+                        searchResults.push(attendee);
+                    } else if (typeof attendee.firstname !== 'undefined' && attendee.firstname.search(regex) > -1) {
+                        searchResults.push(attendee);
+                    } else if (typeof attendee.lastname !== 'undefined' && attendee.lastname.search(regex) > -1) {
+                        searchResults.push(attendee);
+                    } else if (typeof attendee.providerAttendeeId !== 'undefined' && attendee.providerAttendeeId.search(regex) > -1) {
+                        searchResults.push(attendee);
+                    }
+                });
+            }
+            processSearchResults();
+        }
+
         var search = function() {
             if (search && search !== "") {
                 $scope.currentlySearching = true;
@@ -211,6 +230,22 @@ angular.module('HubApp')
             $scope.currentlySyncing = false;
         }
 
+        // init controllers        
+        var cacheAttendees = function() {
+            if ($scope.eventId) {
+                attendeeService.getAttendeesForEvent($scope.eventId).then(function(attendees) {
+                    console.log(attendees.length + " attendees cached!");
+                    $scope.cachedAttendees = attendees;
+                });
+            }
+
+            setTimeout(function() {
+                cacheAttendees();
+            }, 5 * 60 * 1000);
+        }
+
+        cacheAttendees();
+
         /*----------  EVENT LISTENERS  ----------*/
 
         $scope.$on('badgeSynced', function(event, args) {
@@ -239,6 +274,7 @@ angular.module('HubApp')
         });
 
         /*----------  EXPORT DECLARATIONS  ----------*/
+        $scope.searchCachedAttendees = searchCachedAttendees;
         $scope.search = search;
         $scope.toggleMenu = toggleMenu;
         $scope.setCurrentAttendee = setCurrentAttendee;
