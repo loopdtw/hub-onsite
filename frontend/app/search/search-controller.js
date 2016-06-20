@@ -260,8 +260,6 @@ angular.module('HubApp')
             }
 
             completeSync(args.attendee, args.badge);
-
-            alert.play();
             $scope.$apply();
         });
 
