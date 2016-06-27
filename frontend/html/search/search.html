@@ -58,6 +58,7 @@
           </div>
         </div>
       </div>
+      <div ng-class="{'disabled':!currentSyncedAttendee || currentlySyncing || currentlyUnsyncing}" ng-click="sendCommand('f70102')" class="btn btnShakespeare actionButton">BLINK</div>
       <div ng-class="{'disabled':!currentSyncedAttendee}" ng-click="unsync()" class="btn btnRed actionButton"><span ng-if="!currentlyUnsyncing">UNSYNC</span><span ng-if="currentlyUnsyncing">UNSYNCING...</span></div>
     </div>
   </body>

@@ -53,6 +53,7 @@ block content
 						{{attendee.firstname}} {{attendee.lastname}}
 					.columnFour
 						{{attendee.email}}
+		.btn.btnShakespeare.actionButton(ng-class="{'disabled':!currentSyncedAttendee || currentlySyncing || currentlyUnsyncing}" ng-click="sendCommand('f70102')") BLINK
 		.btn.btnRed.actionButton(ng-class="{'disabled':!currentSyncedAttendee}" ng-click='unsync()')
 			span(ng-if="!currentlyUnsyncing") UNSYNC
 			span(ng-if="currentlyUnsyncing") UNSYNCING...
