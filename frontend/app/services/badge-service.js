@@ -278,6 +278,47 @@ angular.module('HubApp')
 				data: {
 					badge: badge
 				}
+			}).success(function(data) {
+				$http({
+					method: 'PUT',
+					url: config.baseUrl + '/events/' + attendee.eventId + '/eventattendees/' + attendee.id + '/badges/' + badge.identity,
+					headers: {
+						'Loopd-Admin-Key': config.authToken
+					},
+					params: {
+						"source": "WEB_E",
+						"sourceId": "WE:WE:WE",
+						"isReturned": true
+					}
+				}).
+				success(function(data, status, headers, config) {
+					attendee.badgeIdentity = null;
+					deferred.resolve(data);
+				}).
+				error(function(data, status, headers, config) {
+					deferred.reject(data);
+				});
+
+			}).error(function(data, status, headers, config) {
+				deferred.reject();
+			});
+
+			return deferred.promise;
+		}
+		
+		var deleteBadge = function(attendee, badge) {
+			var deferred = $q.defer();
+			var baseConfig = config;
+
+			$http({
+				method: 'POST',
+				url: '/unsync-badge',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				data: {
+					badge: badge
+				}
 			}).
 			success(function(data) {
 				$http({
@@ -307,7 +348,7 @@ angular.module('HubApp')
 
 			return deferred.promise;
 		}
-
+		
 		var setRssiThreshold = function(rssiThreshold) {
 			var deferred = $q.defer();
 
