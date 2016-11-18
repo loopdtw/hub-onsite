@@ -285,7 +285,7 @@ angular.module('HubApp')
 					headers: {
 						'Loopd-Admin-Key': config.authToken
 					},
-					params: {
+					data: {
 						"source": "WEB_E",
 						"sourceId": "WE:WE:WE",
 						"isReturned": true

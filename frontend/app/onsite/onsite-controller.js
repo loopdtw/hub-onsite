@@ -124,10 +124,10 @@ angular.module('HubApp')
             $scope.syncedAttendees = [];
 
             allAttendees.forEach(function(attendee) {
-                if (!attendee.badge) {
-                    $scope.unsyncedAttendees.push(attendee);
-                } else {
+                if (attendee.badge && !attendee.badge.isReturned) {
                     $scope.syncedAttendees.push(attendee);
+                } else {
+                    $scope.unsyncedAttendees.push(attendee);
                 }
             });
         }
@@ -227,8 +227,7 @@ angular.module('HubApp')
         /*----------  INIT FUNCTION DECLARATIONS  ----------*/
 
         var getAttendeeCheckIns = function() {
-            attendeeService.getCheckIns($scope.eventId, $scope.checkInWorker, "")
-                .then(function(result) {
+            attendeeService.getCheckIns($scope.eventId, $scope.checkInWorker, "").then(function(result) {
                     if ($scope.checkInWorker) {
                         allAttendees = result.attendees.sort(function(a, b) {
                             return (a.checkIn.created < b.checkIn.created) ? 1 : ((b.checkIn.created < a.checkIn.created) ? -1 : 0);
@@ -243,17 +242,15 @@ angular.module('HubApp')
                     } else {
                         console.log('request too old to update ui!');
                     }
-                })
-                .finally(function() {
+                }).finally(function() {
                     var existingAttendeeBadges = {};
                     allAttendees.forEach(function(attendee) {
-                        if (attendee.badge) {
+                        if (attendee.badge && !attendee.badge.isReturned) {
                             var uniqueId = attendee.badge.identity + attendee.badge.macAddress;
                             existingAttendeeBadges[uniqueId] = attendee.badge;
                         }
                     });
                     $scope.currentStatus = badgeService.currentStatus;
-                    // console.log(new Date(), 'updated checkins');
                 });
 
             getAttendeesTimeout = $timeout(function() {
