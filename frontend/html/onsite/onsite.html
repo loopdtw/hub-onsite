@@ -24,10 +24,18 @@
       <div class="module short">
         <div class="body">
           <div ng-repeat="attendee in unsyncedAttendees" ng-class="{'active':(attendee.id==currentAttendee.id)}" ng-click="setCurrentAttendee(attendee)" class="row">
-            <div class="columnOne">{{attendee.checkIn.checkInWorker}}</div>
-            <div class="columnTwo">{{attendee.checkIn.created | date:'h:mm:ss'}}</div>
-            <div class="columnTwo">{{attendee.firstname}} {{attendee.lastname}}</div>
-            <div class="columnFour">{{attendee.email}}</div>
+            <div class="columnOne">
+              <p>{{attendee.checkIn.checkInWorker}}</p>
+            </div>
+            <div class="columnTwo">
+              <p>{{attendee.checkIn.created | date:'h:mm:ss'}}</p>
+            </div>
+            <div class="columnTwo">
+              <p>{{attendee.firstname}} {{attendee.lastname}}</p>
+            </div>
+            <div class="columnFour">
+              <p>{{attendee.email}}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -44,10 +52,18 @@
       <div class="module short">
         <div class="body">
           <div ng-repeat="attendee in syncedAttendees" ng-click="setCurrentSyncedAttendee(attendee)" ng-class="{'active':(currentSyncedAttendee.id == attendee.id)}" class="row">
-            <div class="columnOne">{{attendee.checkIn.checkInWorker}}</div>
-            <div class="columnTwo">{{attendee.checkIn.created | date:'h:mm:ss'}}</div>
-            <div class="columnTwo">{{attendee.firstname}} {{attendee.lastname}}</div>
-            <div class="columnFour">{{attendee.email}}</div>
+            <div class="columnOne">
+              <p>{{attendee.checkIn.checkInWorker}}</p>
+            </div>
+            <div class="columnTwo">
+              <p>{{attendee.checkIn.created | date:'h:mm:ss'}}</p>
+            </div>
+            <div class="columnTwo">
+              <p>{{attendee.firstname}} {{attendee.lastname}}</p>
+            </div>
+            <div class="columnFour">
+              <p>{{attendee.email}}</p>
+            </div>
           </div>
         </div>
       </div>

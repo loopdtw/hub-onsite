@@ -28,11 +28,21 @@
       <div class="module short">
         <div class="body">
           <div ng-repeat="attendee in unsyncedSearchResults" ng-class="{'active':(attendee.id==currentAttendee.id)}" ng-click="setCurrentAttendee(attendee)" class="row">
-            <div class="columnOne">{{attendee.checkIn.checkInWorker}}</div>
-            <div class="columnTwo">{{attendee.created | date:'HH:mm:ss'}}</div>
-            <div class="columnTwo">{{attendee.firstname}} {{attendee.lastname}}</div>
-            <div class="columnTwo">{{attendee.providerBadgeId}}</div>
-            <div class="columnFour">{{attendee.email}}</div>
+            <div class="columnOne">
+              <p>{{attendee.checkIn.checkInWorker}}</p>
+            </div>
+            <div class="columnTwo">
+              <p>{{attendee.created | date:'HH:mm:ss'}}</p>
+            </div>
+            <div class="columnTwo">
+              <p>{{attendee.firstname}} {{attendee.lastname}}</p>
+            </div>
+            <div class="columnTwo">
+              <p>{{attendee.providerBadgeId}}</p>
+            </div>
+            <div class="columnFour">
+              <p>{{attendee.email}}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -50,11 +60,21 @@
       <div class="module short">
         <div class="body">
           <div ng-repeat="attendee in syncedSearchResults" ng-click="setCurrentSyncedAttendee(attendee)" ng-class="{'active':(attendee.id==currentSyncedAttendee.id)}" class="row">
-            <div class="columnOne">{{attendee.checkIn.checkInWorker}}</div>
-            <div class="columnTwo">{{attendee.created | date:'MM/dd HH:mm:ss'}}</div>
-            <div class="columnTwo">{{attendee.badge.syncTime | date:'MM/dd HH:mm:ss'}}</div>
-            <div class="columnTwo">{{attendee.firstname}} {{attendee.lastname}}</div>
-            <div class="columnFour">{{attendee.email}}</div>
+            <div class="columnOne">
+              <p>{{attendee.checkIn.checkInWorker}}</p>
+            </div>
+            <div class="columnTwo">
+              <p>{{attendee.created | date:'MM/dd HH:mm:ss'}}</p>
+            </div>
+            <div class="columnTwo">
+              <p>{{attendee.badge.syncTime | date:'MM/dd HH:mm:ss'}}</p>
+            </div>
+            <div class="columnTwo">
+              <p>{{attendee.firstname}} {{attendee.lastname}}</p>
+            </div>
+            <div class="columnFour">
+              <p>{{attendee.email}}</p>
+            </div>
           </div>
         </div>
       </div>

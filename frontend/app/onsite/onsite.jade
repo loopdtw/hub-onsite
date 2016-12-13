@@ -14,15 +14,15 @@ block content
 			.body
 				.row(ng-repeat="attendee in unsyncedAttendees" ng-class="{'active':(attendee.id==currentAttendee.id)}" ng-click="setCurrentAttendee(attendee)")
 					.columnOne
-						{{attendee.checkIn.checkInWorker}}
+						p {{attendee.checkIn.checkInWorker}}
 					.columnTwo
-						{{attendee.checkIn.created | date:'h:mm:ss'}}
+						p {{attendee.checkIn.created | date:'h:mm:ss'}}
 					.columnTwo
-						{{attendee.firstname}} {{attendee.lastname}}
+						p {{attendee.firstname}} {{attendee.lastname}}
 					//- .columnTwo
 					//- 	{{attendee.providerBadgeId}}
 					.columnFour
-						{{attendee.email}}
+						p {{attendee.email}}
 		h3 Status: <em>{{currentStatus}}</em>
 		h3 Badges: {{allocatedPeripheralsCount}}
 		.btn.btnShakespeare.actionButton(ng-click="sync()" ng-class="{'disabled':!currentAttendee || isScanning || allocatedPeripheralsCount < 1 || currentlySyncing}")
@@ -39,15 +39,15 @@ block content
 			.body
 				.row(ng-repeat="attendee in syncedAttendees" ng-click="setCurrentSyncedAttendee(attendee)" ng-class="{'active':(currentSyncedAttendee.id == attendee.id)}")
 					.columnOne
-						{{attendee.checkIn.checkInWorker}}
+						p {{attendee.checkIn.checkInWorker}}
 					.columnTwo
-						{{attendee.checkIn.created | date:'h:mm:ss'}}
+						p {{attendee.checkIn.created | date:'h:mm:ss'}}
 					.columnTwo
-						{{attendee.firstname}} {{attendee.lastname}}
+						p {{attendee.firstname}} {{attendee.lastname}}
 					//- .columnTwo
 					//- 	{{attendee.providerBadgeId}}
 					.columnFour
-						{{attendee.email}}
+						p {{attendee.email}}
 		.btn.btnShakespeare.actionButton(ng-class="{'disabled':!currentSyncedAttendee || currentlySyncing || currentlyUnsyncing}" ng-click="sendCommand('f70102')") BLINK
 		.btn.btnRed.actionButton(ng-class="{'disabled':!currentSyncedAttendee || currentlyUnsyncing || currentlySyncing}" ng-click='unsync()')
 			span(ng-if="!currentlyUnsyncing") UNSYNC

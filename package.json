@@ -3,9 +3,9 @@
   "version": "1.0.1",
   "description": "Node Sync Registration",
   "scripts": {
-    "mac:local": "gulp & LOG_TAG='badge-state-viewer' NODE_ENV=local NODE_MACHINE=mac node-dev app.js",
-    "mac:staging": "gulp & LOG_TAG='badge-state-viewer' NODE_ENV=staging NODE_MACHINE=mac node-dev app.js",
-    "mac:production": "gulp & LOG_TAG='badge-state-viewer' NODE_ENV=production NODE_MACHINE=mac node-dev app.js",
+    "mac:local": "gulp & LOG_TAG='badge-state-viewer' NODE_ENV=local NODE_MACHINE=mac nodemon app.js",
+    "mac:staging": "gulp & LOG_TAG='badge-state-viewer' NODE_ENV=staging NODE_MACHINE=mac nodemon app.js",
+    "mac:production": "gulp & LOG_TAG='badge-state-viewer' NODE_ENV=production NODE_MACHINE=mac nodemon app.js",
     "edison:staging": "NOBLE_REPORT_ALL_HCI_EVENTS=1 LOG_TAG='badge-state-viewer' NODE_ENV=staging NODE_MACHINE=edison node app.js",
     "edison:production": "NOBLE_REPORT_ALL_HCI_EVENTS=1 LOG_TAG='badge-state-viewer' NODE_ENV=production NODE_MACHINE=edison node app.js"
   },
@@ -27,7 +27,9 @@
     "nodejs-config": "^1.0.1",
     "redis": "^2.4.2",
     "request": "^2.72.0",
-    "socket.io": "^1.3.7"
+    "socket.io": "^1.3.7",
+    "winston": "^2.3.0",
+    "winston-papertrail": "^1.0.4"
   },
   "main": "app.js",
   "devDependencies": {
