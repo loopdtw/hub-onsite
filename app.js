@@ -1,3 +1,6 @@
+var express = require('express');
+var app = require('express')();
+var http = require('http').Server(app);
 var async = require('async');
 var path = require('path');
 var Common = require('./lib/common');
@@ -5,10 +8,7 @@ var request = require('request');
 var logger = require('loopd-logger').logger;
 var cors = require('cors');
 var bodyParser = require('body-parser');
-// var MongoManager = require('./lib/mongo-manager');
-// current supported checkIn provider
-var CheckInProviders = ['boomset'];
-
+var routes = require('./routes/routes');
 var config = module.exports.config = require('nodejs-config')(
     __dirname, // an absolute path to your applications `config` directory
     function() {
@@ -16,12 +16,8 @@ var config = module.exports.config = require('nodejs-config')(
     }
 );
 
-var htmlPath = "./frontend/html/"
-var express = require('express');
-var app = require('express')();
-var http = require('http').Server(app);
-var routes = require('./routes/routes');
 app.use(cors());
+app.use(routes);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -29,38 +25,6 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, './frontend/_public')));
 app.use(express.static(path.join(__dirname, './frontend/html')));
 app.disable('view cache');
-
-app.get('/status', function(req, res) {
-    res.send(200);
-});
-
-app.get('/', function(req, res) {
-    res.sendFile('onsite/onsite.html', {
-        "root": htmlPath
-    });
-});
-
-app.get('/lookup', function(req, res) {
-    res.sendFile('lookup/lookup.html', {
-        "root": htmlPath
-    });
-});
-
-app.get('/search', function(req, res) {
-    res.sendFile('search/search.html', {
-        "root": htmlPath
-    });
-});
-
-app.get('/signup', function(req, res) {
-    res.sendFile('signup/signup.html', {
-        "root": htmlPath
-    });
-});
-
-app.get('/status', function(req, res) {
-    res.send(200);
-});
 
 var server = app.listen(3000, function() {
     var host = server.address().address;
@@ -71,7 +35,3 @@ var server = app.listen(3000, function() {
 });
 
 module.exports = app;
-module.exports.server = server;
-// module.exports.MongoManager = MongoManager;
-module.exports.config = config;
-require('./lib/sync-manager.js');
