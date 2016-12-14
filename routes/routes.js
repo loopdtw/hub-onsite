@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var htmlPath = "../frontend/html/"
+var htmlPath = "./frontend/html/"
 
 router.get('/status', function(req, res) {
     res.send(200);
