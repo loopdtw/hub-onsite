@@ -18,12 +18,12 @@ bunyan.DISABLE = 70;
 
 // get current receiver identity
 var ReceiverIdentity = 'node-hub-client';
-if (process.env.NODE_MACHINE === 'edison') {
-    ReceiverIdentity = execSync('cat /factory/serial_number', {
-        encoding: 'utf8'
-    });
-    ReceiverIdentity = ReceiverIdentity.slice(0, ReceiverIdentity.length - 1);
-}
+// if (process.env.NODE_MACHINE === 'edison') {
+//     ReceiverIdentity = execSync('cat /factory/serial_number', {
+//         encoding: 'utf8'
+//     });
+//     ReceiverIdentity = ReceiverIdentity.slice(0, ReceiverIdentity.length - 1);
+// }
 
 /**
  * Logger instance
