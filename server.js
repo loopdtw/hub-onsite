@@ -6,6 +6,7 @@ var logger = require('loopd-logger').logger;
 var bodyParser = require('body-parser');
 var workerManager = require('./lib/worker-manager.js');
 var index = require('./routes/routes');
+var syncRoutes = require('./lib/sync-manager').router;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, './frontend/_public')));
 app.use(express.static(path.join(__dirname, './frontend/html')));
 app.use('/', index);
+// app.use('/', syncRoutes);
 app.disable('view cache');
 
 var server = app.listen(3000, function() {
@@ -20,5 +22,3 @@ var server = app.listen(3000, function() {
     logger.info('Listening on port %s', port);
     workerManager.initWorker();
 });
-
-module.exports = app;

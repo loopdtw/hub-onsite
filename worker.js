@@ -13,12 +13,14 @@ var workerStatus = {
 	softwareUpgrade: false
 };
 
-syncManager.on('state', function(data) {
+syncManager.init();
+
+syncManager.eventManager.on('state', function(data) {
 	workerStatus.state = data.state;
 	sendWorkerStatus();
 });
 
-syncManager.on('meta', function(data) {
+syncManager.eventManager.on('meta', function(data) {
 	workerStatus.cloudLogging = data.cloudLogging;
 	workerStatus.softwareUpgrade = data.softwareUpgrade;
 	sendWorkerStatus();

@@ -12,5 +12,5 @@ global.Config = module.exports.config = require('nodejs-config')(
 if (cluster.isMaster) {
 	global.app = require('./server.js');
 } else {
-    require('./lib/sync-manager.js');
+    require('./worker.js');
 }
