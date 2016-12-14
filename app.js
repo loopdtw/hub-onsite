@@ -1,5 +1,3 @@
-var cluster = require('cluster');
-
 global.Promise = require('bluebird');
 global.Config = module.exports.config = require('nodejs-config')(
     // an absolute path to your applications `config` directory
@@ -9,8 +7,11 @@ global.Config = module.exports.config = require('nodejs-config')(
     }
 );
 
+var cluster = require('cluster');
+var workerManager = require('./lib/worker-manager.js');
+
 if (cluster.isMaster) {
-	global.app = require('./server.js');
+	workerManager.initWorker();
 } else {
-    require('./worker.js');
+	require('./server.js');
 }
