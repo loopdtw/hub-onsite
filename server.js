@@ -19,7 +19,7 @@ app.use('/', index);
 app.disable('view cache');
 
 exports.server = app.listen(3000, function() {
-    var port = server.address().port;
+    var port = this.address().port;
     logger.info('Listening on port %s', port);
 });
 
