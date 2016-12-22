@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, './frontend/html')));
 app.use('/', index);
 app.disable('view cache');
 
-var server = app.listen(3000, function() {
+exports.server = app.listen(3000, function() {
     var port = server.address().port;
     logger.info('Listening on port %s', port);
 });
