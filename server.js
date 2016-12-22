@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/routes');
 var syncManager = require('./lib/sync-manager');
 var syncRoutes = syncManager.router;
+var SocketManager = require('./lib/socket-manager');
 
 BADGE_SERVICE_UUID = "fb694b90f49e45978306171bba78f846";
 
@@ -18,8 +19,9 @@ app.use(express.static(path.join(__dirname, './frontend/html')));
 app.use('/', index);
 app.disable('view cache');
 
-exports.server = app.listen(3000, function() {
+var server = app.listen(3000, function() {
     var port = this.address().port;
+    SocketManager.init(this);
     logger.info('Listening on port %s', port);
 });
 
