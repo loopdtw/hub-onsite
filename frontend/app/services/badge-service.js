@@ -286,9 +286,11 @@ angular.module('HubApp')
 						'Loopd-Admin-Key': config.authToken
 					}
 				}).success(function(data, status, headers, config) {
+					console.error(data);
 					attendee.badgeIdentity = null;
 					deferred.resolve(data);
 				}).error(function(data, status, headers, config) {
+					console.error(data);
 					deferred.reject(data);
 				});
 
