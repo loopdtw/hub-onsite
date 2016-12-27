@@ -281,7 +281,7 @@ angular.module('HubApp')
 			}).success(function(data) {
 				$http({
 					method: 'POST',
-					url: config.baseUrl + '/events/' + attendee.eventId + '/eventattendees/' + attendee.id + '/badges/' + badge.identity,
+					url: config.baseUrl + '/events/' + attendee.eventId + '/eventattendees/' + attendee.id + '/badges/' + badge.identity + '/unsync',
 					headers: {
 						'Loopd-Admin-Key': config.authToken
 					}
