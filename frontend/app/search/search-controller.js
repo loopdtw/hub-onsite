@@ -236,7 +236,7 @@ angular.module('HubApp')
                     console.log('cached ' + attendees.length + ' attendees');
                     attendees.forEach(function(attendee) {
                         attendee.badges.forEach(function(badge) {
-                            if (!badge.isReturned) {
+                            if (!badge.to) {
                                 attendee.badge = badge;
                             }
                         });
