@@ -280,22 +280,17 @@ angular.module('HubApp')
 				}
 			}).success(function(data) {
 				$http({
-					method: 'PUT',
-					url: config.baseUrl + '/events/' + attendee.eventId + '/eventattendees/' + attendee.id + '/badges/' + badge.identity,
+					method: 'POST',
+					url: config.baseUrl + '/events/' + attendee.eventId + '/eventattendees/' + attendee.id + '/badges/' + badge.identity + '/unsync',
 					headers: {
 						'Loopd-Admin-Key': config.authToken
-					},
-					data: {
-						"source": "WEB_E",
-						"sourceId": "WE:WE:WE",
-						"isReturned": true
 					}
-				}).
-				success(function(data, status, headers, config) {
+				}).success(function(data, status, headers, config) {
+					console.error(data);
 					attendee.badgeIdentity = null;
 					deferred.resolve(data);
-				}).
-				error(function(data, status, headers, config) {
+				}).error(function(data, status, headers, config) {
+					console.error(data);
 					deferred.reject(data);
 				});
 
