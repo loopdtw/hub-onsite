@@ -36,7 +36,7 @@ router.post('/signup', function(req, res) {
     return attendeeManager.signupAttendee(attendee).then(function(data) {
         return attendeeManager.checkinAttendee(attendee);
     }).then(function(data){
-        res.status(200);
+        res.sendStatus(200);
     }).catch(function(err) {
         console.log(err);
     });
@@ -47,9 +47,9 @@ router.post('/command-badge', function(req, res) {
     var badgeCommand = new Buffer(req.body.badgeCommand, 'hex');
     
     syncManager.commandBadge(badge, badgeCommand).then(function() {
-        res.status(200);
+        res.sendStatus(200);
     }).catch(function(err) {
-        res.status(err.httpCode).send({
+        res.sendStatus(err.httpCode).send({
             error: err.message
         });
     });
@@ -57,18 +57,19 @@ router.post('/command-badge', function(req, res) {
 
 router.post('/sync-badge', function(req, res) {
     syncManager.syncNextAvailableBadge(req.body.attendee);
-    res.status(200);
+    res.sendStatus(200);
 });
 
 router.post('/update-existing-badges', function(req, res) {
     existingBadges = req.body.existingBadges;
-    res.status(200);
+    res.sendStatus(200);
 });
 
 router.post('/unsync-badge', function(req, res) {
+    console.log('unsync badge called');
     var badge = req.body.badge;
     return syncManager.unsyncBadgeAsync(badge).then(function() {
-        res.status(200);
+        res.sendStatus(200);
     });
 });
 
