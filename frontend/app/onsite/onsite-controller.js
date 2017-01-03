@@ -150,7 +150,10 @@ angular.module('HubApp')
 
         var sendCommand = function(command) {
             if ($scope.currentSyncedAttendee.badge) {
-                badgeService.sendCommand($scope.currentSyncedAttendee.badge, command);
+                badgeService.sendCommand($scope.currentSyncedAttendee.badge, command)
+                .catch(function(err) {
+                    alert(err);
+                });
             }
         }
 

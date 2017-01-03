@@ -142,53 +142,6 @@ angular.module('HubApp')
 			return deferred.promise;
 		}
 
-		//sends a designated command to the badge
-		var sendBulkCommand = function(state, command) {
-			var deferred = $q.defer();
-
-			$http({
-				method: 'POST',
-				url: '/bulk-command',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				data: {
-					state: state,
-					bulkBadgeCommand: command
-				}
-			}).
-			success(function(data, status, headers, config) {
-				badgeService.bulkCommanding = true;
-				deferred.resolve(data);
-			}).
-			error(function(data, status, headers, config) {
-				deferred.reject(data);
-			});
-
-			return deferred.promise;
-		}
-
-		var cancelBulkCommand = function() {
-			var deferred = $q.defer();
-
-			$http({
-				method: 'POST',
-				url: '/cancel-bulk-command',
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}).
-			success(function(data, status, headers, config) {
-				badgeService.bulkCommanding = false;
-				deferred.resolve(data);
-			}).
-			error(function(data, status, headers, config) {
-				deferred.reject(data);
-			});
-
-			return deferred.promise;
-		}
-
 		//tells the backend to communicate with the server to tie the badge id to attendee
 		var syncBadge = function(attendee) {
 			var deferred = $q.defer();
@@ -209,31 +162,6 @@ angular.module('HubApp')
 			error(function(data, status, headers, config) {
 				delete badgeService.badgesWaitingForCommand[attendee.id];
 				deferred.reject(data);
-			});
-
-			return deferred.promise;
-		}
-
-		//sets the rssi threshold in which commands/synchronizations can be sent
-		var setRssiThreshold = function(value) {
-			var deferred = $q.defer();
-
-			$http({
-				method: 'POST',
-				url: '/set-rssi',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				data: {
-					rssiThreshold: $scope.rssiThreshold
-				}
-			}).
-			success(function(data, status, headers, config) {
-				deferred.resolve(data);
-			}).
-			error(function(data, status, headers, config) {
-				deferred.reject(data);
-				console.error(data);
 			});
 
 			return deferred.promise;
@@ -455,11 +383,6 @@ angular.module('HubApp')
 			$rootScope.$broadcast('badgeLookup', {
 				identity: data.identity
 			});
-		});
-
-		socket.on('bulkCommandComplete', function() {
-			badgeService.bulkCommanding = false;
-			$rootScope.$broadcast('bulkCommandComplete');
 		});
 
 		socket.on('connect', function() {

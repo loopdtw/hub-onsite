@@ -31,13 +31,6 @@ router.get('/signup', function(req, res) {
     });
 });
 
-router.post('/command-badge', function(req, res) {
-    var badge = req.body.badge;
-    var badgeCommand = new Buffer(req.body.badgeCommand, 'hex');
-    syncManager.commandBadge(badge, badgeCommand);
-    res.status(200);
-});
-
 router.post('/signup', function(req, res) {
     var attendee = req.body.attendee;
     return attendeeManager.signupAttendee(attendee).then(function(data) {
@@ -46,6 +39,19 @@ router.post('/signup', function(req, res) {
         res.status(200);
     }).catch(function(err) {
         console.log(err);
+    });
+});
+
+router.post('/command-badge', function(req, res) {
+    var badge = req.body.badge;
+    var badgeCommand = new Buffer(req.body.badgeCommand, 'hex');
+    
+    syncManager.commandBadge(badge, badgeCommand).then(function() {
+        res.status(200);
+    }).catch(function(err) {
+        res.status(err.httpCode).send({
+            error: err.message
+        });
     });
 });
 
