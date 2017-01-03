@@ -63,7 +63,9 @@ router.post('/sync-badge', function(req, res) {
 });
 
 router.post('/update-existing-badges', function(req, res) {
-    existingBadges = req.body.existingBadges;
+    var existingBadges = req.body.existingBadges;
+    if(!existingBadges) return res.status(400).send('Existing badges required.');
+    syncManager.updateExistingBadges(existingBadges);
     res.sendStatus(200);
 });
 
