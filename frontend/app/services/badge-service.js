@@ -148,8 +148,7 @@ angular.module('HubApp')
 		var unsyncBadge = function(attendee, badge) {
 			var deferred = $q.defer();
 			var baseConfig = config;
-			
-			console.log('badgeService', 'unsync');
+
 			$http({
 				method: 'POST',
 				url: '/unsync-badge',
@@ -167,7 +166,7 @@ angular.module('HubApp')
 						'Loopd-Admin-Key': config.authToken
 					}
 				}).success(function(data, status, headers, config) {
-					console.log(data);
+					console.error(data);
 					attendee.badgeIdentity = null;
 					deferred.resolve(data);
 				}).error(function(data, status, headers, config) {
