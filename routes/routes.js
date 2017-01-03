@@ -49,7 +49,7 @@ router.post('/command-badge', function(req, res) {
     syncManager.commandBadge(badge, badgeCommand).then(function() {
         res.sendStatus(200);
     }).catch(function(err) {
-        res.sendStatus(err.httpCode).send({
+        res.status(err.httpCode).send({
             error: err.message
         });
     });
