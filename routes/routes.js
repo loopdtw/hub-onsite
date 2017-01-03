@@ -34,7 +34,10 @@ router.get('/signup', function(req, res) {
 router.post('/command-badge', function(req, res) {
     var badge = req.body.badge;
     var badgeCommand = new Buffer(req.body.badgeCommand, 'hex');
+    logger.info('command for badge ' + badge.identity + ' called with', badgeCommand);
+    badgeCommands[badge.identity + badge.macAddress] = badgeCommand;
     syncManager.commandBadge(badge, badgeCommand);
+    res.status(200);
 });
 
 router.post('/signup', function(req, res) {
@@ -42,7 +45,7 @@ router.post('/signup', function(req, res) {
     return attendeeManager.signupAttendee(attendee).then(function(data) {
         return attendeeManager.checkinAttendee(attendee);
     }).then(function(data){
-        res.send(200);
+        res.status(200);
     }).catch(function(err) {
         console.log(err);
     });
@@ -50,18 +53,18 @@ router.post('/signup', function(req, res) {
 
 router.post('/sync-badge', function(req, res) {
     syncManager.syncNextAvailableBadge(req.body.attendee);
-    res.send(200);
+    res.status(200);
 });
 
 router.post('/update-existing-badges', function(req, res) {
     existingBadges = req.body.existingBadges;
-    res.send(200);
+    res.status(200);
 });
 
 router.post('/unsync-badge', function(req, res) {
     var badge = req.body.badge;
     return syncManager.unsyncBadgeAsync(badge).then(function() {
-        res.send(200);
+        res.status(200);
     });
 });
 
