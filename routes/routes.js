@@ -66,7 +66,6 @@ router.post('/update-existing-badges', function(req, res) {
 });
 
 router.post('/unsync-badge', function(req, res) {
-    console.log('unsync badge called');
     var badge = req.body.badge;
     return syncManager.unsyncBadgeAsync(badge).then(function() {
         res.sendStatus(200);
