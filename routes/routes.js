@@ -2,6 +2,7 @@ var router = require('express').Router();
 var htmlPath = "./frontend/html/"
 var syncManager = require('../lib/sync-manager');
 var attendeeManager = require('../lib/attendee-manager');
+var logger = require('loopd-logger').logger;
 
 router.get('/', function(req, res) {
     syncManager.setLookup(false);
@@ -49,6 +50,7 @@ router.post('/command-badge', function(req, res) {
     syncManager.commandBadge(badge, badgeCommand).then(function() {
         res.sendStatus(200);
     }).catch(function(err) {
+        logger.error(err);
         res.status(err.httpCode).send({
             error: err.message
         });
