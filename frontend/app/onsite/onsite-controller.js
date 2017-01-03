@@ -124,7 +124,7 @@ angular.module('HubApp')
             $scope.syncedAttendees = [];
 
             allAttendees.forEach(function(attendee) {
-                if (attendee.badge && !attendee.badge.isReturned) {
+                if (attendee.badge && !attendee.badge.to) {
                     $scope.syncedAttendees.push(attendee);
                 } else {
                     $scope.unsyncedAttendees.push(attendee);
@@ -245,7 +245,7 @@ angular.module('HubApp')
                 }).finally(function() {
                     var existingAttendeeBadges = {};
                     allAttendees.forEach(function(attendee) {
-                        if (attendee.badge && !attendee.badge.isReturned) {
+                        if (attendee.badge && !attendee.badge.to) {
                             var uniqueId = attendee.badge.identity + attendee.badge.macAddress;
                             existingAttendeeBadges[uniqueId] = attendee.badge;
                         }
