@@ -34,7 +34,6 @@ router.get('/signup', function(req, res) {
 router.post('/command-badge', function(req, res) {
     var badge = req.body.badge;
     var badgeCommand = new Buffer(req.body.badgeCommand, 'hex');
-    logger.info('command for badge ' + badge.identity + ' called with', badgeCommand);
     badgeCommands[badge.identity + badge.macAddress] = badgeCommand;
     syncManager.commandBadge(badge, badgeCommand);
     res.status(200);
