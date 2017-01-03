@@ -5,7 +5,7 @@ angular.module('HubApp')
 
         var existingBadges = [];
         var allAttendees = [];
-        var alert = new Audio('/audio/alert.mp3');
+        var alertSound = new Audio('/audio/alert.mp3');
 
         var syncTimeout = null;
         var getAttendeesTimeout = null;
@@ -224,7 +224,7 @@ angular.module('HubApp')
             $scope.currentlySyncing = false;
 
             lastUserUpdateTime = new Date();
-            alert.play();
+            alertSound.play();
         }
 
         /*----------  INIT FUNCTION DECLARATIONS  ----------*/
