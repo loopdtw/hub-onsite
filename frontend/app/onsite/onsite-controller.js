@@ -183,7 +183,6 @@ angular.module('HubApp')
                                 existingAttendeeBadges[uniqueId] = attendee.badge;
                             }
                         });
-                        badgeService.updateExistingAttendeeBadges(existingAttendeeBadges);
 
                         $scope.currentSyncedAttendee = null;
                         $scope.currentlyUnsyncing = false;
@@ -253,6 +252,7 @@ angular.module('HubApp')
                             existingAttendeeBadges[uniqueId] = attendee.badge;
                         }
                     });
+                    badgeService.updateExistingAttendeeBadges(existingAttendeeBadges);
                     $scope.currentStatus = badgeService.currentStatus;
                 });
 

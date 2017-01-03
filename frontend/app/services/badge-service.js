@@ -123,7 +123,7 @@ angular.module('HubApp')
 		var updateExistingAttendeeBadges = function(existingAttendeeBadges) {
 			var deferred = $q.defer();
 			badgeService.existingAttendeeBadges = existingAttendeeBadges;
-
+			console.log(existingAttendeeBadges);
 			$http({
 				method: 'POST',
 				url: '/update-existing-badges',
