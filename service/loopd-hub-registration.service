@@ -1,0 +1,12 @@
+[Unit]
+Description=Loopd 
+After=bluetooth.service
+Requires=bluetooth.service
+
+[Service]
+ExecStart=/home/root/loopd-hub-registration/run.sh
+Restart=always
+Environment=NODE_PATH=/usr/lib/node_modules NOBLE_REPORT_ALL_HCI_EVENTS=1 LOG_TAG='loopd-hub-registration' NODE_ENV=production NODE_MACHINE=edison
+
+[Install]
+WantedBy=multi-user.target
