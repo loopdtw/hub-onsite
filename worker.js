@@ -10,7 +10,7 @@ BADGE_SERVICE_UUID = "fb694b90f49e45978306171bba78f846";
 var workerStatus = {
 	state: 'inactive',
 	cloudLogging: false,
-	softwareUpgrade: false
+	softwareUpgrade: true
 };
 
 syncManager.init();

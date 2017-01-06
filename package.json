@@ -7,7 +7,7 @@
     "mac:staging": "gulp & LOG_TAG='badge-state-viewer' NODE_ENV=staging NODE_MACHINE=mac nodemon app.js",
     "mac:production": "gulp & LOG_TAG='badge-state-viewer' NODE_ENV=production NODE_MACHINE=mac nodemon app.js",
     "edison:staging": "NOBLE_REPORT_ALL_HCI_EVENTS=1 LOG_TAG='badge-state-viewer' NODE_ENV=staging NODE_MACHINE=edison node app.js",
-    "edison:production": "NOBLE_REPORT_ALL_HCI_EVENTS=1 LOG_TAG='badge-state-viewer' NODE_ENV=production NODE_MACHINE=edison node app.js"
+    "edison:production": "NOBLE_REPORT_ALL_HCI_EVENTS=1 LOG_TAG='badge-state-viewer' NODE_ENV=production NODE_MACHINE=edison nodemon app.js"
   },
   "dependencies": {
     "axios": "^0.9.1",
