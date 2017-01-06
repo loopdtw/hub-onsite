@@ -5,7 +5,7 @@ set -x #echo on
 RUN_ACTION=${1}
 
 if [ ${RUN_ACTION} == "start" ]; then
-    cp ./service/loopd-hub-registration.service /etc/systemd/system/
+    yes | cp -rf ./service/loopd-hub-registration.service /etc/systemd/system/
     systemctl enable loopd-hub-registration
     systemctl start loopd-hub-registration
 elif [ ${RUN_ACTION} == "stop" ]; then
