@@ -1,7 +1,7 @@
 {
-  "name": "node-sync-badge",
-  "version": "1.0.1",
-  "description": "Node Sync Registration",
+  "name": "loopd-hub-registration",
+  "version": "2.0.1",
+  "description": "Loopd Hub Registration allows syncing of badges for Loopd.",
   "scripts": {
     "mac:local": "gulp & LOG_TAG='badge-state-viewer' NODE_ENV=local NODE_MACHINE=mac nodemon app.js",
     "mac:staging": "gulp & LOG_TAG='badge-state-viewer' NODE_ENV=staging NODE_MACHINE=mac nodemon app.js",
