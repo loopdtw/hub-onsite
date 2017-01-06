@@ -3,5 +3,3 @@ node_modules/
 npm-debug.log
 var/leveldb
 var/leveldb/
-.service.sh.un~
-service.sh~
