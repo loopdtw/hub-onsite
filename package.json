@@ -3,13 +3,13 @@
   "version": "2.0.1",
   "description": "Loopd Hub Registration allows syncing of badges for Loopd.",
   "scripts": {
-    "mac:local": "gulp & LOG_TAG='badge-state-viewer' NODE_ENV=local NODE_MACHINE=mac nodemon app.js",
-    "mac:staging": "gulp & LOG_TAG='badge-state-viewer' NODE_ENV=staging NODE_MACHINE=mac nodemon app.js",
-    "mac:production": "gulp & LOG_TAG='badge-state-viewer' NODE_ENV=production NODE_MACHINE=mac nodemon app.js",
-    "edison:staging": "NOBLE_REPORT_ALL_HCI_EVENTS=1 LOG_TAG='badge-state-viewer' NODE_ENV=staging NODE_MACHINE=edison node app.js",
-    "edison:production": "NOBLE_REPORT_ALL_HCI_EVENTS=1 LOG_TAG='badge-state-viewer' NODE_ENV=production NODE_MACHINE=edison node app.js",
-    "edison:staging:dev": "NOBLE_REPORT_ALL_HCI_EVENTS=1 LOG_TAG='badge-state-viewer' NODE_ENV=staging NODE_MACHINE=edison node app.js",
-    "edison:production:dev": "NOBLE_REPORT_ALL_HCI_EVENTS=1 LOG_TAG='badge-state-viewer' NODE_ENV=production NODE_MACHINE=edison node app.js"
+    "mac:local": "gulp & LOG_TAG='loopd-hub-registration' NODE_ENV=local NODE_MACHINE=mac nodemon app.js",
+    "mac:staging": "gulp & LOG_TAG='loopd-hub-registration' NODE_ENV=staging NODE_MACHINE=mac nodemon app.js",
+    "mac:production": "gulp & LOG_TAG='loopd-hub-registration' NODE_ENV=production NODE_MACHINE=mac nodemon app.js",
+    "edison:staging": "NOBLE_REPORT_ALL_HCI_EVENTS=1 LOG_TAG='loopd-hub-registration' NODE_ENV=staging NODE_MACHINE=edison node app.js",
+    "edison:production": "NOBLE_REPORT_ALL_HCI_EVENTS=1 LOG_TAG='loopd-hub-registration' NODE_ENV=production NODE_MACHINE=edison node app.js",
+    "edison:staging:dev": "NOBLE_REPORT_ALL_HCI_EVENTS=1 LOG_TAG='loopd-hub-registration' NODE_ENV=staging NODE_MACHINE=edison node app.js",
+    "edison:production:dev": "NOBLE_REPORT_ALL_HCI_EVENTS=1 LOG_TAG='loopd-hub-registration' NODE_ENV=production NODE_MACHINE=edison node app.js"
   },
   "dependencies": {
     "axios": "^0.9.1",
