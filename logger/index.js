@@ -17,7 +17,7 @@ require('winston-papertrail').Papertrail;
 bunyan.DISABLE = 70;
 
 // get current receiver identity
-var ReceiverIdentity = 'node-hub-client';
+var ReceiverIdentity = 'loopd-hub-registration';
 // if (process.env.NODE_MACHINE === 'edison') {
 //     ReceiverIdentity = execSync('cat /factory/serial_number', {
 //         encoding: 'utf8'
