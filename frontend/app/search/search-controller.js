@@ -131,13 +131,13 @@ angular.module('HubApp')
             if ($scope.searchTerm.length && $scope.searchTerm.length >= 3) {
                 var regex = new RegExp($scope.searchTerm, "i");
                 $scope.cachedAttendees.forEach(function(attendee) {
-                    if (attendee.email.search(regex) > -1) {
+                    if (attendee.email && attendee.email.search(regex) > -1) {
                         searchResults.push(attendee);
-                    } else if (typeof attendee.firstname !== 'undefined' && attendee.firstname.search(regex) > -1) {
+                    } else if (attendee.firstname && attendee.firstname.search(regex) > -1) {
                         searchResults.push(attendee);
-                    } else if (typeof attendee.lastname !== 'undefined' && attendee.lastname.search(regex) > -1) {
+                    } else if (attendee.lastname && attendee.lastname.search(regex) > -1) {
                         searchResults.push(attendee);
-                    } else if (typeof attendee.providerAttendeeId !== 'undefined' && attendee.providerAttendeeId.search(regex) > -1) {
+                    } else if (attendee.providerAttendeeId && attendee.providerAttendeeId.search(regex) > -1) {
                         searchResults.push(attendee);
                     }
                 });
@@ -232,16 +232,9 @@ angular.module('HubApp')
         // init controllers        
         var cacheAttendees = function() {
             if ($scope.eventId) {
-                attendeeService.getAttendeesForEvent($scope.eventId).then(function(attendees) {
-                    console.log('cached ' + attendees.length + ' attendees');
-                    attendees.forEach(function(attendee) {
-                        attendee.badges.forEach(function(badge) {
-                            if (!badge.to) {
-                                attendee.badge = badge;
-                            }
-                        });
-                    });
-                    $scope.cachedAttendees = attendees;
+                attendeeService.getCheckIns($scope.eventId, 100).then(function(data) {
+                    console.log('cached ' + data.attendees.length + ' attendees');
+                    $scope.cachedAttendees = data.attendees;
                 });
             }
 

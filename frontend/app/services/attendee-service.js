@@ -8,32 +8,25 @@ angular.module('HubApp')
 		attendeeService.currentSyncingAttendee = null;
 		attendeeService.existingAttendeeBadges = {};
 
-		var getCheckIns = function(eventId, workerId, keyword) {
-			var deferred = $q.defer();
-			var url = "";
-
+		var getCheckIns = function(eventId, limit) {
 			var deferred = $q.defer();
 			var requestTime = new Date();
-			if (workerId) {
-				url = config.baseUrl + '/onsite/attendees?checkInWorker=' + workerId;
-			} else {
-				url = config.baseUrl + '/onsite/attendees';
-			}
-
+			var url = config.baseUrl + '/onsite/attendees?fields=id,firstname,lastname,email,organization,title';
+			
+			console.log(url);
 			$http({
 				method: 'GET',
 				url: url,
 				params: {
 					"eventId": eventId,
-					"limit": ATTENDEE_LIMIT
+					"limit": limit? limit:ATTENDEE_LIMIT
 				}
-			}).
-			then(function(res) {
+			}).then(function(res) {
+				console.log(res.data);
 				deferred.resolve({
 					attendees: res.data,
 					requestTime: requestTime
 				});
-
 			}, function(data, status, headers, config) {
 				// console.log(data.meta);
 			});
@@ -77,9 +70,10 @@ angular.module('HubApp')
 				}
 			}).
 			then(function(res) {
+				console.log(res.data);
 				deferred.resolve(res.data);
 			}, function(data, status, headers, config) {
-				// console.log(data.meta);
+				console.log(data);
 			});
 
 			return deferred.promise;
