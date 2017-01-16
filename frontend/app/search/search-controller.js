@@ -232,7 +232,7 @@ angular.module('HubApp')
         // init controllers        
         var cacheAttendees = function() {
             if ($scope.eventId) {
-                attendeeService.getCheckIns($scope.eventId, 100).then(function(data) {
+                attendeeService.getCheckIns($scope.eventId, 5000).then(function(data) {
                     console.log('cached ' + data.attendees.length + ' attendees');
                     $scope.cachedAttendees = data.attendees;
                 });
@@ -251,7 +251,7 @@ angular.module('HubApp')
             if (syncTimeout) {
                 $timeout.cancel(syncTimeout);
             }
-
+            $scope.searchTerm = '';
             completeSync(args.attendee, args.badge);
             $scope.$apply();
         });
